@@ -4,17 +4,6 @@
 using namespace std;
 
 /**
- * Display all elements in list
- */
-void MyList::display() {
-    Node *my_node = this->first_element;
-    while (my_node != nullptr) {
-        cout << my_node->value << '\n';
-        my_node = my_node->next;
-    }
-}
-
-/**
  * Add element in front of the list
  * @param value
  */
@@ -154,6 +143,7 @@ void MyList::removeValue(int value) {
         temp = temp->next;
     }
 }
+
 /**
  * find element in list
  * @param value
@@ -166,5 +156,16 @@ Node *MyList::findValue(int value) {
             return temp;
         }
         temp = temp->next;
+    }
+}
+
+/**
+ * Display all elements in list
+ */
+void MyList::display() {
+    Node *my_node = this->first_element;
+    while (my_node != nullptr) {
+        cout << my_node->value << '\n';
+        my_node = my_node->next;
     }
 }

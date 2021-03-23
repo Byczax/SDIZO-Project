@@ -10,10 +10,7 @@ public:
 class MyList {
     Node *first_element = nullptr;
     int size = 0;
-
 public:
-    void display();
-
     void addElementFront(int value);
 
     void addElementBack(int value);
@@ -28,6 +25,7 @@ public:
 
     void removeValue(int value);
 
-    Node * findValue(int value);
+    Node *findValue(int value);
 
+    void display();
 };
