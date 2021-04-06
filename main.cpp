@@ -1,91 +1,519 @@
 #include <iostream>
+#include <string>
+#include <windows.h>
+#include <fstream>
+#include <clocale>
 
-#include "double_list.h"
+
+#include "DoubleList.h"
+#include "array.h"
+#include "BinaryHeap.h"
+#include "RedBlackTree.h"
 
 using namespace std;
 
-void myArray() {
-    cout << "W implementacji";
+// Global strings to remove repetition and cleanup code
+string textGetValue = "Podaj wartosc ktora chcesz dodac: ";
+string textRemoveValue = "Podaj wartosc ktora chcesz usunac: ";
+string textGetIndex = "Podaj pozycje na ktora chcesz dodac element: ";
+string textRemoveIndex = "Podaj pozycje ktora chcesz usunac: ";
+string textFindValue = "Podaj wartosc ktora chcesz znalezc: ";
+string textFindIndex = "Podaj pozycje ktora chcesz wyswietlic: ";
+string textErrorFile = "ERROR, Zla nazwa pliku lub plik nie istnieje";
+string textReadFile = "Podaj nazwe pliku, ktory chcesz wczytac: ";
+string textErrorChoice = "Blad, zly wybor";
+string textDataAmount = "Podaj ile chcesz danych: ";
+string textOperation = "Czas wykonania operacji: ";
+//-----------------------Time counter----------------------------------------------------------
+
+/**
+ * code fragment from https://stackoverflow.com/questions/1739259/how-to-use-queryperformancecounter
+ * responsible for the preparation of QueryPerformanceCounter and methods for measuring time
+ */
+double PCFreq = 0.0;
+__int64 CounterStart = 0;
+
+/**
+ * Start time counter
+ */
+void StartCounter() {
+    LARGE_INTEGER li;
+    if (!QueryPerformanceFrequency(&li))
+        cout << "QueryPerformanceFrequency failed!\n";
+
+    PCFreq = double(li.QuadPart) / 1000.0;
+
+    QueryPerformanceCounter(&li);
+    CounterStart = li.QuadPart;
 }
 
+/**
+ * Stop time counter
+ * @return
+ */
+double GetCounter() {
+    LARGE_INTEGER li;
+    QueryPerformanceCounter(&li);
+    return double(li.QuadPart - CounterStart) / PCFreq;
+}
+
+/**
+ * Lambda to get runtime
+ * @tparam T
+ * @param i
+ * @return
+ */
+template<typename T>
+double Timer(T i) {
+    StartCounter();
+    i();
+    return GetCounter();
+}
+//----------------------------------------------------------------------------------------------
+
+
+int *randomData(int amount) {
+    int *data_table = new int[amount];
+    data_table[0] = amount;
+    for (int i = 1; i < amount + 1; ++i) {
+        data_table[i] = rand();
+    }
+    return data_table;
+}
+
+/**
+ * Read data from file
+ * @param filename
+ * @return
+ */
+int *getDataFromFile(const string &filename) {
+    fstream file;
+    file.open(filename, ios::in);
+    int *array;
+    string str;
+    int number;
+    if (file) {
+        getline(file, str);
+        number = stoi(str);
+        array = new int[number + 1];
+        array[0] = number;
+        unsigned int i = 1;
+        while (!file.eof()) {
+            getline(file, str);
+            number = stoi(str);
+            array[i] = number;
+            ++i;
+        }
+        file.close();
+        return array;
+    } else throw exception();
+}
+
+void myArray() {
+    auto *array = new Array(nullptr, 0); // Create empty array
+    bool exit = false;
+    int input;
+    int value;
+    int *data;
+    int temp;
+    string filename;
+    unsigned int index;
+    while (!exit) {
+        cout << "0. Wyjscie \n"
+                "1. Stworz nowa pusta tablice \n"
+                "2. Stworz tablice z pliku \n"
+                "3. Stworz tablice z losowych danych \n"
+                "4. Dodaj element z przodu \n"
+                "5. Dodaj element z tylu \n"
+                "6. Dodaj element gdziekolwiek \n"
+                "7. Usun element z przodu \n"
+                "8. Usun element z tylu \n"
+                "9. Usun element gdziekolwiek \n"
+                "10. Usun wartosc (jezeli istnieje) \n"
+                "11. Znajdz element \n"
+                "12. Wyswietl wartosc pod indeksem \n"
+                "13. Wyswietl zawartosc \n";
+        cin >> input;
+        switch (input) {
+            case 0:
+                exit = true;
+                delete array;
+                break;
+            case 1:
+                // Create new empty array
+                delete array;
+                array = new Array(nullptr, 0);
+                break;
+            case 2:
+                // Create new array from the data in the file
+                cout << textReadFile;
+                cin >> filename;
+                try {
+                    data = getDataFromFile(filename);
+                }
+                catch (exception &e) {
+                    cout << textErrorFile;
+                    break;
+                }
+                delete array;
+                array = new Array(data + 1, data[0]);
+                break;
+            case 3:
+                // Create new array from random data
+                cout << textDataAmount;
+                cin >> value;
+                delete array;
+                data = randomData(value);
+                array = new Array(data + 1, data[0]);
+                break;
+            case 4:
+                // Add an element to the front of the array
+                cout << textGetValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { array->addElementFront(value); }) << "\n";
+                break;
+            case 5:
+                // Add an element to the back of the array
+                cout << textGetValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { array->addElementBack(value); }) << "\n";
+                break;
+            case 6:
+                // Add an element anywhere in the array
+                cout << textGetValue;
+                cin >> value;
+                cout << textGetIndex;
+                cin >> index;
+                cout << textOperation << Timer([&] { array->addElementAnywhere(value, index); }) << "\n";
+                break;
+            case 7:
+                // Remove an element from the front in the array
+                cout << textOperation << Timer([&] { array->removeElementFront(); }) << "\n";
+                break;
+            case 8:
+                // Remove an element from the back in the array
+                cout << textOperation << Timer([&] { array->removeElementBack(); }) << "\n";
+                break;
+            case 9:
+                // Remove an element anywhere in the array
+                cout << textRemoveIndex;
+                cin >> index;
+                cout << textOperation << Timer([&] { array->removeElementAnywhere(index); }) << "\n";
+                break;
+            case 10:
+                // Remove value from the array
+                cout << textRemoveValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { array->removeValue(value); }) << "\n";
+                break;
+            case 11:
+                // Find value in the array
+                cout << textFindValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { temp = array->findValue(value); }) << "\n";
+                if (temp != -1) {
+                    cout << "Znaleziona wartosc znajduje sie pod: " << temp << "\n";
+                } else {
+                    cout << "Nie ma takiej wartosci" << "\n";
+                }
+                break;
+            case 12:
+                // Get value under given index in the array
+                cout << textFindIndex;
+                cin >> index;
+                cout << textOperation << Timer([&] { temp = array->getIndexValue(index); }) << "\n";
+                cout << "Wartosc pod indeksem: " << temp << "\n";
+                break;
+            case 13:
+                // Display array in the console
+                array->display();
+                break;
+            default:
+                cout << textErrorChoice;
+                break;
+        }
+    }
+}
+
+//TODO komentarze co wpisywac
 void doubleList() {
+    auto list = new DoubleList(nullptr, 0);// Create empty list
+    bool exit = false;
+    int input;
+    int value;
+    ListNode *temp;
+    string filename;
+    unsigned int index;
+    while (!exit) {
+        cout << "0. Wyjscie \n"
+                "1. Stworz nowa pusta liste \n"
+                "2. Stworz nowa liste z danych z pliku \n"
+                "3. Stworz nowa liste z losowych danych \n"
+                "4. Dodaj element z przodu \n"
+                "5. Dodaj element z tylu \n"
+                "6. Dodaj element gdziekolwiek \n"
+                "7. Usun element z przodu \n"
+                "8. Usun element z tylu \n"
+                "9. Usun element gdziekolwiek \n"
+                "10. Usun wartosc (jezeli istnieje) \n"
+                "11. Znajdz element \n"
+                "12. Wyswietl zawartosc \n";
+        cin >> input;
+        switch (input) {
+            case 0:
+                exit = true;
+                delete list;
+                break;
+            case 1:
+                // Create new empty list
+                delete list;
+                list = new DoubleList(nullptr, 0);
+                break;
+            case 2:
+                // Create new list from the data in the file
+                cout << textReadFile;
+                int *data;
+                cin >> filename;
+                try {
+                    data = getDataFromFile(filename);
+                }
+                catch (exception &e) {
+                    cout << textErrorFile;
+                    break;
+                }
+                delete list;
+                list = new DoubleList(data + 1, data[0]);
+                break;
+            case 3:
+                // Create new list from random data
+                cout << textDataAmount;
+                cin >> value;
+                data = randomData(value);
+                delete list;
+                list = new DoubleList(data + 1, data[0]);
+                break;
+            case 4:
+                // Add an element to the front of the list
+                cout << textGetValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { list->addElementFront(value); }) << "\n";
+                break;
+            case 5:
+                // Add an element to the back of the list
+                cout << textGetValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { list->addElementBack(value); }) << "\n";
+                break;
+            case 6:
+                // Add an element anywhere in the list
+                cout << textGetValue;
+                cin >> value;
+                cout << textGetIndex;
+                cin >> index;
+                cout << textOperation << Timer([&] { list->addElementAnywhere(value, index); }) << "\n";
+                break;
+            case 7:
+                // Remove an element from the front of the list
+                cout << textOperation << Timer([&] { list->removeElementFront(); }) << "\n";
+                break;
+            case 8:
+                // Remove an element from the back of the list
+                cout << textOperation << Timer([&] { list->removeElementBack(); }) << "\n";
+                break;
+            case 9:
+                // Remove an element anywhere in the list
+                cout << textRemoveIndex;
+                cin >> index;
+                cout << textOperation << Timer([&] { list->removeElementAnywhere(index); }) << "\n";
+                break;
+            case 10:
+                // Remove value from the list
+                cout << textRemoveValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { list->removeValue(value); }) << "\n";
+                break;
+            case 11:
+                // find value from the list
+                cout << textFindValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { temp = list->findValue(value); }) << "\n";
+                cout << (temp != nullptr);
+                break;
+            case 12:
+                // Display list
+                list->display();
+                break;
+            default:
+                cout << textErrorChoice;
+                break;
+        }
+    }
+}
+
+//TODO informacje + dopelnienie funkcji
+void binaryHeap() {
     cout << "W implementacji";
-    MyList myList;
+    auto heap = new BinaryHeap(0, nullptr);
+    bool exit = false;
+    int input;
+    int value;
+    unsigned int index;
+    string filename;
+    while (!exit) {
+        //TODO dodawanie danych
+        cout << "0. Wyjscie \n"
+                "1. Stworz nowy pusty kopiec \n"
+                "2. Stworz nowy kopiec z danych z pliku \n"
+                "3. Stworz nowy kopiec z losowych danych \n"
+                "4. Dodaj wartosc \n"
+                "5. Usun wartosc (jezeli istnieje) \n"
+                "7. Znajdz element \n"
+                "8. Wyswietl kopiec \n";
+        cin >> input;
+        switch (input) {
+            case 0:
+                exit = true;
+                delete heap;
+                break;
+
+                //TODO Create new empty heap
+                //TODO Crate new heap from the data in the file
+
+            case 1:
+                delete heap;
+                heap = new BinaryHeap(0, nullptr);
+                break;
+            case 2:
+                // Create new heap from the data in the file
+                cout << textReadFile;
+                int *data;
+                cin >> filename;
+                try {
+                    data = getDataFromFile(filename);
+                }
+                catch (exception &e) {
+                    cout << textErrorFile;
+                    break;
+                }
+                delete heap;
+                heap = new BinaryHeap(data[0], data + 1);
+                break;
+            case 3:
+                // Create new heap from random data
+                cout << textDataAmount;
+                cin >> value;
+                data = randomData(value);
+                delete heap;
+                heap = new BinaryHeap(data[0], data + 1);
+                break;
+            case 4:
+                // Add an element to heap
+                cout << textGetValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { heap->addElement(value); }) << "\n";
+                break;
+            case 5:
+                // Remove value from the heap
+                cout << textRemoveValue;
+                cin >> value;
+                cout << textOperation << Timer([&] { heap->removeValue(value); }) << "\n";
+                break;
+            case 6:
+                // Remove element from the heap
+                cin >> index;
+                cout << textOperation << Timer([&] { heap->removeElement(index); }) << "\n";
+                break;
+            case 7:
+                // Find element in the heap
+                cin >> index;
+                cout << textOperation << Timer([&] { heap->findElement(index); }) << "\n";
+                break;
+            case 8:
+                // Display heap in the console
+                heap->display();
+                break;
+            default:
+                cout << textErrorChoice;
+                break;
+        }
+    }
+}
+
+//TODO Red-Black Tree
+void tree() {
+    cout << "W implementacji";
+    RedBlackTree tree(nullptr, 0);
     bool exit = false;
     int input;
     int value;
     unsigned int index;
     while (!exit) {
-        cout << "0. Wyjście \n"
-                "1. Dodaj element z przodu \n"
-                "2. Dodaj element z tyłu \n"
-                "3. Dodaj element gdziekolwiek \n"
-                "4. Usuń element z przodu \n"
-                "5. Usuń element z tyłu \n"
-                "6. Usuń element gdziekolwiek \n"
-                "7. Usuń wartość (jeżeli istnieje) \n"
-                "8. Znajdź element \n";
+        cout << "0. Wyjscie \n"
+                "1. Dodaj element \n"
+                "2. Usun element (index) \n"
+                "3. Usun element (wartosc) \n"
+                "4. Usun element z przodu \n"
+                "5. Usun element z tylu \n"
+                "6. Usun element gdziekolwiek \n";
         cin >> input;
         switch (input) {
             case 0:
                 exit = true;
                 break;
             case 1:
+                //TODO add value to the tree
+                cout << textGetValue;
                 cin >> value;
-                myList.addElementFront(value);
+                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 2:
+                //TODO remove value from the tree
+                cout << textRemoveValue;
                 cin >> value;
-                myList.addElementBack(value);
+                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 3:
-                cin >> value;
+                //TODO remove index from the tree
                 cin >> index;
-                myList.addElementAnywhere(value, index);
+                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 4:
-                myList.removeElementFront();
+                cin >> value;
+                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 5:
                 cin >> value;
-                myList.removeElementBack();
+                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 6:
-                cin >> index;
-                myList.removeElementAnywhere(index);
-                break;
-            case 7:
-                cin >> value;
-                myList.removeValue(value);
-                break;
-            case 8:
-                cin >> value;
-                myList.findValue(value);
+                //TODO Display
+                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             default:
-                cout << "Błąd, zły wybór";
+                cout << textErrorChoice;
                 break;
         }
     }
 }
 
-void heap() {
-    cout << "W implementacji";
-}
+//TODO AVL???
 
-void tree() {
-    cout << "W implementacji";
-}
-
+/**
+ * Main program body
+ * @return
+ */
+// TODO something better than switch
 int main() {
+    setlocale(LC_ALL, ""); // attempt to repair Polish characters
+    cout << boolalpha; // change bool values to bool words
     bool exit = false;
     int input;
     while (!exit) {
-        cout << "0. Wyjście \n"
+        cout << "0. Wyjscie \n"
                 "1. Tablica \n"
-                "2. Lista Dwukierunkowa \n"
-                "3. Kopiec Binarny \n"
-                "4. Drzewo Czerwono-czarne \n";
+                "2. Lista dwukierunkowa \n"
+                "3. Kopiec binarny \n"
+                "4. Drzewo czerwono-czarne \n";
         cin >> input;
         switch (input) {
             case 0:
@@ -98,14 +526,15 @@ int main() {
                 doubleList();
                 break;
             case 3:
-                heap();
+                binaryHeap();
                 break;
             case 4:
                 tree();
                 break;
             default:
-                cout << "Błąd, zły wybór";
+                cout << textErrorChoice;
                 break;
         }
     }
+    return 0;
 }
