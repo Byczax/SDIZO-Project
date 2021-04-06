@@ -2,30 +2,30 @@
 
 using namespace std;
 
-struct Node {
+struct ListNode {
     int value{};
-    Node *next = nullptr;
+    ListNode *next = nullptr;
 };
 
-struct MyList {
-    Node *first_element = nullptr;
+struct DoubleList {
+    ListNode *first_element = nullptr;
 };
 
-void display(Node *my_node) {
+void display(ListNode *my_node) {
     while (my_node != nullptr) {
         cout << my_node->value << '\n';
         my_node = my_node->next;
     }
 }
 
-void add_element_front(MyList *my_list, int value) {
-    Node *temp = new Node{value, my_list->first_element};
+void add_element_front(DoubleList *my_list, int value) {
+    ListNode *temp = new ListNode{value, my_list->first_element};
     my_list->first_element = temp;
 }
 
-void add_element_end(MyList *my_list, int value) {
-    Node *end = my_list->first_element;
-    Node *temp = new Node{value, nullptr};
+void add_element_end(DoubleList *my_list, int value) {
+    ListNode *end = my_list->first_element;
+    ListNode *temp = new ListNode{value, nullptr};
     if (end != nullptr) {
         while (end != nullptr && end->next == nullptr) {
             end = end->next;
@@ -36,13 +36,13 @@ void add_element_end(MyList *my_list, int value) {
     }
 }
 
-void add_element_middle(MyList *my_list, int value, int index) {
+void add_element_middle(DoubleList *my_list, int value, int index) {
     if (index == 0) {
         add_element_front(my_list, value);
         return;
     }
-    Node *left = my_list->first_element;
-    Node *temp = new Node{value, nullptr};
+    ListNode *left = my_list->first_element;
+    ListNode *temp = new ListNode{value, nullptr};
     if (left != nullptr) {
         for (int i = 0; i < index - 1; ++i) {
             left = left->next;
@@ -50,7 +50,7 @@ void add_element_middle(MyList *my_list, int value, int index) {
                 exit(1);
             }
         }
-        Node *right = left->next;
+        ListNode *right = left->next;
         left->next = temp;
         temp->next = right;
     } else {
@@ -58,8 +58,8 @@ void add_element_middle(MyList *my_list, int value, int index) {
     }
 }
 
-void remove_from_list(MyList *myList, int index) {
-    Node *left = myList->first_element;
+void remove_from_list(DoubleList *myList, int index) {
+    ListNode *left = myList->first_element;
     if (myList->first_element != nullptr) {
         if (index == 0) {
             myList->first_element = myList->first_element->next;
@@ -73,8 +73,8 @@ void remove_from_list(MyList *myList, int index) {
                 exit(1);
             }
         }
-        Node *right = left->next->next;
-        Node *temp = left->next;
+        ListNode *right = left->next->next;
+        ListNode *temp = left->next;
         delete temp;
         left->next = right;
     }

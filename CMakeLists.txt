@@ -3,4 +3,4 @@ project(sdizo1)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(sdizo1 single_list.cpp double_list.cpp main.cpp double_list.h array.cpp array.h)
+add_executable(sdizo1 single_list.cpp DoubleList.cpp main.cpp DoubleList.h array.cpp array.h BinaryHeap.cpp BinaryHeap.h RedBlackTree.cpp RedBlackTree.h)
