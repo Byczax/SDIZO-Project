@@ -1,15 +1,28 @@
 #include <iostream>
-#include "double_list.h"
+#include "DoubleList.h"
 
 using namespace std;
+
+
+DoubleList::DoubleList(int *array, int arraySize) {
+    for (unsigned int i = 0; i < arraySize; ++i) {
+        addElementBack(array[i]);
+    }
+}
+
+DoubleList::~DoubleList() {
+    while (first_element != nullptr) {
+        removeElementFront();
+    }
+}
 
 /**
  * Add element in front of the list
  * @param value
  */
-void MyList::addElementFront(int value) {
+void DoubleList::addElementFront(int value) {
     size++;
-    Node *temp = new Node{value, this->first_element, this->first_element->next};
+    ListNode *temp = new ListNode{value, this->first_element, this->first_element->next};
     this->first_element = temp;
     temp->prev = this->first_element;
 }
@@ -18,10 +31,10 @@ void MyList::addElementFront(int value) {
  * Add element in back of the list
  * @param value
  */
-void MyList::addElementBack(int value) {
+void DoubleList::addElementBack(int value) {
     size++;
-    Node *end = this->first_element;
-    Node *temp = new Node{value, this->first_element, nullptr};
+    ListNode *end = this->first_element;
+    ListNode *temp = new ListNode{value, this->first_element, nullptr};
     if (end != nullptr) {
         while (end != nullptr && end->next == nullptr) {
             end = end->next;
@@ -38,14 +51,14 @@ void MyList::addElementBack(int value) {
  * @param value
  * @param index
  */
-void MyList::addElementAnywhere(int value, unsigned int index) {
+void DoubleList::addElementAnywhere(int value, unsigned int index) {
     size++;
     if (index == 0) {
         addElementFront(value);
         return;
     }
-    Node *left = this->first_element;
-    Node *temp = new Node{value, nullptr};
+    ListNode *left = this->first_element;
+    ListNode *temp = new ListNode{value, nullptr};
     if (left != nullptr) {
         for (int i = 0; i < index - 1; ++i) {
             left = left->next;
@@ -53,7 +66,7 @@ void MyList::addElementAnywhere(int value, unsigned int index) {
                 exit(1);
             }
         }
-        Node *right = left->next;
+        ListNode *right = left->next;
 
         left->next = temp;
         temp->prev = left;
@@ -69,12 +82,12 @@ void MyList::addElementAnywhere(int value, unsigned int index) {
 /**
  * Remove element in front of the list
  */
-void MyList::removeElementFront() {
+void DoubleList::removeElementFront() {
     if (this->first_element == nullptr) {
         return;
     } else {
         size--;
-        Node *temp = this->first_element->next;
+        ListNode *temp = this->first_element->next;
         temp->prev = nullptr;
         delete this->first_element;
         this->first_element = temp;
@@ -84,13 +97,13 @@ void MyList::removeElementFront() {
 /**
  * Remove element in back of the list
  */
-void MyList::removeElementBack() {
+void DoubleList::removeElementBack() {
     if (this->first_element == nullptr) {
         return;
     } else {
         size--;
-        Node *temp;
-        Node *end = this->first_element;
+        ListNode *temp;
+        ListNode *end = this->first_element;
         while (end != nullptr && end->next == nullptr) {
             end = end->next;
         }
@@ -104,12 +117,12 @@ void MyList::removeElementBack() {
  * Remove element anywhere in the list
  * @param index
  */
-void MyList::removeElementAnywhere(unsigned int index) {
+void DoubleList::removeElementAnywhere(unsigned int index) {
     if (this->first_element == nullptr) {
         return;
     } else {
-        Node *temp;
-        Node *left = this->first_element;
+        ListNode *temp;
+        ListNode *left = this->first_element;
         for (int i = 0; i < index - 1; ++i) {
             left = left->next;
             if (left->next == nullptr) {
@@ -128,9 +141,9 @@ void MyList::removeElementAnywhere(unsigned int index) {
  * Remove value from list if exist
  * @param value
  */
-void MyList::removeValue(int value) {
-    Node *temp = this->first_element;
-    Node *temp2;
+void DoubleList::removeValue(int value) {
+    ListNode *temp = this->first_element;
+    ListNode *temp2;
     while (temp->next != nullptr) {
         if (temp->value == value) {
             temp2 = temp->prev;
@@ -149,21 +162,22 @@ void MyList::removeValue(int value) {
  * @param value
  * @return
  */
-Node *MyList::findValue(int value) {
-    Node *temp = this->first_element;
+ListNode *DoubleList::findValue(int value) {
+    ListNode *temp = this->first_element;
     while (temp->next != nullptr) {
         if (temp->value == value) {
             return temp;
         }
         temp = temp->next;
     }
+    return nullptr;
 }
 
 /**
  * Display all elements in list
  */
-void MyList::display() {
-    Node *my_node = this->first_element;
+void DoubleList::display() {
+    ListNode *my_node = this->first_element;
     while (my_node != nullptr) {
         cout << my_node->value << '\n';
         my_node = my_node->next;

@@ -1,16 +1,18 @@
 #pragma once
 
-class Node {
+class ListNode {
 public:
     int value;
-    Node *prev;
-    Node *next;
+    ListNode *prev;
+    ListNode *next;
 };
 
-class MyList {
-    Node *first_element = nullptr;
+class DoubleList {
+    ListNode *first_element = nullptr;
     int size = 0;
 public:
+    DoubleList(int *array, int arraySize);
+
     void addElementFront(int value);
 
     void addElementBack(int value);
@@ -25,7 +27,9 @@ public:
 
     void removeValue(int value);
 
-    Node *findValue(int value);
+    ListNode *findValue(int value);
 
     void display();
+
+    virtual ~DoubleList();
 };

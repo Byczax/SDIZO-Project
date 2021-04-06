@@ -15,7 +15,7 @@ Array::~Array() {
 }
 
 /**
- * add new element on front in array
+ * addElement new element on front in array
  * @param value
  */
 void Array::addElementFront(int value) {
@@ -29,6 +29,10 @@ void Array::addElementFront(int value) {
     array = newArray;
 }
 
+/**
+ * Add element in back of the array
+ * @param value
+ */
 void Array::addElementBack(int value) {
     int *newArray = new int[size + 1];
     for (unsigned int i = 0; i < size; ++i) {
@@ -40,6 +44,11 @@ void Array::addElementBack(int value) {
     array = newArray;
 }
 
+/**
+ * Add element anywhere in the array
+ * @param value
+ * @param index
+ */
 void Array::addElementAnywhere(int value, unsigned int index) {
     if (index <= size) {
         ++size;
@@ -58,6 +67,9 @@ void Array::addElementAnywhere(int value, unsigned int index) {
     }
 }
 
+/**
+ * Remove element in front of the array
+ */
 void Array::removeElementFront() {
     if (size > 0) {
         --size;
@@ -70,6 +82,9 @@ void Array::removeElementFront() {
     }
 }
 
+/**
+ * Remove element in back of the array
+ */
 void Array::removeElementBack() {
     if (size > 0) {
         --size;
@@ -82,6 +97,10 @@ void Array::removeElementBack() {
     }
 }
 
+/**
+ * Remove element anywhere in the array
+ * @param index
+ */
 void Array::removeElementAnywhere(unsigned int index) {
     if (size > 0 && index <= size && index > 0) {
         --size;
@@ -98,10 +117,19 @@ void Array::removeElementAnywhere(unsigned int index) {
     }
 }
 
+/**
+ * Remove value from array if exist
+ * @param value
+ */
 void Array::removeValue(int value) {
     removeElementAnywhere(findValue(value));
 }
 
+/**
+ * find element in array
+ * @param value
+ * @return
+ */
 int Array::findValue(int value) {
     if (size > 0) {
         for (int i = 0; i < size; ++i) {
@@ -112,9 +140,20 @@ int Array::findValue(int value) {
     }
     return -1;
 }
+int Array::getIndexValue(unsigned int index) {
+    if (index >= 0 && index < size) {
+        return array[index];
+    }
+    else throw std::invalid_argument("Niepoprawny indeks");
+}
 
+/**
+ * Display all elements in array
+ */
 void Array::display() {
     for (int i = 0; i < size; ++i) {
-        std::cout << array[i];
+        std::cout << i << ". "<< array[i] << "\n";
     }
 }
+
+
