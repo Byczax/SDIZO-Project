@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <fstream>
 #include <clocale>
-
+#include <chrono>
 
 #include "DoubleList.h"
 #include "array.h"
@@ -30,32 +30,32 @@ string textOperation = "Czas wykonania operacji: ";
  * code fragment from https://stackoverflow.com/questions/1739259/how-to-use-queryperformancecounter
  * responsible for the preparation of QueryPerformanceCounter and methods for measuring time
  */
-double PCFreq = 0.0;
-__int64 CounterStart = 0;
+//double PCFreq = 0.0;
+//__int64 CounterStart = 0;
 
 /**
  * Start time counter
  */
-void StartCounter() {
-    LARGE_INTEGER li;
-    if (!QueryPerformanceFrequency(&li))
-        cout << "QueryPerformanceFrequency failed!\n";
-
-    PCFreq = double(li.QuadPart) / 1000.0;
-
-    QueryPerformanceCounter(&li);
-    CounterStart = li.QuadPart;
-}
+//void StartCounter() {
+//    LARGE_INTEGER li;
+//    if (!QueryPerformanceFrequency(&li))
+//        cout << "QueryPerformanceFrequency failed!\n";
+//
+//    PCFreq = double(li.QuadPart) / 1000.0;
+//
+//    QueryPerformanceCounter(&li);
+//    CounterStart = li.QuadPart;
+//}
 
 /**
  * Stop time counter
  * @return
  */
-double GetCounter() {
-    LARGE_INTEGER li;
-    QueryPerformanceCounter(&li);
-    return double(li.QuadPart - CounterStart) / PCFreq;
-}
+//double GetCounter() {
+//    LARGE_INTEGER li;
+//    QueryPerformanceCounter(&li);
+//    return double(li.QuadPart - CounterStart) / PCFreq;
+//}
 
 /**
  * Lambda to get runtime
@@ -63,15 +63,34 @@ double GetCounter() {
  * @param i
  * @return
  */
+//template<typename T>
+//double Timer(T i) {
+//    StartCounter();
+//    i();
+//    return GetCounter();
+//}
+//----------------------------------------------------------------------------------------------
+/**
+ * Counter for all systems
+ * @tparam T
+ * @param i
+ * @return
+ */
 template<typename T>
 double Timer(T i) {
-    StartCounter();
+    auto start = chrono::high_resolution_clock::now();// Start the counter
     i();
-    return GetCounter();
+    auto end = chrono::high_resolution_clock::now();// Get value after executing function
+    chrono::duration<double> elapsed_seconds = end - start;
+    return elapsed_seconds.count();// Retrun executing time in seconds
 }
-//----------------------------------------------------------------------------------------------
 
 
+/**
+ * Generate random data
+ * @param amount
+ * @return
+ */
 int *randomData(int amount) {
     int *data_table = new int[amount];
     data_table[0] = amount;
@@ -133,7 +152,7 @@ void myArray() {
                 "11. Znajdz element \n"
                 "12. Wyswietl wartosc pod indeksem \n"
                 "13. Wyswietl zawartosc \n";
-        cin >> input;
+        if(!(cin >> input)){return;}
         switch (input) {
             case 0:
                 exit = true;
@@ -147,7 +166,7 @@ void myArray() {
             case 2:
                 // Create new array from the data in the file
                 cout << textReadFile;
-                cin >> filename;
+                if(!(cin >> filename)){return;}
                 try {
                     data = getDataFromFile(filename);
                 }
@@ -161,7 +180,7 @@ void myArray() {
             case 3:
                 // Create new array from random data
                 cout << textDataAmount;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 delete array;
                 data = randomData(value);
                 array = new Array(data + 1, data[0]);
@@ -169,21 +188,21 @@ void myArray() {
             case 4:
                 // Add an element to the front of the array
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { array->addElementFront(value); }) << "\n";
                 break;
             case 5:
                 // Add an element to the back of the array
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { array->addElementBack(value); }) << "\n";
                 break;
             case 6:
                 // Add an element anywhere in the array
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textGetIndex;
-                cin >> index;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { array->addElementAnywhere(value, index); }) << "\n";
                 break;
             case 7:
@@ -197,19 +216,19 @@ void myArray() {
             case 9:
                 // Remove an element anywhere in the array
                 cout << textRemoveIndex;
-                cin >> index;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { array->removeElementAnywhere(index); }) << "\n";
                 break;
             case 10:
                 // Remove value from the array
                 cout << textRemoveValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { array->removeValue(value); }) << "\n";
                 break;
             case 11:
                 // Find value in the array
                 cout << textFindValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { temp = array->findValue(value); }) << "\n";
                 if (temp != -1) {
                     cout << "Znaleziona wartosc znajduje sie pod: " << temp << "\n";
@@ -220,7 +239,7 @@ void myArray() {
             case 12:
                 // Get value under given index in the array
                 cout << textFindIndex;
-                cin >> index;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { temp = array->getIndexValue(index); }) << "\n";
                 cout << "Wartosc pod indeksem: " << temp << "\n";
                 break;
@@ -258,7 +277,7 @@ void doubleList() {
                 "10. Usun wartosc (jezeli istnieje) \n"
                 "11. Znajdz element \n"
                 "12. Wyswietl zawartosc \n";
-        cin >> input;
+        if(!(cin >> input)){return;}
         switch (input) {
             case 0:
                 exit = true;
@@ -273,7 +292,7 @@ void doubleList() {
                 // Create new list from the data in the file
                 cout << textReadFile;
                 int *data;
-                cin >> filename;
+                if(!(cin >> filename)){return;}
                 try {
                     data = getDataFromFile(filename);
                 }
@@ -287,7 +306,7 @@ void doubleList() {
             case 3:
                 // Create new list from random data
                 cout << textDataAmount;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 data = randomData(value);
                 delete list;
                 list = new DoubleList(data + 1, data[0]);
@@ -295,21 +314,21 @@ void doubleList() {
             case 4:
                 // Add an element to the front of the list
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { list->addElementFront(value); }) << "\n";
                 break;
             case 5:
                 // Add an element to the back of the list
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { list->addElementBack(value); }) << "\n";
                 break;
             case 6:
                 // Add an element anywhere in the list
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textGetIndex;
-                cin >> index;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { list->addElementAnywhere(value, index); }) << "\n";
                 break;
             case 7:
@@ -323,19 +342,19 @@ void doubleList() {
             case 9:
                 // Remove an element anywhere in the list
                 cout << textRemoveIndex;
-                cin >> index;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { list->removeElementAnywhere(index); }) << "\n";
                 break;
             case 10:
                 // Remove value from the list
                 cout << textRemoveValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { list->removeValue(value); }) << "\n";
                 break;
             case 11:
                 // find value from the list
                 cout << textFindValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { temp = list->findValue(value); }) << "\n";
                 cout << (temp != nullptr);
                 break;
@@ -369,16 +388,12 @@ void binaryHeap() {
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "7. Znajdz element \n"
                 "8. Wyswietl kopiec \n";
-        cin >> input;
+        if(!(cin >> input)){return;}
         switch (input) {
             case 0:
                 exit = true;
                 delete heap;
                 break;
-
-                //TODO Create new empty heap
-                //TODO Crate new heap from the data in the file
-
             case 1:
                 delete heap;
                 heap = new BinaryHeap(0, nullptr);
@@ -387,7 +402,7 @@ void binaryHeap() {
                 // Create new heap from the data in the file
                 cout << textReadFile;
                 int *data;
-                cin >> filename;
+                if(!(cin >> filename)){return;}
                 try {
                     data = getDataFromFile(filename);
                 }
@@ -401,7 +416,7 @@ void binaryHeap() {
             case 3:
                 // Create new heap from random data
                 cout << textDataAmount;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 data = randomData(value);
                 delete heap;
                 heap = new BinaryHeap(data[0], data + 1);
@@ -409,23 +424,25 @@ void binaryHeap() {
             case 4:
                 // Add an element to heap
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { heap->addElement(value); }) << "\n";
                 break;
             case 5:
                 // Remove value from the heap
                 cout << textRemoveValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { heap->removeValue(value); }) << "\n";
                 break;
             case 6:
                 // Remove element from the heap
-                cin >> index;
+                cout << textRemoveIndex;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { heap->removeElement(index); }) << "\n";
                 break;
             case 7:
                 // Find element in the heap
-                cin >> index;
+                cout << textFindIndex;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { heap->findElement(index); }) << "\n";
                 break;
             case 8:
@@ -449,13 +466,14 @@ void tree() {
     unsigned int index;
     while (!exit) {
         cout << "0. Wyjscie \n"
-                "1. Dodaj element \n"
-                "2. Usun element (index) \n"
-                "3. Usun element (wartosc) \n"
-                "4. Usun element z przodu \n"
-                "5. Usun element z tylu \n"
-                "6. Usun element gdziekolwiek \n";
-        cin >> input;
+                "1. Stworz nowe puste drzewo \n"
+                "2. Stworz nowe drzewo z danych z pliku \n"
+                "3. Stworz nowe drzewo z losowych danych \n"
+                "4. Dodaj wartosc \n"
+                "5. Usun wartosc (jezeli istnieje) \n"
+                "7. Znajdz element \n"
+                "8. Wyswietl drzewo \n";
+        if(!(cin >> input)){return;}
         switch (input) {
             case 0:
                 exit = true;
@@ -463,26 +481,26 @@ void tree() {
             case 1:
                 //TODO add value to the tree
                 cout << textGetValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 2:
                 //TODO remove value from the tree
                 cout << textRemoveValue;
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 3:
                 //TODO remove index from the tree
-                cin >> index;
+                if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 4:
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 5:
-                cin >> value;
+                if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
                 break;
             case 6:
@@ -514,7 +532,7 @@ int main() {
                 "2. Lista dwukierunkowa \n"
                 "3. Kopiec binarny \n"
                 "4. Drzewo czerwono-czarne \n";
-        cin >> input;
+        if(!(cin >> input)){return 0;}
         switch (input) {
             case 0:
                 exit = true;
