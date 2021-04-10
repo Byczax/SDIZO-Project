@@ -92,7 +92,7 @@ double Timer(T i) {
  * @return
  */
 int *randomData(int amount) {
-    int *data_table = new int[amount];
+    int *data_table = new int[amount + 1];
     data_table[0] = amount;
     for (int i = 1; i < amount + 1; ++i) {
         data_table[i] = rand();
@@ -152,7 +152,7 @@ void myArray() {
                 "11. Znajdz element \n"
                 "12. Wyswietl wartosc pod indeksem \n"
                 "13. Wyswietl zawartosc \n";
-        if(!(cin >> input)){return;}
+        if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
                 exit = true;
@@ -166,7 +166,7 @@ void myArray() {
             case 2:
                 // Create new array from the data in the file
                 cout << textReadFile;
-                if(!(cin >> filename)){return;}
+                if (!(cin >> filename)) { return; }
                 try {
                     data = getDataFromFile(filename);
                 }
@@ -277,7 +277,7 @@ void doubleList() {
                 "10. Usun wartosc (jezeli istnieje) \n"
                 "11. Znajdz element \n"
                 "12. Wyswietl zawartosc \n";
-        if(!(cin >> input)){return;}
+        if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
                 exit = true;
@@ -292,7 +292,7 @@ void doubleList() {
                 // Create new list from the data in the file
                 cout << textReadFile;
                 int *data;
-                if(!(cin >> filename)){return;}
+                if (!(cin >> filename)) { return; }
                 try {
                     data = getDataFromFile(filename);
                 }
@@ -388,7 +388,7 @@ void binaryHeap() {
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "7. Znajdz element \n"
                 "8. Wyswietl kopiec \n";
-        if(!(cin >> input)){return;}
+        if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
                 exit = true;
@@ -402,7 +402,7 @@ void binaryHeap() {
                 // Create new heap from the data in the file
                 cout << textReadFile;
                 int *data;
-                if(!(cin >> filename)){return;}
+                if (!(cin >> filename)) { return; }
                 try {
                     data = getDataFromFile(filename);
                 }
@@ -473,7 +473,7 @@ void tree() {
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "7. Znajdz element \n"
                 "8. Wyswietl drzewo \n";
-        if(!(cin >> input)){return;}
+        if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
                 exit = true;
@@ -532,7 +532,7 @@ int main() {
                 "2. Lista dwukierunkowa \n"
                 "3. Kopiec binarny \n"
                 "4. Drzewo czerwono-czarne \n";
-        if(!(cin >> input)){return 0;}
+        if (!(cin >> input)) { return 0; }
         switch (input) {
             case 0:
                 exit = true;
@@ -554,5 +554,6 @@ int main() {
                 break;
         }
     }
+    cout << "\nDo widzenia\n";
     return 0;
 }

@@ -1,5 +1,5 @@
 #include "RedBlackTree.h"
-#include "DoubleList.h"
+
 
 
 TreeNode::TreeNode(int val, TreeNode *p, TreeNode *l, TreeNode *r, nodeColour givenColor) {

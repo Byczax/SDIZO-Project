@@ -77,7 +77,7 @@ void Array::removeElementFront() {
         for (int i = 0; i < size; ++i) {
             newArray[i] = array[i + 1];
         }
-        delete array;
+        delete[] array;
         array = newArray;
     }
 }
@@ -92,7 +92,7 @@ void Array::removeElementBack() {
         for (int i = 0; i < size; ++i) {
             newArray[i] = array[i];
         }
-        delete array;
+        delete[] array;
         array = newArray;
     }
 }
@@ -112,7 +112,7 @@ void Array::removeElementAnywhere(unsigned int index) {
         for (; i < size; ++i) {
             newArray[i] = array[i];
         }
-        delete array;
+        delete[] array;
         array = newArray;
     }
 }
@@ -140,11 +140,11 @@ int Array::findValue(int value) {
     }
     return -1;
 }
+
 int Array::getIndexValue(unsigned int index) {
     if (index >= 0 && index < size) {
         return array[index];
-    }
-    else throw std::invalid_argument("Niepoprawny indeks");
+    } else throw std::invalid_argument("Niepoprawny indeks");
 }
 
 /**
@@ -152,7 +152,7 @@ int Array::getIndexValue(unsigned int index) {
  */
 void Array::display() {
     for (int i = 0; i < size; ++i) {
-        std::cout << i << ". "<< array[i] << "\n";
+        std::cout << i << ". " << array[i] << "\n";
     }
 }
 
