@@ -21,7 +21,7 @@ public:
 
     void removeValue(int value);
 
-    void findElement(int value);
+    int findElement(int value);
 
     void display();
 

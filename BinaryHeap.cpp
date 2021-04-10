@@ -63,7 +63,10 @@ void BinaryHeap::fixUp(unsigned int index) {
         }
     }
 }
-
+/**
+ * Add element to heap
+ * @param value
+ */
 void BinaryHeap::addElement(int value) {
     int *newRoot = new int[heapSize + 1];
     unsigned int i = 0;
@@ -76,7 +79,10 @@ void BinaryHeap::addElement(int value) {
     ++heapSize;
     fixUp(i);
 }
-
+/**
+ * Remove element from heap
+ * @param index
+ */
 void BinaryHeap::removeElement(unsigned int index) {
     if (index < heapSize && index >= 0) {
         --heapSize;
@@ -94,30 +100,26 @@ void BinaryHeap::removeElement(unsigned int index) {
         fixDown(index);
     }
 }
-
+/**
+ * Remove value from heap
+ * @param value
+ */
 void BinaryHeap::removeValue(int value) {
     removeElement(findValue(value));
 }
 
 //TODO find element
-void BinaryHeap::findElement(int index) {
-    if (index < heapSize) {
-        --heapSize;
-        int *newArray = new int[heapSize];
-        for (unsigned int j = 0; j < index; ++j) {
-            newArray[j] = root[j];
-        }
-        if (heapSize)
-            newArray[index] = root[heapSize];
-        for (unsigned int j = index + 1; j < heapSize; ++j) {
-            newArray[j] = root[j];
-        }
-        delete[] root;
-        root = newArray;
-        fixDown(index);
+int BinaryHeap::findElement(int index) {
+    if (index < heapSize){
+        return root[index];
     }
+    else return false;
 }
-
+/**
+ * Find if value in heap exit, if so, then return index
+ * @param value
+ * @return
+ */
 int BinaryHeap::findValue(int value) {
     for (int i = 0; i < heapSize; ++i) {
         if (root[i] == value) {
