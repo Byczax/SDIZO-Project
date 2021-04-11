@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-enum nodeColour {
+enum nodeColor {
     RED,
     BLACK
 };
@@ -13,9 +13,9 @@ public:
     TreeNode *parent;
     TreeNode *left;
     TreeNode *right;
-    nodeColour color;
+    nodeColor color;
 
-    TreeNode(int val, TreeNode *p, TreeNode *l, TreeNode *r, nodeColour givenColor = RED);
+    TreeNode(int val, TreeNode *p, TreeNode *l, TreeNode *r, nodeColor givenColor = RED);
 };
 
 class RedBlackTree {
@@ -26,11 +26,23 @@ public:
 
     virtual ~RedBlackTree();
 
-    void addElement(int number);
+    void addElement(int value);
 
     void addFixTree(TreeNode *z);
 
     void rotateLeft(TreeNode *a);
 
     void rotateRight(TreeNode *a);
+
+    void removeValue(int value);
+
+    void removeGivenElement(TreeNode *node);
+
+    void removeFixTree(TreeNode *node);
+
+    void printRecursive(const std::string &sp, const std::string &sn, TreeNode *node);
+
+    bool findGivenNumber(int number);
+
+    void display();
 };

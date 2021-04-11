@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <windows.h>
 #include <fstream>
 #include <clocale>
 #include <chrono>
@@ -25,7 +24,7 @@ string textErrorChoice = "Blad, zly wybor";
 string textDataAmount = "Podaj ile chcesz danych: ";
 string textOperation = "Czas wykonania operacji: ";
 //-----------------------Time counter----------------------------------------------------------
-
+// Only windows, need windows.h
 /**
  * code fragment from https://stackoverflow.com/questions/1739259/how-to-use-queryperformancecounter
  * responsible for the preparation of QueryPerformanceCounter and methods for measuring time
@@ -184,6 +183,7 @@ void myArray() {
                 delete array;
                 data = randomData(value);
                 array = new Array(data + 1, data[0]);
+                delete data;
                 break;
             case 4:
                 // Add an element to the front of the array
@@ -254,13 +254,13 @@ void myArray() {
     }
 }
 
-//TODO komentarze co wpisywac
 void doubleList() {
     auto list = new DoubleList(nullptr, 0);// Create empty list
     bool exit = false;
     int input;
     int value;
-    ListNode *temp;
+    int *data = nullptr;
+    ListNode *temp = nullptr;
     string filename;
     unsigned int index;
     while (!exit) {
@@ -291,7 +291,6 @@ void doubleList() {
             case 2:
                 // Create new list from the data in the file
                 cout << textReadFile;
-                int *data;
                 if (!(cin >> filename)) { return; }
                 try {
                     data = getDataFromFile(filename);
@@ -307,9 +306,10 @@ void doubleList() {
                 // Create new list from random data
                 cout << textDataAmount;
                 if (!(cin >> value)) { return; }
-                data = randomData(value);
                 delete list;
+                data = randomData(value);
                 list = new DoubleList(data + 1, data[0]);
+                delete data;
                 break;
             case 4:
                 // Add an element to the front of the list
@@ -356,7 +356,7 @@ void doubleList() {
                 cout << textFindValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { temp = list->findValue(value); }) << "\n";
-                cout << (temp != nullptr);
+                cout << (temp != nullptr) << "\n";
                 break;
             case 12:
                 // Display list
@@ -371,11 +371,12 @@ void doubleList() {
 
 //TODO informacje + dopelnienie funkcji
 void binaryHeap() {
-    cout << "W implementacji";
-    auto heap = new BinaryHeap(0, nullptr);
+    cout << "W implementacji\n";
+    auto heap = new BinaryHeap(nullptr, 0);
     bool exit = false;
     int input;
     int value;
+    bool temp;
     unsigned int index;
     string filename;
     while (!exit) {
@@ -396,7 +397,7 @@ void binaryHeap() {
                 break;
             case 1:
                 delete heap;
-                heap = new BinaryHeap(0, nullptr);
+                heap = new BinaryHeap(nullptr, 0);
                 break;
             case 2:
                 // Create new heap from the data in the file
@@ -411,7 +412,7 @@ void binaryHeap() {
                     break;
                 }
                 delete heap;
-                heap = new BinaryHeap(data[0], data + 1);
+                heap = new BinaryHeap(data + 1, data[0]);
                 break;
             case 3:
                 // Create new heap from random data
@@ -419,7 +420,8 @@ void binaryHeap() {
                 if (!(cin >> value)) { return; }
                 data = randomData(value);
                 delete heap;
-                heap = new BinaryHeap(data[0], data + 1);
+                heap = new BinaryHeap(data + 1, data[0]);
+                delete data;
                 break;
             case 4:
                 // Add an element to heap
@@ -443,7 +445,8 @@ void binaryHeap() {
                 // Find element in the heap
                 cout << textFindIndex;
                 if (!(cin >> index)) { return; }
-                cout << textOperation << Timer([&] { heap->findElement(index); }) << "\n";
+                cout << textOperation << Timer([&] { temp = heap->findElement(index); }) << "\n";
+                cout << temp << "\n";
                 break;
             case 8:
                 // Display heap in the console
@@ -458,12 +461,12 @@ void binaryHeap() {
 
 //TODO Red-Black Tree
 void tree() {
-    cout << "W implementacji";
-    RedBlackTree tree(nullptr, 0);
+    cout << "W implementacji\n";
+    auto tree = new RedBlackTree(nullptr, 0);
     bool exit = false;
     int input;
     int value;
-    unsigned int index;
+    string filename;
     while (!exit) {
         cout << "0. Wyjscie \n"
                 "1. Stworz nowe puste drzewo \n"
@@ -471,42 +474,56 @@ void tree() {
                 "3. Stworz nowe drzewo z losowych danych \n"
                 "4. Dodaj wartosc \n"
                 "5. Usun wartosc (jezeli istnieje) \n"
-                "7. Znajdz element \n"
-                "8. Wyswietl drzewo \n";
+                "6. Znajdz element \n"
+                "7. Wyswietl drzewo \n";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
+                delete tree;
                 exit = true;
                 break;
             case 1:
-                //TODO add value to the tree
-                cout << textGetValue;
-                if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
+                delete tree;
+                tree = new RedBlackTree(nullptr, 0);
                 break;
             case 2:
-                //TODO remove value from the tree
-                cout << textRemoveValue;
-                if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
+                // Create new tree from the data in the file
+                cout << textReadFile;
+                int *data;
+                if (!(cin >> filename)) { return; }
+                try {
+                    data = getDataFromFile(filename);
+                }
+                catch (exception &e) {
+                    cout << textErrorFile;
+                    break;
+                }
+                delete tree;
+                tree = new RedBlackTree(data + 1, data[0]);
                 break;
             case 3:
-                //TODO remove index from the tree
-                if (!(cin >> index)) { return; }
-                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
+                // Create new heap from random data
+                cout << textDataAmount;
+                if (!(cin >> value)) { return; }
+                data = randomData(value);
+                delete tree;
+                tree = new RedBlackTree(data + 1, data[0]);
+                delete data;
                 break;
             case 4:
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
+                cout << textOperation << Timer([&] { tree->addElement(value); }) << "\n";
                 break;
             case 5:
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
+                cout << textOperation << Timer([&] { tree->removeValue(value); }) << "\n";
                 break;
             case 6:
-                //TODO Display
-                cout << textOperation << Timer([&] { tree.addElement(value); }) << "\n";
+                if (!(cin >> value)) { return; }
+                cout << textOperation << Timer([&] { tree->findGivenNumber(value); }) << "\n";
                 break;
+            case 7:
+                tree->display();
             default:
                 cout << textErrorChoice;
                 break;
@@ -520,7 +537,6 @@ void tree() {
  * Main program body
  * @return
  */
-// TODO something better than switch
 int main() {
     setlocale(LC_ALL, ""); // attempt to repair Polish characters
     cout << boolalpha; // change bool values to bool words
