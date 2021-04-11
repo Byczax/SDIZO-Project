@@ -7,7 +7,7 @@ class BinaryHeap {
     int heapSize;
     int *root;
 public:
-    BinaryHeap(int heapSize, const int *root);
+    BinaryHeap( const int *root, int heapSize);
 
     virtual ~BinaryHeap();
 

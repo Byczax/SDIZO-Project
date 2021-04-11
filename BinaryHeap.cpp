@@ -4,7 +4,7 @@
 
 using namespace std;
 
-BinaryHeap::BinaryHeap(int myHeapSize, const int *initRoot) {
+BinaryHeap::BinaryHeap(const int *initRoot, int myHeapSize) {
     heapSize = myHeapSize;
     root = new int[myHeapSize];
     for (int i = 0; i < heapSize; ++i) {
