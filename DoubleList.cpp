@@ -5,7 +5,7 @@ using namespace std;
 
 
 DoubleList::DoubleList(int *array, int arraySize) {
-    for (unsigned int i = 0; i < arraySize; ++i) {
+    for (int i = 0; i < arraySize; ++i) {
         addElementBack(array[i]);
     }
 }
@@ -32,11 +32,11 @@ void DoubleList::addElementFront(int value) {
  * @param value
  */
 void DoubleList::addElementBack(int value) {
-    size++;
+    ++size;
     ListNode *end = this->first_element;
     ListNode *temp = new ListNode{value, this->first_element, nullptr};
     if (end != nullptr) {
-        while (end != nullptr && end->next == nullptr) {
+        while (end != nullptr && end->next != nullptr) {
             end = end->next;
         }
         end->next = temp;
@@ -104,7 +104,7 @@ void DoubleList::removeElementBack() {
         size--;
         ListNode *temp;
         ListNode *end = this->first_element;
-        while (end != nullptr && end->next == nullptr) {
+        while (end != nullptr && end->next != nullptr) {
             end = end->next;
         }
         temp = end->prev;
