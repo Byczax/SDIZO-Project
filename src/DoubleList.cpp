@@ -34,7 +34,7 @@ void DoubleList::addElementFront(int value) {
 void DoubleList::addElementBack(int value) {
     ++size;
     ListNode *end = this->first_element;
-    ListNode *temp = new ListNode{value, this->first_element, nullptr};
+    ListNode *temp = new ListNode{value, nullptr, nullptr};
     if (end) {
         while (end && end->next) {
             end = end->next;
