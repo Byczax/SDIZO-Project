@@ -89,17 +89,16 @@ void BinaryHeap::addElement(int value) {
 void BinaryHeap::removeElement(unsigned int index) {
     if (index < heapSize && index >= 0) {
         --heapSize;
-        int *newArray = new int[heapSize];
+        int *newRoot = new int[heapSize];
         for (unsigned int j = 0; j < index; ++j) {
-            newArray[j] = root[j];
+            newRoot[j] = root[j];
         }
-        if (heapSize)
-            newArray[index] = root[heapSize];
+            newRoot[index] = root[heapSize];
         for (unsigned int j = index + 1; j < heapSize; ++j) {
-            newArray[j] = root[j];
+            newRoot[j] = root[j];
         }
         delete[] root;
-        root = newArray;
+        root = newRoot;
         fixDown(index);
     }
 }
