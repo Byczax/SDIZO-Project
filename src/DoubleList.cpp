@@ -86,9 +86,11 @@ void DoubleList::removeElementFront() {
     if (this->first_element == nullptr) {
         return;
     } else {
-        size--;
+        --size;
         ListNode *temp = this->first_element->next;
-        temp->prev = nullptr;
+        if (temp != nullptr) {
+            temp->prev = nullptr;
+        }
         delete this->first_element;
         this->first_element = temp;
     }
