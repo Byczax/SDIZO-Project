@@ -1,19 +1,23 @@
 #pragma once
 
-
 #include <string>
+
+using namespace std;
 
 class BinaryHeap {
     int heapSize;
     int *root;
-public:
-    BinaryHeap( const int *root, int heapSize);
-
-    virtual ~BinaryHeap();
 
     void fixDown(int index);
 
     void fixUp(unsigned int index);
+
+    void printRecursive(const string &sp, const string &sn, unsigned int index);
+
+public:
+    BinaryHeap(const int *root, int heapSize);
+
+    virtual ~BinaryHeap();
 
     void addElement(int value);
 
@@ -26,8 +30,4 @@ public:
     void display();
 
     int findValue(int value);
-
-    void printRecursive(const std::basic_string<char, std::char_traits<char>, std::allocator<char>> &sp,
-                        const std::basic_string<char, std::char_traits<char>, std::allocator<char>> &sn,
-                        unsigned int index);
 };

@@ -24,6 +24,7 @@ BinaryHeap::BinaryHeap(const int *initRoot, int myHeapSize) {
  */
 BinaryHeap::~BinaryHeap() {
     delete[] root;
+    heapSize = 0;
 }
 
 /**
@@ -63,6 +64,7 @@ void BinaryHeap::fixUp(unsigned int index) {
         }
     }
 }
+
 /**
  * Add element to heap
  * @param value
@@ -79,6 +81,7 @@ void BinaryHeap::addElement(int value) {
     ++heapSize;
     fixUp(i);
 }
+
 /**
  * Remove element from heap
  * @param index
@@ -100,21 +103,24 @@ void BinaryHeap::removeElement(unsigned int index) {
         fixDown(index);
     }
 }
+
 /**
  * Remove value from heap
  * @param value
  */
 void BinaryHeap::removeValue(int value) {
-    removeElement(findValue(value));
+    auto temp = findValue(value);
+    if (temp) {
+        removeElement(temp);
+    }
 }
 
-//TODO find element
 int BinaryHeap::findElement(int index) {
-    if (index < heapSize){
+    if (index < heapSize) {
         return root[index];
-    }
-    else return false;
+    } else return false;
 }
+
 /**
  * Find if value in heap exit, if so, then return index
  * @param value
@@ -126,7 +132,7 @@ int BinaryHeap::findValue(int value) {
             return i;
         }
     }
-    return -1;
+    return false;
 }
 //-----------------Display heap------------------------------------------------
 /**
