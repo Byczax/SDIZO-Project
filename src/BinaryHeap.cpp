@@ -110,7 +110,7 @@ void BinaryHeap::removeElement(unsigned int index) {
  */
 void BinaryHeap::removeValue(int value) {
     auto temp = findValue(value);
-    if (temp) {
+    if (temp >= 0) {
         removeElement(temp);
     }
 }
@@ -132,7 +132,7 @@ int BinaryHeap::findValue(int value) {
             return i;
         }
     }
-    return false;
+    return -1;
 }
 //-----------------Display heap------------------------------------------------
 /**

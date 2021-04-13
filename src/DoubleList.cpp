@@ -35,8 +35,8 @@ void DoubleList::addElementBack(int value) {
     ++size;
     ListNode *end = this->first_element;
     ListNode *temp = new ListNode{value, this->first_element, nullptr};
-    if (end != nullptr) {
-        while (end != nullptr && end->next != nullptr) {
+    if (end) {
+        while (end && end->next) {
             end = end->next;
         }
         end->next = temp;
@@ -106,11 +106,13 @@ void DoubleList::removeElementBack() {
         size--;
         ListNode *temp;
         ListNode *end = this->first_element;
-        while (end != nullptr && end->next != nullptr) {
+        while (end && end->next) {
             end = end->next;
         }
         temp = end->prev;
-        temp->next = nullptr;
+        if (temp) {
+            temp->next = nullptr;
+        }
         delete end;
     }
 }
