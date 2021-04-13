@@ -184,7 +184,7 @@ void myArray() {
                 delete array;
                 data = randomData(value);
                 array = new Array(data + 1, data[0]);
-                delete data;
+                delete[] data;
                 break;
             case 4:
                 // Add an element to the front of the array
@@ -310,7 +310,7 @@ void doubleList() {
                 delete list;
                 data = randomData(value);
                 list = new DoubleList(data + 1, data[0]);
-                delete data;
+                delete[] data;
                 break;
             case 4:
                 // Add an element to the front of the list
@@ -420,7 +420,7 @@ void binaryHeap() {
                 data = randomData(value);
                 delete heap;
                 heap = new BinaryHeap(data + 1, data[0]);
-                delete data;
+                delete[] data;
                 break;
             case 4:
                 // Add an element to heap
@@ -505,7 +505,7 @@ void tree() {
                 data = randomData(value);
                 delete tree;
                 tree = new RedBlackTree(data + 1, data[0]);
-                delete data;
+                delete[] data;
                 break;
             case 4:
                 cout << textGetValue;
