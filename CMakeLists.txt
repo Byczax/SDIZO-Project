@@ -8,8 +8,8 @@ add_executable(sdizo1
         src/DoubleList.cpp
         src/main.cpp
         src/DoubleList.h
-        src/array.cpp
-        src/array.h
+        src/Array.cpp
+        src/Array.h
         src/BinaryHeap.cpp
         src/BinaryHeap.h
         src/RedBlackTree.cpp
