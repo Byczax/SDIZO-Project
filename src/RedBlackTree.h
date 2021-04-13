@@ -20,6 +20,8 @@ public:
 
 class RedBlackTree {
 
+    TreeNode *nil;
+    TreeNode *root;
 
 public:
     RedBlackTree(const int *array, int arraySize);
@@ -34,7 +36,7 @@ public:
 
     void rotateRight(TreeNode *a);
 
-    void removeValue(int value);
+    bool removeValue(int value);
 
     void removeGivenElement(TreeNode *node);
 
@@ -45,4 +47,6 @@ public:
     bool findGivenNumber(int number);
 
     void display();
+
+    void removeNodeFromMemory(TreeNode *node);
 };

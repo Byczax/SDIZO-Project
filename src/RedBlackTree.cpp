@@ -11,16 +11,6 @@ TreeNode::TreeNode(int val, TreeNode *p, TreeNode *l, TreeNode *r, nodeColor giv
     color = givenColor;
 }
 
-TreeNode *nil;
-TreeNode *root;
-
-void removeNodeFromMemory(TreeNode *node) {
-    if (node == nil)
-        return;
-    removeNodeFromMemory(node->left);
-    removeNodeFromMemory(node->right);
-    delete node;
-}
 
 RedBlackTree::RedBlackTree(const int *array, int arraySize) {
     nil = new TreeNode(0, nullptr, nullptr, nullptr, BLACK);
@@ -39,6 +29,14 @@ RedBlackTree::RedBlackTree(const int *array, int arraySize) {
 RedBlackTree::~RedBlackTree() {
     removeNodeFromMemory(root);
     delete nil;
+}
+
+void RedBlackTree::removeNodeFromMemory(TreeNode *node) {
+    if (node == nil)
+        return;
+    removeNodeFromMemory(node->left);
+    removeNodeFromMemory(node->right);
+    delete node;
 }
 
 /**
@@ -167,11 +165,12 @@ void RedBlackTree::rotateRight(TreeNode *a) {
     }
 }
 
-void RedBlackTree::removeValue(int value) {
+bool RedBlackTree::removeValue(int value) {
     TreeNode *temp = root;
     while (temp != nil) {
         if (value == temp->value) {
             removeGivenElement(temp);
+            return true;
         } else {
             if (value < temp->value)
                 temp = temp->left;
@@ -179,6 +178,7 @@ void RedBlackTree::removeValue(int value) {
                 temp = temp->right;
         }
     }
+    return false;
 }
 
 void RedBlackTree::removeGivenElement(TreeNode *node) {
@@ -205,11 +205,11 @@ void RedBlackTree::removeGivenElement(TreeNode *node) {
     if (y->color == BLACK)
         removeFixTree(x);
     //usunięcie odniesienia do danego elementu u rodzica usuwanego elementu
-    TreeNode *parentOfDeletedNode = y->parent;
-    if (parentOfDeletedNode->left == y)
-        parentOfDeletedNode->left = nil;
+    TreeNode *deletedParentNode = y->parent;
+    if (deletedParentNode->left == y)
+        deletedParentNode->left = nil;
     else
-        parentOfDeletedNode->right = nil;
+        deletedParentNode->right = nil;
     delete y;
 }
 
@@ -278,8 +278,9 @@ bool RedBlackTree::findGivenNumber(int number) {
     }
     return false;
 }
+
 void RedBlackTree::display() {
-    printRecursive("", "", 0);
+    printRecursive("", "", root);
     cout << '\n';
 }
 
