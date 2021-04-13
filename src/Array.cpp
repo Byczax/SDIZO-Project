@@ -1,5 +1,5 @@
 #include <iostream>
-#include "array.h"
+#include "Array.h"
 
 
 Array::Array(const int *initArray, int mySize) {
@@ -105,7 +105,7 @@ void Array::removeElementAnywhere(unsigned int index) {
     if (size > 0 && index <= size && index > 0) {
         --size;
         int *newArray = new int[size];
-        unsigned int i = 0;
+        unsigned int i;
         for (i = 0; i < index; ++i) {
             newArray[i] = array[i];
         }
