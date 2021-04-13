@@ -5,7 +5,7 @@
 #include <chrono>
 
 #include "DoubleList.h"
-#include "array.h"
+#include "Array.h"
 #include "BinaryHeap.h"
 #include "RedBlackTree.h"
 
@@ -78,10 +78,11 @@ string textOperation = "Czas wykonania operacji: ";
 template<typename T>
 double Timer(T i) {
     auto start = chrono::high_resolution_clock::now();// Start the counter
-    i();
+    i();// our function
     auto end = chrono::high_resolution_clock::now();// Get value after executing function
-    chrono::duration<double> elapsed_seconds = end - start;
-    return elapsed_seconds.count();// Retrun executing time in seconds
+    auto duration = end - start;// get time difference
+    auto elapsed_time = chrono::duration_cast<chrono::nanoseconds>(duration).count();// calculate time
+    return elapsed_time;// Return executing time in nanoseconds
 }
 
 
@@ -369,26 +370,23 @@ void doubleList() {
     }
 }
 
-//TODO informacje + dopelnienie funkcji
 void binaryHeap() {
     cout << "W implementacji\n";
     auto heap = new BinaryHeap(nullptr, 0);
     bool exit = false;
     int input;
     int value;
-    bool temp;
-    unsigned int index;
+    int intTemp;
     string filename;
     while (!exit) {
-        //TODO dodawanie danych
         cout << "0. Wyjscie \n"
                 "1. Stworz nowy pusty kopiec \n"
                 "2. Stworz nowy kopiec z danych z pliku \n"
                 "3. Stworz nowy kopiec z losowych danych \n"
                 "4. Dodaj wartosc \n"
                 "5. Usun wartosc (jezeli istnieje) \n"
-                "7. Znajdz element \n"
-                "8. Wyswietl kopiec \n";
+                "6. Znajdz element \n"
+                "7. Wyswietl kopiec \n";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -396,6 +394,7 @@ void binaryHeap() {
                 delete heap;
                 break;
             case 1:
+                // create new empty heap
                 delete heap;
                 heap = new BinaryHeap(nullptr, 0);
                 break;
@@ -436,19 +435,17 @@ void binaryHeap() {
                 cout << textOperation << Timer([&] { heap->removeValue(value); }) << "\n";
                 break;
             case 6:
-                // Remove element from the heap
-                cout << textRemoveIndex;
-                if (!(cin >> index)) { return; }
-                cout << textOperation << Timer([&] { heap->removeElement(index); }) << "\n";
+                // Find element in the heap
+                cout << textFindValue;
+                if (!(cin >> value)) { return; }
+                cout << textOperation << Timer([&] { intTemp = heap->findValue(value); }) << "\n";
+                if (!intTemp) {
+                    cout << intTemp << "\n";
+                } else {
+                    cout << false << "\n";
+                }
                 break;
             case 7:
-                // Find element in the heap
-                cout << textFindIndex;
-                if (!(cin >> index)) { return; }
-                cout << textOperation << Timer([&] { temp = heap->findElement(index); }) << "\n";
-                cout << temp << "\n";
-                break;
-            case 8:
                 // Display heap in the console
                 heap->display();
                 break;
@@ -511,14 +508,17 @@ void tree() {
                 delete data;
                 break;
             case 4:
+                cout << textGetValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree->addElement(value); }) << "\n";
                 break;
             case 5:
+                cout << textRemoveValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree->removeValue(value); }) << "\n";
                 break;
             case 6:
+                cout <<textFindValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree->findGivenNumber(value); }) << "\n";
                 break;
