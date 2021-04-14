@@ -8,6 +8,7 @@
 #include "Array.h"
 #include "BinaryHeap.h"
 #include "RedBlackTree.h"
+#include "AVLTree.h"
 
 using namespace std;
 
@@ -532,6 +533,79 @@ void tree() {
 }
 
 //TODO AVL???
+void avltree() {
+    cout << "W implementacji\n";
+    auto avlTree = new AVLTree(nullptr, 0);
+    bool exit = false;
+    int input;
+    int value;
+    string filename;
+    while (!exit) {
+        cout << "0. Wyjscie \n"
+                "1. Stworz nowe puste drzewo \n"
+                "2. Stworz nowe drzewo z danych z pliku \n"
+                "3. Stworz nowe drzewo z losowych danych \n"
+                "4. Dodaj wartosc \n"
+                "5. Usun wartosc (jezeli istnieje) \n"
+                "6. Znajdz element \n"
+                "7. Wyswietl drzewo \n";
+        if (!(cin >> input)) { return; }
+        switch (input) {
+            case 0:
+                delete avlTree;
+                exit = true;
+                break;
+            case 1:
+                delete avlTree;
+                avlTree = new AVLTree(nullptr, 0);
+                break;
+            case 2:
+                // Create new avlTree from the data in the file
+                cout << textReadFile;
+                int *data;
+                if (!(cin >> filename)) { return; }
+                try {
+                    data = getDataFromFile(filename);
+                }
+                catch (exception &e) {
+                    cout << textErrorFile;
+                    break;
+                }
+                delete avlTree;
+                avlTree = new AVLTree(nullptr, 0);
+                break;
+            case 3:
+                // Create new heap from random data
+                cout << textDataAmount;
+                if (!(cin >> value)) { return; }
+                data = randomData(value);
+                delete avlTree;
+                avlTree = new AVLTree(data + 1, data[0]);
+                delete[] data;
+                break;
+            case 4:
+                cout << textGetValue;
+                if (!(cin >> value)) { return; }
+                cout << textOperation << Timer([&] { avlTree->addValue(value); }) << "\n";
+                break;
+            case 5:
+                cout << textRemoveValue;
+                if (!(cin >> value)) { return; }
+                cout << textOperation << Timer([&] { avlTree->removeValue(value); }) << "\n";
+                break;
+            case 6:
+                cout <<textFindValue;
+                if (!(cin >> value)) { return; }
+                cout << textOperation << Timer([&] { avlTree->findValue(value); }) << "\n";
+                break;
+            case 7:
+                avlTree->display2();
+            default:
+                cout << textErrorChoice;
+                break;
+        }
+    }
+}
 
 /**
  * Main program body
@@ -547,7 +621,8 @@ int main() {
                 "1. Tablica \n"
                 "2. Lista dwukierunkowa \n"
                 "3. Kopiec binarny \n"
-                "4. Drzewo czerwono-czarne \n";
+                "4. Drzewo czerwono-czarne \n"
+                "5. Drzewo AVL \n";
         if (!(cin >> input)) { return 0; }
         switch (input) {
             case 0:
@@ -565,6 +640,8 @@ int main() {
             case 4:
                 tree();
                 break;
+            case 5:
+                avltree();
             default:
                 cout << textErrorChoice;
                 break;
