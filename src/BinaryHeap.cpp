@@ -1,145 +1,137 @@
 #include "BinaryHeap.h"
-#include <iostream>
-#include <string>
 
-using namespace std;
+using std::string;
 
 BinaryHeap::BinaryHeap(const int *initRoot, int myHeapSize) {
-    heapSize = myHeapSize;
-    root = new int[myHeapSize];
-    for (int i = 0; i < heapSize; ++i) {
-        root[i] = initRoot[i];
+    size = myHeapSize;
+    heap = new int[size];
+    for (int i = 0; i < myHeapSize; ++i) {
+        heap[i] = initRoot[i];
     }
-    if (heapSize > 0) {
-        unsigned int i = 1 + (heapSize - 2) / 2;
+    if (size != 0) {
+        unsigned int i = 1 + (size - 2) / 2;
         do {
             --i;
-
+            heapify(i);
         } while (i);
     }
 }
-
 /**
  * Delete binaryHeap
  */
 BinaryHeap::~BinaryHeap() {
-    delete[] root;
-    heapSize = 0;
+    delete[] heap;
+    size = 0;
 }
 
-/**
- * Fix binaryHeap down
- * @param index
- */
-void BinaryHeap::fixDown(int index) {
-    int largest = index;
-    int left = 2 * index + 1;
-    int right = 2 * index + 2;
-    if (left <= heapSize && root[left] > root[largest]) {
-        largest = left;
-    }
-    if (right <= heapSize && root[right] > root[largest]) {
-        largest = right;
-    }
-    if (largest != index) {
-        int temp = root[index];
-        root[index] = root[largest];
-        root[largest] = temp;
-        fixDown(largest);
-    }
+size_t BinaryHeap::getParent(size_t index) {
+    return (index - 1) / 2;
 }
 
-/**
- * Fix binaryHeap down
- * @param index
- */
-void BinaryHeap::fixUp(unsigned int index) {
-    if (index) {
-        unsigned int smallest = (index - 1) / 2;
-        if (root[index] > root[smallest]) {
-            int swap = root[smallest];
-            root[smallest] = root[index];
-            root[index] = swap;
-            fixUp(smallest);
+size_t BinaryHeap::getLeftChild(size_t index) {
+    return (2 * index + 1);
+}
+
+size_t BinaryHeap::getRightChild(size_t index) {
+    return (2 * index + 2);
+}
+
+void BinaryHeap::relocate(size_t newSize) {
+    int *temp = new int[newSize];
+    if (newSize >= size) {
+        for (size_t i = 0; i < size; i++) {
+            temp[i] = heap[i];
+        }
+    } else {
+        for (size_t i = 0; i < newSize; i++) {
+            temp[i] = heap[i];
         }
     }
+    delete heap;
+    heap = temp;
 }
 
-/**
- * Add element to heap
- * @param value
- */
-void BinaryHeap::addElement(int value) {
-    int *newRoot = new int[heapSize + 1];
-    unsigned int i = 0;
-    for (; i < heapSize; ++i) {
-        newRoot[i] = root[i];
-    }
-    newRoot[i] = value;
-    delete[] root;
-    root = newRoot;
-    ++heapSize;
-    fixUp(i);
+void BinaryHeap::swap(int *x, int *y) {
+    int temp = *x;
+    *x = *y;
+    *y = temp;
 }
 
-/**
- * Remove element from heap
- * @param index
- */
-void BinaryHeap::removeElement(unsigned int index) {
-    if (index < heapSize && index >= 0) {
-        --heapSize;
-        int *newRoot = new int[heapSize];
-        for (unsigned int j = 0; j < index; ++j) {
-            newRoot[j] = root[j];
-        }
-            newRoot[index] = root[heapSize];
-        for (unsigned int j = index + 1; j < heapSize; ++j) {
-            newRoot[j] = root[j];
-        }
-        delete[] root;
-        root = newRoot;
-        fixDown(index);
+void BinaryHeap::push(int key) {
+    relocate(size + 1);
+    size++;
+    int i = size - 1;
+    heap[i] = key;
+
+    while (i != 0 && heap[getParent(i)] < heap[i]) {
+        swap(&heap[i], &heap[getParent(i)]);
+        i = getParent(i);
     }
 }
 
-/**
- * Remove value from heap
- * @param value
- */
-void BinaryHeap::removeValue(int value) {
-    auto temp = findValue(value);
-    if (temp >= 0) {
-        removeElement(temp);
+void BinaryHeap::increaseKey(size_t index, int newValue) {
+    heap[index] = newValue;
+    while (index != 0 && heap[getParent(index)] < heap[index]) {
+        swap(&heap[index], &heap[getParent(index)]);
+        index = getParent(index);
     }
 }
 
-int BinaryHeap::findElement(int index) {
-    if (index < heapSize) {
-        return root[index];
-    } else return false;
+int BinaryHeap::pop() {
+    if (size <= 0) {
+        return 0;
+    } else if (size == 1) {
+        size--;
+        return heap[0];
+    }
+
+    int root = heap[0];
+    heap[0] = heap[size - 1];
+    relocate(size - 1);
+    size--;
+    heapify(0);
+
+    return root;
 }
 
-/**
- * Find if value in heap exit, if so, then return index
- * @param value
- * @return
- */
-int BinaryHeap::findValue(int value) {
-    for (int i = 0; i < heapSize; ++i) {
-        if (root[i] == value) {
+void BinaryHeap::remove(int value) {
+    size_t key = find(value);
+    if (key == -1) {
+        std::cout << "Could not remove value: " << value << std::endl;
+        return;
+    }
+
+    increaseKey(key, INT_MAX);
+    pop();
+}
+
+void BinaryHeap::heapify(size_t index) {
+    size_t leftChild = getLeftChild(index);
+    size_t rightChild = getRightChild(index);
+    size_t biggest = index;
+
+    if (leftChild < size && heap[leftChild] > heap[biggest])
+        biggest = leftChild;
+    if (rightChild < size && heap[rightChild] > heap[biggest])
+        biggest = rightChild;
+    if (biggest != index) {
+        swap(&heap[index], &heap[biggest]);
+        heapify(biggest);
+    }
+}
+
+size_t BinaryHeap::find(int value) {
+    for (size_t i = 0; i < size; i++) {
+        if (heap[i] == value)
             return i;
-        }
     }
+
     return -1;
 }
-//-----------------Display heap------------------------------------------------
-/**
- * display heap, code from https://eduinf.waw.pl/inf/alg/001_search/0112.php
- */
+
 void BinaryHeap::display() {
     printRecursive("", "", 0);
-    cout << '\n';
+    std::cout << '\n';
 }
 
 /**
@@ -149,7 +141,7 @@ void BinaryHeap::display() {
  * @param index
  */
 void BinaryHeap::printRecursive(const string &sp, const string &sn, unsigned int index) {
-    if (index < heapSize) {
+    if (index < size) {
         string cr, cl, cp;
         cr = cl = cp = "  ";
         cr[0] = '*';
@@ -163,7 +155,7 @@ void BinaryHeap::printRecursive(const string &sp, const string &sn, unsigned int
         }
         printRecursive(s + cp, cr, 2 * index + 2);
         s = s.substr(0, sp.length() - 2);
-        cout << s << sn << root[index] << '\n';
+        std::cout << s << sn << heap[index] << '\n';
         s = sp;
         if (sn == cl) {
             s[s.length() - 2] = ' ';
@@ -171,4 +163,3 @@ void BinaryHeap::printRecursive(const string &sp, const string &sn, unsigned int
         printRecursive(s + cp, cl, 2 * index + 1);
     }
 }
-//-------------------------------------------------------------------------------

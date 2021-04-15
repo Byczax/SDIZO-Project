@@ -1,33 +1,42 @@
 #pragma once
 
-#include <string>
-
-using namespace std;
+#include <iostream>
+#include <iomanip>
 
 class BinaryHeap {
-    int heapSize;
-    int *root;
+    int *heap;
+    size_t capacity;
+    size_t size;
 
-    void fixDown(int index);
+    size_t getParent(size_t);
 
-    void fixUp(unsigned int index);
+    size_t getLeftChild(size_t);
 
-    void printRecursive(const string &sp, const string &sn, unsigned int index);
+    size_t getRightChild(size_t);
+
+    void relocate(size_t);
+
+    void swap(int *, int *);
+
+    void heapify(size_t);
+
+    void increaseKey(size_t, int);
 
 public:
-    BinaryHeap(const int *root, int heapSize);
+    BinaryHeap(const int *initRoot, int myHeapSize);
 
-    virtual ~BinaryHeap();
+    ~BinaryHeap();
 
-    void addElement(int value);
+    int pop();
 
-    void removeElement(unsigned int index);
+    void push(int);
 
-    void removeValue(int value);
+    void remove(int);
 
-    int findElement(int value);
+    size_t find(int);
 
     void display();
 
-    int findValue(int value);
+    void printRecursive(const std::string &sp, const std::string &sn, unsigned int index);
 };
+
