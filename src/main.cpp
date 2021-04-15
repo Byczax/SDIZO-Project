@@ -106,27 +106,42 @@ int *randomData(int amount) {
  * @param filename
  * @return
  */
+//int *getDataFromFile(const string &filename) {
+//    fstream file;
+//    file.open(filename, ios::in);
+//    int *array;
+//    string str;
+//    int number;
+//    if (file) {
+//        getline(file, str);
+//        number = stoi(str);
+//        array = new int[number + 1];
+//        array[0] = number;
+//        unsigned int i = 1;
+//        while (!file.eof()) {
+//            getline(file, str);
+//            number = stoi(str);
+//            array[i] = number;
+//            ++i;
+//        }
+//        file.close();
+//        return array;
+//    } else throw exception();
+//}
+
 int *getDataFromFile(const string &filename) {
-    fstream file;
-    file.open(filename, ios::in);
-    int *array;
-    string str;
-    int number;
-    if (file) {
-        getline(file, str);
-        number = stoi(str);
-        array = new int[number + 1];
-        array[0] = number;
-        unsigned int i = 1;
-        while (!file.eof()) {
-            getline(file, str);
-            number = stoi(str);
-            array[i] = number;
-            ++i;
-        }
-        file.close();
-        return array;
-    } else throw exception();
+    std::ifstream is(filename);
+    int value;
+    if (!(is >> value)) { throw exception(); }
+    auto data = new int[value + 1];
+    unsigned int i = 1;
+    data[0] = value;
+
+    while (is >> value) {
+        data[i] = value;
+        ++i;
+    }
+    return data;
 }
 
 void myArray() {
@@ -427,19 +442,19 @@ void binaryHeap() {
                 // Add an element to heap
                 cout << textGetValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { heap->addElement(value); }) << "\n";
+                cout << textOperation << Timer([&] { heap->push(value); }) << "\n";
                 break;
             case 5:
                 // Remove value from the heap
                 cout << textRemoveValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { heap->removeValue(value); }) << "\n";
+                cout << textOperation << Timer([&] { heap->remove(value); }) << "\n";
                 break;
             case 6:
                 // Find element in the heap
                 cout << textFindValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { intTemp = heap->findValue(value); }) << "\n";
+                cout << textOperation << Timer([&] { intTemp = heap->find(value); }) << "\n";
                 if (!intTemp) {
                     cout << intTemp << "\n";
                 } else {
@@ -519,7 +534,7 @@ void tree() {
                 cout << textOperation << Timer([&] { tree->removeValue(value); }) << "\n";
                 break;
             case 6:
-                cout <<textFindValue;
+                cout << textFindValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { tree->findGivenNumber(value); }) << "\n";
                 break;
@@ -594,7 +609,7 @@ void avltree() {
                 cout << textOperation << Timer([&] { avlTree->removeValue(value); }) << "\n";
                 break;
             case 6:
-                cout <<textFindValue;
+                cout << textFindValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { avlTree->findValue(value); }) << "\n";
                 break;
