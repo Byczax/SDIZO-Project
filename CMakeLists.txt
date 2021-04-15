@@ -14,4 +14,5 @@ add_executable(sdizo1
         src/BinaryHeap.h
         src/RedBlackTree.cpp
         src/RedBlackTree.h
-        src/AVLTree.cpp src/AVLTree.h)
+        src/AVLTree.cpp
+        src/AVLTree.h)
