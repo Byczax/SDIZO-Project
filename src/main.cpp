@@ -615,6 +615,7 @@ void avltree() {
                 break;
             case 7:
                 avlTree->display2();
+                break;
             default:
                 cout << textErrorChoice;
                 break;
@@ -657,6 +658,7 @@ int main() {
                 break;
             case 5:
                 avltree();
+                break;
             default:
                 cout << textErrorChoice;
                 break;
