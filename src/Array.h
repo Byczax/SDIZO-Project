@@ -3,8 +3,10 @@
 class Array {
     int *array; // pointer on first element
     int size; // array length
+
+
 public:
-    explicit Array(const int *initArray, int size);
+    explicit Array(const int *initArray = nullptr, int size = 0);
 
     virtual ~Array();
 

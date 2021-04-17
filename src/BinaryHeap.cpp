@@ -2,6 +2,11 @@
 
 using std::string;
 
+/**
+ * Concstructor
+ * @param initRoot
+ * @param myHeapSize
+ */
 BinaryHeap::BinaryHeap(const int *initRoot, int myHeapSize) {
     size = myHeapSize;
     heap = new int[size];
@@ -16,48 +21,55 @@ BinaryHeap::BinaryHeap(const int *initRoot, int myHeapSize) {
         } while (i);
     }
 }
+
 /**
- * Delete binaryHeap
+ * Deconstructor
  */
 BinaryHeap::~BinaryHeap() {
     delete[] heap;
-    size = 0;
 }
 
-size_t BinaryHeap::getParent(size_t index) {
+int BinaryHeap::getParent(int index) {
     return (index - 1) / 2;
 }
 
-size_t BinaryHeap::getLeftChild(size_t index) {
+int BinaryHeap::getLeftChild(int index) {
     return (2 * index + 1);
 }
 
-size_t BinaryHeap::getRightChild(size_t index) {
+int BinaryHeap::getRightChild(int index) {
     return (2 * index + 2);
 }
 
-void BinaryHeap::relocate(size_t newSize) {
+void BinaryHeap::relocate(int newSize) {
     int *temp = new int[newSize];
     if (newSize >= size) {
-        for (size_t i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             temp[i] = heap[i];
         }
     } else {
-        for (size_t i = 0; i < newSize; i++) {
+        for (int i = 0; i < newSize; i++) {
             temp[i] = heap[i];
         }
     }
-    delete heap;
+    delete[] heap;
     heap = temp;
 }
-
+/**
+ * Swap elements
+ * @param x
+ * @param y
+ */
 void BinaryHeap::swap(int *x, int *y) {
     int temp = *x;
     *x = *y;
     *y = temp;
 }
-
-void BinaryHeap::push(int key) {
+/**
+ * Add element to heap
+ * @param key
+ */
+void BinaryHeap::addValue(int key) {
     relocate(size + 1);
     size++;
     int i = size - 1;
@@ -69,15 +81,18 @@ void BinaryHeap::push(int key) {
     }
 }
 
-void BinaryHeap::increaseKey(size_t index, int newValue) {
-    heap[index] = newValue;
+void BinaryHeap::increaseKey(int index) {
+    heap[index] = INT_MAX;
     while (index != 0 && heap[getParent(index)] < heap[index]) {
         swap(&heap[index], &heap[getParent(index)]);
         index = getParent(index);
     }
 }
-
-int BinaryHeap::pop() {
+/**
+ * Remove element from heap
+ * @return
+ */
+int BinaryHeap::removeIndex() {
     if (size <= 0) {
         return 0;
     } else if (size == 1) {
@@ -93,22 +108,28 @@ int BinaryHeap::pop() {
 
     return root;
 }
-
-void BinaryHeap::remove(int value) {
-    size_t key = find(value);
+/**
+ * Remove value from heap
+ * @param value
+ */
+void BinaryHeap::removeValue(int value) {
+    int key = findValue(value);
     if (key == -1) {
-        std::cout << "Could not remove value: " << value << std::endl;
+        std::cout << "Could not remove value: " << value << "\n";
         return;
     }
-
-    increaseKey(key, INT_MAX);
-    pop();
+    increaseKey(key);
+    removeIndex();
 }
 
-void BinaryHeap::heapify(size_t index) {
-    size_t leftChild = getLeftChild(index);
-    size_t rightChild = getRightChild(index);
-    size_t biggest = index;
+/**
+ * Fix heap
+ * @param index
+ */
+void BinaryHeap::heapify(int index) {
+    int leftChild = getLeftChild(index);
+    int rightChild = getRightChild(index);
+    int biggest = index;
 
     if (leftChild < size && heap[leftChild] > heap[biggest])
         biggest = leftChild;
@@ -120,15 +141,23 @@ void BinaryHeap::heapify(size_t index) {
     }
 }
 
-size_t BinaryHeap::find(int value) {
-    for (size_t i = 0; i < size; i++) {
+/**
+ * Find value in heap
+ * @param value
+ * @return
+ */
+int BinaryHeap::findValue(int value) {
+    for (int i = 0; i < size; i++) {
         if (heap[i] == value)
             return i;
     }
-
     return -1;
 }
+//-----------------Display heap------------------------------------------------
 
+/**
+ * display heap, code from https://eduinf.waw.pl/inf/alg/001_search/0112.php
+ */
 void BinaryHeap::display() {
     printRecursive("", "", 0);
     std::cout << '\n';
@@ -163,3 +192,4 @@ void BinaryHeap::printRecursive(const string &sp, const string &sn, unsigned int
         printRecursive(s + cp, cl, 2 * index + 1);
     }
 }
+//-------------------------------------------------------------------------------

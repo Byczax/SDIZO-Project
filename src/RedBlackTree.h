@@ -23,20 +23,11 @@ class RedBlackTree {
     TreeNode *nil;
     TreeNode *root;
 
-public:
-    RedBlackTree(const int *array, int arraySize);
-
-    virtual ~RedBlackTree();
-
-    void addElement(int value);
-
     void addFixTree(TreeNode *z);
 
     void rotateLeft(TreeNode *a);
 
     void rotateRight(TreeNode *a);
-
-    bool removeValue(int value);
 
     void removeGivenElement(TreeNode *node);
 
@@ -44,9 +35,18 @@ public:
 
     void printRecursive(const std::string &sp, const std::string &sn, TreeNode *node);
 
-    bool findGivenNumber(int number);
+    void removeNodeFromMemory(TreeNode *node);
+
+public:
+    RedBlackTree(const int *array = nullptr, int arraySize = 0);
+
+    virtual ~RedBlackTree();
+
+    void addValue(int value);
+
+    bool removeValue(int value);
+
+    bool findValue(int value);
 
     void display();
-
-    void removeNodeFromMemory(TreeNode *node);
 };

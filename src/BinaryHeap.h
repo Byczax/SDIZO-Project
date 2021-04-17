@@ -5,38 +5,37 @@
 
 class BinaryHeap {
     int *heap;
-    size_t capacity;
-    size_t size;
+    int capacity;
+    int size;
 
-    size_t getParent(size_t);
+    int getParent(int);
 
-    size_t getLeftChild(size_t);
+    int getLeftChild(int);
 
-    size_t getRightChild(size_t);
+    int getRightChild(int);
 
-    void relocate(size_t);
+    void relocate(int);
 
     void swap(int *, int *);
 
-    void heapify(size_t);
+    void heapify(int);
 
-    void increaseKey(size_t, int);
+    void increaseKey(int);
+
+    void printRecursive(const std::string &sp, const std::string &sn, unsigned int index);
+
+    int removeIndex();
 
 public:
-    BinaryHeap(const int *initRoot, int myHeapSize);
+    BinaryHeap(const int *initRoot = nullptr, int myHeapSize = 0);
 
     ~BinaryHeap();
 
-    int pop();
+    void addValue(int);
 
-    void push(int);
+    void removeValue(int);
 
-    void remove(int);
-
-    size_t find(int);
+    int findValue(int);
 
     void display();
-
-    void printRecursive(const std::string &sp, const std::string &sn, unsigned int index);
 };
-

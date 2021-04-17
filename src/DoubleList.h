@@ -10,8 +10,11 @@ public:
 class DoubleList {
     ListNode *first_element = nullptr;
     int size = 0;
+
 public:
-    DoubleList(int *array, int arraySize);
+    DoubleList(int *array = nullptr, int arraySize = 0);
+
+    virtual ~DoubleList();
 
     void addElementFront(int value);
 
@@ -30,6 +33,4 @@ public:
     ListNode *findValue(int value);
 
     void display();
-
-    virtual ~DoubleList();
 };

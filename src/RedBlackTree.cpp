@@ -3,6 +3,14 @@
 
 using namespace std;
 
+/**
+ * Node constructor
+ * @param val
+ * @param p
+ * @param l
+ * @param r
+ * @param givenColor
+ */
 TreeNode::TreeNode(int val, TreeNode *p, TreeNode *l, TreeNode *r, nodeColor givenColor) {
     value = val;
     parent = p;
@@ -11,7 +19,11 @@ TreeNode::TreeNode(int val, TreeNode *p, TreeNode *l, TreeNode *r, nodeColor giv
     color = givenColor;
 }
 
-
+/**
+ * Tree constructor
+ * @param array
+ * @param arraySize
+ */
 RedBlackTree::RedBlackTree(const int *array, int arraySize) {
     nil = new TreeNode(0, nullptr, nullptr, nullptr, BLACK);
     nil->parent = nil;
@@ -19,18 +31,22 @@ RedBlackTree::RedBlackTree(const int *array, int arraySize) {
     nil->right = nil;
     root = nil;
     for (unsigned int i = 0; i < arraySize; ++i) {
-        addElement(array[i]);
+        addValue(array[i]);
     }
 }
 
 /**
- * destruktor
+ * destructor
  */
 RedBlackTree::~RedBlackTree() {
     removeNodeFromMemory(root);
     delete nil;
 }
 
+/**
+ * Remove node from tree memory
+ * @param node
+ */
 void RedBlackTree::removeNodeFromMemory(TreeNode *node) {
     if (node == nil)
         return;
@@ -40,10 +56,10 @@ void RedBlackTree::removeNodeFromMemory(TreeNode *node) {
 }
 
 /**
-     * dodanie liczby do drzewa - algorytm - Cormen - wprowadzenie do algorytmów 13.3
+     * add value to tree - algorytm - Cormen - wprowadzenie do algorytmów 13.3
      * @param value
      */
-void RedBlackTree::addElement(int value) {
+void RedBlackTree::addValue(int value) {
     TreeNode *y = nil;
     TreeNode *x = root;
     while (x != nil) {
@@ -63,7 +79,7 @@ void RedBlackTree::addElement(int value) {
 }
 
 /**
-     * naprawianie właściwości drzewa czerwono-czarnego po dodaniu do niego liczby - algorytm - Cormen - wprowadzenie do algorytmów 13.3
+     * Fixing the properties of a red-black tree when a number is added to it  - algorithm - Cormen - wprowadzenie do algorytmów 13.3
      * @param z
      */
 void RedBlackTree::addFixTree(TreeNode *z) {
@@ -104,7 +120,7 @@ void RedBlackTree::addFixTree(TreeNode *z) {
             }
         }
     }
-//        ważne, bo korzeń po operacjach wyżej może już nie być aktualnym korzeniem
+    // fix root
     while (root->parent != nil) {
         root = root->parent;
     }
@@ -112,7 +128,7 @@ void RedBlackTree::addFixTree(TreeNode *z) {
 }
 
 /**
-     * rotacja danego węzła w lewo, jeśli jest możliwa
+     * node rotation to left
      * @param a
      */
 void RedBlackTree::rotateLeft(TreeNode *a) {
@@ -139,7 +155,7 @@ void RedBlackTree::rotateLeft(TreeNode *a) {
 }
 
 /**
- * rotacja danego węzła w prawo, jeśli jest możliwa
+ * node rotation to right
  * @param a
  */
 void RedBlackTree::rotateRight(TreeNode *a) {
@@ -165,6 +181,11 @@ void RedBlackTree::rotateRight(TreeNode *a) {
     }
 }
 
+/**
+ * Remove value from tree
+ * @param value
+ * @return
+ */
 bool RedBlackTree::removeValue(int value) {
     TreeNode *temp = root;
     while (temp != nil) {
@@ -181,12 +202,15 @@ bool RedBlackTree::removeValue(int value) {
     return false;
 }
 
+/**
+ * Remove node from tree
+ * @param node
+ */
 void RedBlackTree::removeGivenElement(TreeNode *node) {
     TreeNode *y;
     if (node->left == nil || node->right == nil)
         y = node;
     else {
-        //node ma dwóch potomków, y będzie następnikiem node
         y = node->right;
         while (y->left != nil)
             y = y->left;
@@ -204,7 +228,7 @@ void RedBlackTree::removeGivenElement(TreeNode *node) {
         node->value = y->value;
     if (y->color == BLACK)
         removeFixTree(x);
-    //usunięcie odniesienia do danego elementu u rodzica usuwanego elementu
+    //remove the reference to the element in the parent of the element to be removed
     TreeNode *deletedParentNode = y->parent;
     if (deletedParentNode->left == y)
         deletedParentNode->left = nil;
@@ -264,13 +288,18 @@ void RedBlackTree::removeFixTree(TreeNode *node) {
     node->color = BLACK;
 }
 
-bool RedBlackTree::findGivenNumber(int number) {
+/**
+ * Find value in tree
+ * @param value
+ * @return
+ */
+bool RedBlackTree::findValue(int value) {
     TreeNode *temp = root;
     while (temp != nil) {
-        if (number == temp->value)
+        if (value == temp->value)
             return true;
         else {
-            if (number < temp->value)
+            if (value < temp->value)
                 temp = temp->left;
             else
                 temp = temp->right;
@@ -278,12 +307,22 @@ bool RedBlackTree::findGivenNumber(int number) {
     }
     return false;
 }
+//-----------------Display tree------------------------------------------------
 
+/**
+ * display tree, code from https://eduinf.waw.pl/inf/alg/001_search/0112.php
+ */
 void RedBlackTree::display() {
     printRecursive("", "", root);
     cout << '\n';
 }
 
+/**
+ * help function
+ * @param sp
+ * @param sn
+ * @param index
+ */
 void RedBlackTree::printRecursive(const string &sp, const string &sn, TreeNode *node) {
     if (node != nil) {
         string cr, cl, cp;
@@ -298,7 +337,7 @@ void RedBlackTree::printRecursive(const string &sp, const string &sn, TreeNode *
             s[s.length() - 2] = ' ';
         printRecursive(s + cp, cr, node->right);
         s = s.substr(0, sp.length() - 2);
-        string value = (node->color == RED) ? to_string(node->value) + "R" : to_string(node->value) + "B";
+        string value = (node->color == RED) ? to_string(node->value) + "(R)" : to_string(node->value) + "(B)";
         cout << s << sn << value << '\n';
         s = sp;
         if (sn == cl)
@@ -306,3 +345,4 @@ void RedBlackTree::printRecursive(const string &sp, const string &sn, TreeNode *
         printRecursive(s + cp, cl, node->left);
     }
 }
+//-------------------------------------------------------------------------------

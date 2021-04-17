@@ -5,28 +5,18 @@
 class AVLTree {
     class AVLTreeNode {
     public:
-        int data;
+        int value;
         AVLTreeNode *left;
         AVLTreeNode *right;
         int balance;
 
-        AVLTreeNode();
-
-        AVLTreeNode(int);
+        AVLTreeNode(int value = NULL);
 
         ~AVLTreeNode();
-
-        void display(int = 0);
     };
 
     AVLTreeNode *root;
     AVLTreeNode *nil;
-
-    void preorderBST(AVLTreeNode *);
-
-    void inorderBST(AVLTreeNode *);
-
-    void postorderBST(AVLTreeNode *);
 
     void deleteNode(AVLTreeNode *&);
 
@@ -44,8 +34,10 @@ class AVLTree {
 
     int getMin(AVLTreeNode *);
 
+    void printRecursive(const std::string &sp, const std::string &sn, AVLTreeNode *node);
+
 public:
-    AVLTree(const int *array, int arraySize);
+    AVLTree(const int *array = nullptr, int arraySize = 0);
 
     ~AVLTree();
 
@@ -55,17 +47,5 @@ public:
 
     AVLTreeNode *findValue(int);
 
-    void preorder();
-
-    void inorder();
-
-    void postorder();
-
     void display();
-
-    void printRecursive(const std::basic_string<char, std::char_traits<char>, std::allocator<char>> &sp,
-                        const std::basic_string<char, std::char_traits<char>, std::allocator<char>> &sn,
-                        AVLTreeNode *node);
-
-    void display2();
 };

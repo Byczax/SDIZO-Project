@@ -1,7 +1,11 @@
 #include <iostream>
 #include "Array.h"
 
-
+/**
+ * Constructor
+ * @param initArray
+ * @param mySize
+ */
 Array::Array(const int *initArray, int mySize) {
     array = new int[mySize];
     size = mySize;
@@ -10,6 +14,9 @@ Array::Array(const int *initArray, int mySize) {
     }
 }
 
+/**
+ * Desctructor
+ */
 Array::~Array() {
     delete[] array;
 }
@@ -102,7 +109,7 @@ void Array::removeElementBack() {
  * @param index
  */
 void Array::removeElementAnywhere(unsigned int index) {
-    if (size > 0 && index <= size && index > 0) {
+    if (size > 0 && index < size && index > 0) {
         --size;
         int *newArray = new int[size];
         unsigned int i;
@@ -141,6 +148,11 @@ int Array::findValue(int value) {
     return -1;
 }
 
+/**
+ * Get value from index
+ * @param index
+ * @return
+ */
 int Array::getIndexValue(unsigned int index) {
     if (index >= 0 && index < size) {
         return array[index];
@@ -152,8 +164,6 @@ int Array::getIndexValue(unsigned int index) {
  */
 void Array::display() {
     for (int i = 0; i < size; ++i) {
-        std::cout << i << ". " << array[i] << "\n";
+        std::cout << array[i] << "\n";
     }
 }
-
-

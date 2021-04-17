@@ -3,13 +3,19 @@
 
 using namespace std;
 
-
+/**
+ * Constructor
+ * @param array
+ * @param arraySize
+ */
 DoubleList::DoubleList(int *array, int arraySize) {
     for (int i = 0; i < arraySize; ++i) {
         addElementBack(array[i]);
     }
 }
-
+/**
+ * Desctructor
+ */
 DoubleList::~DoubleList() {
     while (first_element != nullptr) {
         removeElementFront();
@@ -168,7 +174,7 @@ void DoubleList::removeValue(int value) {
  */
 ListNode *DoubleList::findValue(int value) {
     ListNode *temp = this->first_element;
-    while (temp->next != nullptr) {
+    while (temp != nullptr && temp->next != nullptr) {
         if (temp->value == value) {
             return temp;
         }

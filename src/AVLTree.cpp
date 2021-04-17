@@ -1,43 +1,33 @@
 #include "AVLTree.h"
 #include <iostream>
-#include <iomanip>
 
-using namespace std;
+using std::string;
+using std::cout;
 
-AVLTree::AVLTreeNode::AVLTreeNode() {
-}
-
-AVLTree::AVLTreeNode::AVLTreeNode(int _data) {
-    data = _data;
+/**
+ * Node constructor
+ * @param val
+ */
+AVLTree::AVLTreeNode::AVLTreeNode(int val) {
+    value = val;
     left = right = nullptr;
     balance = 0;
 }
 
+/**
+ * Node deconstructor
+ */
 AVLTree::AVLTreeNode::~AVLTreeNode() {
-    data = 0;
+    value = 0;
     left = right = nullptr;
     balance = 0;
-}
-
-void AVLTree::AVLTreeNode::display(int offset) {
-    bool isNil = false;
-
-    if (this == this->left && this->left == this->right)
-        isNil = true;
-
-    if (isNil)
-        return;
-
-    if (right) right->display(5 + offset);
-    std::cout << std::setw(offset) << data << "(" << balance << ")" << std::endl;
-    if (left) left->display(5 + offset);
 }
 
 AVLTree::AVLTree(const int *array, int arraySize) {
     nil = new AVLTreeNode();
-    nil->left = nil;
-    nil->right = nil;
-    nil->balance = 0;
+//    nil->left = nil;
+//    nil->right = nil;
+//    nil->balance = 0;
     root = nil;
     for (int i = 0; i < arraySize; ++i) {
         this->addValue(array[i]);
@@ -69,6 +59,10 @@ void AVLTree::deleteNode(AVLTreeNode *&node) {
     delete node;
 }
 
+/**
+ * Rotate node to left
+ * @param node
+ */
 void AVLTree::rotateRight(AVLTreeNode *&node) {
     AVLTreeNode *x = node;
     AVLTreeNode *y = node->left;
@@ -84,6 +78,10 @@ void AVLTree::rotateRight(AVLTreeNode *&node) {
     if (x->balance > 0) y->balance += x->balance;
 }
 
+/**
+ * Rotate node to left
+ * @param node
+ */
 void AVLTree::rotateLeft(AVLTreeNode *&node) {
     AVLTreeNode *x = node;
     AVLTreeNode *y = node->right;
@@ -99,6 +97,11 @@ void AVLTree::rotateLeft(AVLTreeNode *&node) {
     if (x->balance < 0) y->balance -= -x->balance;
 }
 
+/**
+ * Incremente balance of the node
+ * @param node
+ * @return
+ */
 bool AVLTree::incrementBalance(AVLTreeNode *&node) {
     node->balance++;
 
@@ -120,6 +123,11 @@ bool AVLTree::incrementBalance(AVLTreeNode *&node) {
     return true;
 }
 
+/**
+ * Decremente balance of the node
+ * @param node
+ * @return
+ */
 bool AVLTree::decrementBalance(AVLTreeNode *&node) {
     node->balance--;
 
@@ -132,45 +140,56 @@ bool AVLTree::decrementBalance(AVLTreeNode *&node) {
     if (node->balance == -2) {
         if (node->left->balance == 1)
             rotateLeft(node->left);
-
         rotateRight(node);
-
         return false;
     }
-
     return true;
 }
 
+/**
+ * Insert value in tree
+ * @param data
+ * @param node
+ * @return
+ */
 bool AVLTree::insertValue(int data, AVLTreeNode *&node) {
     if (node == nil) {
         node = new AVLTreeNode(data);
         node->left = nil;
         node->right = nil;
         return true;
-    } else if (data > node->data) {
+    } else if (data > node->value) {
         return insertValue(data, node->right) && incrementBalance(node);
-    } else if (data < node->data) {
+    } else if (data < node->value) {
         return insertValue(data, node->left) && decrementBalance(node);
     }
-
     return false;
 }
 
+/**
+ * Return minimal value in tree
+ * @param node
+ * @return
+ */
 int AVLTree::getMin(AVLTreeNode *node) {
     AVLTreeNode *temp = node;
-
     while (temp->left != nil)
         temp = temp->left;
-
-    return temp->data;
+    return temp->value;
 }
 
+/**
+ * Remove value from the tree
+ * @param data
+ * @param node
+ * @return
+ */
 bool AVLTree::removeValue(int data, AVLTreeNode *&node) {
     if (node == nil)
         return false;
-    else if (node->data < data)
+    else if (node->value < data)
         return removeValue(data, node->right) && !decrementBalance(node);
-    else if (node->data > data)
+    else if (node->value > data)
         return removeValue(data, node->left) && !incrementBalance(node);
     else {
         if (node->left == nil && node->right == nil) {
@@ -182,7 +201,7 @@ bool AVLTree::removeValue(int data, AVLTreeNode *&node) {
             int minNodeValue = getMin(node->right);
 
             bool isHeightChanged = removeValue(minNodeValue, node);
-            currentNode->data = minNodeValue;
+            currentNode->value = minNodeValue;
 
             return isHeightChanged;
         } else {
@@ -203,13 +222,18 @@ bool AVLTree::removeValue(int data, AVLTreeNode *&node) {
     }
 }
 
-AVLTree::AVLTreeNode *AVLTree::findValue(int data) {
+/**
+ * Find value in tree
+ * @param value
+ * @return
+ */
+AVLTree::AVLTreeNode *AVLTree::findValue(int value) {
     AVLTreeNode *node = root;
 
     while (node != nil) {
-        if (node->data > data) {
+        if (node->value > value) {
             node = node->left;
-        } else if (node->data < data) {
+        } else if (node->value < value) {
             node = node->right;
         } else {
             return node;
@@ -218,56 +242,22 @@ AVLTree::AVLTreeNode *AVLTree::findValue(int data) {
 
     return nullptr;
 }
+//-----------------Display tree------------------------------------------------
 
-void AVLTree::preorder() {
-    preorderBST(root);
-}
-
-void AVLTree::preorderBST(AVLTreeNode *node) {
-    if (node == nil)
-        return;
-
-    std::cout << node->data << std::endl;
-    preorderBST(node->left);
-    preorderBST(node->right);
-}
-
-void AVLTree::inorder() {
-    inorderBST(root);
-}
-
-void AVLTree::inorderBST(AVLTreeNode *node) {
-    if (node == nil)
-        return;
-
-    inorderBST(node->left);
-    std::cout << node->data << std::endl;
-    inorderBST(node->right);
-}
-
-void AVLTree::postorder() {
-    postorderBST(root);
-}
-
-void AVLTree::postorderBST(AVLTreeNode *node) {
-    if (node == nil)
-        return;
-
-    postorderBST(node->left);
-    postorderBST(node->right);
-    std::cout << node->data << std::endl;
-}
-
+/**
+ * display tree, code from https://eduinf.waw.pl/inf/alg/001_search/0112.php
+ */
 void AVLTree::display() {
-    if (root != nil)
-        root->display();
-}
-
-void AVLTree::display2() {
     printRecursive("", "", root);
     cout << '\n';
 }
 
+/**
+ * help function
+ * @param sp
+ * @param sn
+ * @param index
+ */
 void AVLTree::printRecursive(const string &sp, const string &sn, AVLTreeNode *node) {
     if (node != nil) {
         string cr, cl, cp;
@@ -277,16 +267,16 @@ void AVLTree::printRecursive(const string &sp, const string &sn, AVLTreeNode *no
         cl[0] = '+';
         cl[1] = '-';
         cp[0] = '|';
-        string s = sp; //"tekst do wyświetlenia w wierszach pośrednich dla synów"
+        string s = sp;
         if (sn == cr)
             s[s.length() - 2] = ' ';
         printRecursive(s + cp, cr, node->right);
         s = s.substr(0, sp.length() - 2);
-//        string value = node->balance;
-        cout << s << sn << "(" << node->balance << ")" << '\n';
+        cout << s << sn << node->value << "(" << node->balance << ")" << '\n';
         s = sp;
         if (sn == cl)
             s[s.length() - 2] = ' ';
         printRecursive(s + cp, cl, node->left);
     }
 }
+//-------------------------------------------------------------------------------
