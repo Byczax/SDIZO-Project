@@ -12,8 +12,8 @@ using std::cout;
 using std::string;
 using std::ofstream;
 
-int startElementQuantity = 1000;
-int stopQuantity = 10000;
+int startElementQuantity = 10;
+int stopQuantity = 100;
 int *data;
 
 void addCounter(int i) {
@@ -34,7 +34,7 @@ void testAdding(string phase, T1 function, string filename, T2 findFunction, ofs
     ofstream file;
     file.open(filename);
     cout << phase;
-    for (int i = startElementQuantity; i <= stopQuantity + 1; ++i) {
+    for (int i = startElementQuantity; i <= stopQuantity; ++i) {
         addCounter(i);
         file << i << "," << Timer([&] { function(); }) << "\n";
         findFile << i << "," << Timer([&] { findFunction(); }) << "\n";
@@ -97,30 +97,30 @@ void removeBackFunction(T structure, string filename, ofstream &findFile) {
 
 template<typename T>
 void addMiddleFunction(T structure, string filename, ofstream &findFile) {
-    ofstream ArrayFile;
-    ArrayFile.open(filename);
+    ofstream saveFile;
+    saveFile.open(filename);
     cout << "phase 5. adding elements middle \n";
     for (int i = startElementQuantity; i <= stopQuantity; ++i) {
         addCounter(i);
-        ArrayFile << i << "," << Timer([&] { structure->addElementAnywhere(Essentials::randomValue(), i / 2); })
+        saveFile << i << "," << Timer([&] { structure->addElementAnywhere(Essentials::randomValue(), i / 2); })
                   << "\n";
         findFile << i << "," << Timer([&] { structure->findValue(Essentials::randomValue()); }) << "\n";
     }
-    ArrayFile.close();
+    saveFile.close();
 }
 
 template<typename T>
 void removeMiddleFunction(T structure, string filename, ofstream &findFile) {
-    ofstream ArrayFile;
-    ArrayFile.open(filename);
-    cout << "phase 5. adding elements middle \n";
+    ofstream saveFile;
+    saveFile.open(filename);
+    cout << "phase 5. removing elements middle \n";
     // adding to middle and finding elements
-    for (int i = startElementQuantity; i <= stopQuantity; ++i) {
+    for (int i = stopQuantity; i >= startElementQuantity; --i)  {
         removeCounter(i);
-        ArrayFile << i << "," << Timer([&] { structure->removeElementAnywhere(i / 2); }) << "\n";
+        saveFile << i << "," << Timer([&] { structure->removeElementAnywhere(i / 2); }) << "\n";
         findFile << i << "," << Timer([&] { structure->findValue(Essentials::randomValue()); }) << "\n";
     }
-    ArrayFile.close();
+    saveFile.close();
 }
 
 template<typename T>
