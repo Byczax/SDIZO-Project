@@ -4,7 +4,6 @@ project(sdizo1)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(sdizo1
-        src/single_list.cpp
         src/DoubleList.cpp
         src/main.cpp
         src/DoubleList.h
@@ -15,4 +14,10 @@ add_executable(sdizo1
         src/RedBlackTree.cpp
         src/RedBlackTree.h
         src/AVLTree.cpp
-        src/AVLTree.h)
+        src/AVLTree.h
+        src/AutomatedTest.cpp
+        src/AutomatedTest.h
+        src/ManualTest.cpp
+        src/ManualTest.h
+        src/Essentials.cpp
+        src/Essentials.h)
