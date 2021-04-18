@@ -14,20 +14,9 @@ def read_text_file(filepath):
             list_time.append(par[1])
         list_time = [round(q, 1) for q in statistics.quantiles(list_time, n=10)]
         list_quantity = [round(q, 1) for q in statistics.quantiles(list_quantity, n=10)]
-        # wanted_values = [1000, 5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000]
-        # print(graph_name)
-        # list_time2 = list(list_time)
-        # print(list_time)
-        # print(list_quantity)
         pars = []
         for i in range(0, 9):
-            # print(list_time[i])
             pars.append([list_quantity[i], list_time[i]])
-        # for element in wanted_values:
-        # print([list_quantity[element], list_time[element]])
-        # print(graph_name)
-        # for par in pars:
-        # print(par)
         draw_graph([list_quantity, list_time], graph_name)
 
 
@@ -42,8 +31,8 @@ def draw_graph(data, graph_name):
     plt.xlabel("Element quantity")
     plt.grid(True, color="lightgrey", alpha=0.5)
     save_path = graph_name + ".png"
-    plt.savefig(save_path)
-    # plt.show()
+    plt.savefig(save_path)  # save plot to file
+    plt.show()  # show plots in IDE
 
 
 if __name__ == '__main__':
