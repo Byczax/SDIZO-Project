@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include<direct.h>
+#include <filesystem>
 
 #include "ManualTest.h"
 #include "AutomatedTest.h"
@@ -8,14 +8,15 @@
 using std::cout;
 using std::cin;
 using std::string;
+using namespace std::filesystem;
 
 void createResultsFolders() {
-    _mkdir("results");
-    _mkdir("results/array");
-    _mkdir("results/doubleList");
-    _mkdir("results/binaryHeap");
-    _mkdir("results/RBTree");
-    _mkdir("results/AVLTree");
+    create_directory("results");
+    create_directory("results/array");
+    create_directory("results/doubleList");
+    create_directory("results/binaryHeap");
+    create_directory("results/RBTree");
+    create_directory("results/AVLTree");
 }
 
 /**
