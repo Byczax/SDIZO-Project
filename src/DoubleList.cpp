@@ -27,10 +27,11 @@ DoubleList::~DoubleList() {
  * @param value
  */
 void DoubleList::addElementFront(int value) {
-    size++;
-    ListNode *temp = new ListNode{value, this->first_element, this->first_element->next};
+    ++size;
+    ListNode *temp = new ListNode{value, nullptr, this->first_element};
+    this->first_element->prev = temp;
+    temp->next = this->first_element;
     this->first_element = temp;
-    temp->prev = this->first_element;
 }
 
 /**
