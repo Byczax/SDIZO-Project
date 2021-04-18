@@ -97,7 +97,7 @@ Rozważanymi zasobami są głównie:
 
 ### Pomiary czasowe
 
-Pomiar czasowe były mierzone w **nanosekundach** $(1 [ns] = 1 · 10−9
+Pomiar czasowe były mierzone w **nanosekundach** $(1 [ns] = 1 · 10-9
 [s])$ za pomocą następującej funkcji:
 
 ```cpp
@@ -133,31 +133,31 @@ return elapsed_time;// Return executing time in nanoseconds
 
 #### Wykres dodawania elementu z przodu tablicy
 
-![arrayAddFront](images\array\ArrayAddFront.svg)
+![arrayAddFront](images\array\ArrayAddFront.png)
 
 #### Wykres dodawania elementu z tyłu tablicy
 
-![arrayAddBack](images\array\ArrayAddBack.svg)
+![arrayAddBack](images\array\ArrayAddBack.png)
 
 #### Wykres dodawania elementu w środku tablicy
 
-![arrayAddAnywhere](images\array\ArrayAddMiddle.svg)
+![arrayAddAnywhere](images\array\ArrayAddMiddle.png)
 
 #### Wykres usuwania elementu z przodu tablicy
 
-![arrayRemoveFront](images\array\ArrayRemoveFront.svg)
+![arrayRemoveFront](images\array\ArrayRemoveFront.png)
 
 #### Wykres usuwania elementu z tyłu tablicy
 
-![arrayRemoveBack](images\array\ArrayRemoveBack.svg)
+![arrayRemoveBack](images\array\ArrayRemoveBack.png)
 
 #### Wykres usuwania elementu w środku tablicy
 
-![arrayRemoveAnywhere](images\array\ArrayRemoveMiddle.svg)
+![arrayRemoveAnywhere](images\array\ArrayRemoveMiddle.png)
 
 #### Wykres znajdowania elementu w tablicy
 
-![arrayFind](images\array\ArrayRemoveMiddle.svg)
+![arrayFind](images\array\ArrayRemoveMiddle.png)
 
 #### Wnioski na temat tablicy
 
@@ -183,31 +183,31 @@ znajdowanie elementu zależy od wielkości tej struktury. Wykresy są w większo
 
 #### Wykres dodawania elementu z przodu listy
 
-![listAddFront](images\doubleList\DoubleListAddFront.svg)
+![listAddFront](images\doubleList\DoubleListAddFront.png)
 
 #### Wykres dodawania elementu z tyłu listy
 
-![listAddBack](images\doubleList\DoubleListAddBack.svg)
+![listAddBack](images\doubleList\DoubleListAddBack.png)
 
 #### Wykres dodawania elementu w środku listy
 
-![listAddAnywhere](images\doubleList\DoubleListAddMiddle.svg)
+![listAddAnywhere](images\doubleList\DoubleListAddMiddle.png)
 
 #### Wykres usuwania elementu z przodu listy
 
-![listRemoveFront](images\doubleList\DoubleListRemoveFront.svg)
+![listRemoveFront](images\doubleList\DoubleListRemoveFront.png)
 
 #### Wykres usuwania elementu z tyłu listy
 
-![listRemoveBack](images\doubleList\DoubleListRemoveBack.svg)
+![listRemoveBack](images\doubleList\DoubleListRemoveBack.png)
 
 #### Wykres usuwania elementu w środku listy
 
-![listRemoveAnywhere](images\doubleList\DoubleListRemoveMiddle.svg)
+![listRemoveAnywhere](images\doubleList\DoubleListRemoveMiddle.png)
 
 #### Wykres znajdowania elementu w liście
 
-![listFind](images\doubleList\DoubleListFind.svg)
+![listFind](images\doubleList\DoubleListFind.png)
 
 #### Wnioski na temat listy
 
@@ -232,15 +232,15 @@ coś tu będzie.
 
 #### Dodawanie elementu w kopcu
 
-![heapAdd](images\binaryHeap\BinaryHeapAddValue.svg)
+![heapAdd](images\binaryHeap\BinaryHeapAddValue.png)
 
 #### Usuwanie elementu w kopcu
 
-![heapRemove](images\binaryHeap\BinaryHeapRemoveValue.svg)
+![heapRemove](images\binaryHeap\BinaryHeapRemoveValue.png)
 
 #### Znajdowanie elementu w kopcu
 
-![heapFind](images\binaryHeap\BinaryHeapFind.svg)
+![heapFind](images\binaryHeap\BinaryHeapFind.png)
 
 ### Pomiary drzewa czerwono-czarnego
 
@@ -261,15 +261,15 @@ coś tu będzie.
 
 #### Dodawanie elementu w drzewie
 
-![treeAdd](images\RBTree\RBTreeAddValue.svg)
+![treeAdd](images\RBTree\RBTreeAddValue.png)
 
 #### Usuwanie elementu w drzewie
 
-![treeRemove](images\RBTree\RBTreeRemoveValue.svg)
+![treeRemove](images\RBTree\RBTreeRemoveValue.png)
 
 #### Znajdowanie elementu w drzewie
 
-![treeFind](images\RBTree\RBTreeFind.svg)
+![treeFind](images\RBTree\RBTreeFind.png)
 
 #### Wnioski na temat drzewa
 
@@ -294,15 +294,15 @@ Coś tu będzie.
 
 #### Dodawanie elementu w drzewie AVL
 
-![AVLTreeAdd](images\AVLTree\AVLTreeAddValue.svg)
+![AVLTreeAdd](images\AVLTree\AVLTreeAddValue.png)
 
 #### Usuwanie elementu w drzewie AVL
 
-![AVLTreeRemove](images\AVLTree\AVLTreeAddValue.svg)
+![AVLTreeRemove](images\AVLTree\AVLTreeAddValue.png)
 
 #### Znajdowanie elementu w drzewie AVL
 
-![AVLTreeFind](images\AVLTree\AVLTreeAddValue.svg)
+![AVLTreeFind](images\AVLTree\AVLTreeAddValue.png)
 
 #### Wnioski na temat drzewa AVL
 
