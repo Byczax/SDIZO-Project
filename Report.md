@@ -45,7 +45,7 @@ Działania wykonywane na powyższych strukturach były następujące:
 
 ### Ogólne informacje
 
-Złożoność obliczeniowa jest nam potrzebna aby określić ilość zasobów potrzebnych do rozwiązania problemu obliczeniowego. 
+Złożoność obliczeniowa jest nam potrzebna aby określić ilość zasobów potrzebnych do rozwiązania problemu obliczeniowego.
 Rozważanymi zasobami są głównie:
 
 * Czas (Czasowa złożoność obliczeniowa)- ilość czasu potrzebna do wykonania algorytmu
@@ -79,9 +79,9 @@ Rozważanymi zasobami są głównie:
 
 | Funkcja   |   Średnia  |Pesymistyczna|
 |:----------|:----------:|:-----------:|
-|Dodawanie  |$O(\log(n))$|$O(\log(n))$ |
-|Usuwanie   |$O(\log(n))$|$O(\log(n))$ |
-|Znajdowanie|$O(\log(n))$|$O(\log(n))$ |
+|Dodawanie  |$O(/log(n))$|$O(/log(n))$ |
+|Usuwanie   |$O(/log(n))$|$O(/log(n))$ |
+|Znajdowanie|$O(/log(n))$|$O(/log(n))$ |
 
 ## Plan eksperymentu
 
@@ -133,31 +133,31 @@ return elapsed_time;// Return executing time in nanoseconds
 
 #### Wykres dodawania elementu z przodu tablicy
 
-![arrayAddFront](images\array\ArrayAddFront.png)
+![arrayAddFront](images/array/ArrayAddFront.png)
 
 #### Wykres dodawania elementu z tyłu tablicy
 
-![arrayAddBack](images\array\ArrayAddBack.png)
+![arrayAddBack](images/array/ArrayAddBack.png)
 
 #### Wykres dodawania elementu w środku tablicy
 
-![arrayAddAnywhere](images\array\ArrayAddMiddle.png)
+![arrayAddAnywhere](images/array/ArrayAddMiddle.png)
 
 #### Wykres usuwania elementu z przodu tablicy
 
-![arrayRemoveFront](images\array\ArrayRemoveFront.png)
+![arrayRemoveFront](images/array/ArrayRemoveFront.png)
 
 #### Wykres usuwania elementu z tyłu tablicy
 
-![arrayRemoveBack](images\array\ArrayRemoveBack.png)
+![arrayRemoveBack](images/array/ArrayRemoveBack.png)
 
 #### Wykres usuwania elementu w środku tablicy
 
-![arrayRemoveAnywhere](images\array\ArrayRemoveMiddle.png)
+![arrayRemoveAnywhere](images/array/ArrayRemoveMiddle.png)
 
 #### Wykres znajdowania elementu w tablicy
 
-![arrayFind](images\array\ArrayRemoveMiddle.png)
+![arrayFind](images/array/ArrayRemoveMiddle.png)
 
 #### Wnioski na temat tablicy
 
@@ -183,31 +183,31 @@ znajdowanie elementu zależy od wielkości tej struktury. Wykresy są w większo
 
 #### Wykres dodawania elementu z przodu listy
 
-![listAddFront](images\doubleList\DoubleListAddFront.png)
+![listAddFront](images/doubleList/DoubleListAddFront.png)
 
 #### Wykres dodawania elementu z tyłu listy
 
-![listAddBack](images\doubleList\DoubleListAddBack.png)
+![listAddBack](images/doubleList/DoubleListAddBack.png)
 
 #### Wykres dodawania elementu w środku listy
 
-![listAddAnywhere](images\doubleList\DoubleListAddMiddle.png)
+![listAddAnywhere](images/doubleList/DoubleListAddMiddle.png)
 
 #### Wykres usuwania elementu z przodu listy
 
-![listRemoveFront](images\doubleList\DoubleListRemoveFront.png)
+![listRemoveFront](images/doubleList/DoubleListRemoveFront.png)
 
 #### Wykres usuwania elementu z tyłu listy
 
-![listRemoveBack](images\doubleList\DoubleListRemoveBack.png)
+![listRemoveBack](images/doubleList/DoubleListRemoveBack.png)
 
 #### Wykres usuwania elementu w środku listy
 
-![listRemoveAnywhere](images\doubleList\DoubleListRemoveMiddle.png)
+![listRemoveAnywhere](images/doubleList/DoubleListRemoveMiddle.png)
 
 #### Wykres znajdowania elementu w liście
 
-![listFind](images\doubleList\DoubleListFind.png)
+![listFind](images/doubleList/DoubleListFind.png)
 
 #### Wnioski na temat listy
 
@@ -232,15 +232,15 @@ coś tu będzie.
 
 #### Dodawanie elementu w kopcu
 
-![heapAdd](images\binaryHeap\BinaryHeapAddValue.png)
+![heapAdd](images/binaryHeap/BinaryHeapAddValue.png)
 
 #### Usuwanie elementu w kopcu
 
-![heapRemove](images\binaryHeap\BinaryHeapRemoveValue.png)
+![heapRemove](images/binaryHeap/BinaryHeapRemoveValue.png)
 
 #### Znajdowanie elementu w kopcu
 
-![heapFind](images\binaryHeap\BinaryHeapFind.png)
+![heapFind](images/binaryHeap/BinaryHeapFind.png)
 
 ### Pomiary drzewa czerwono-czarnego
 
@@ -261,15 +261,15 @@ coś tu będzie.
 
 #### Dodawanie elementu w drzewie
 
-![treeAdd](images\RBTree\RBTreeAddValue.png)
+![treeAdd](images/RBTree/RBTreeAddValue.png)
 
 #### Usuwanie elementu w drzewie
 
-![treeRemove](images\RBTree\RBTreeRemoveValue.png)
+![treeRemove](images/RBTree/RBTreeRemoveValue.png)
 
 #### Znajdowanie elementu w drzewie
 
-![treeFind](images\RBTree\RBTreeFind.png)
+![treeFind](images/RBTree/RBTreeFind.png)
 
 #### Wnioski na temat drzewa
 
@@ -294,15 +294,15 @@ Coś tu będzie.
 
 #### Dodawanie elementu w drzewie AVL
 
-![AVLTreeAdd](images\AVLTree\AVLTreeAddValue.png)
+![AVLTreeAdd](images/AVLTree/AVLTreeAddValue.png)
 
 #### Usuwanie elementu w drzewie AVL
 
-![AVLTreeRemove](images\AVLTree\AVLTreeAddValue.png)
+![AVLTreeRemove](images/AVLTree/AVLTreeAddValue.png)
 
 #### Znajdowanie elementu w drzewie AVL
 
-![AVLTreeFind](images\AVLTree\AVLTreeAddValue.png)
+![AVLTreeFind](images/AVLTree/AVLTreeAddValue.png)
 
 #### Wnioski na temat drzewa AVL
 
