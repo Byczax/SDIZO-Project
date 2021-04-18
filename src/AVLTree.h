@@ -10,7 +10,9 @@ class AVLTree {
         AVLTreeNode *right;
         int balance;
 
-        AVLTreeNode(int value = NULL);
+        AVLTreeNode();
+
+        AVLTreeNode(int value);
 
         ~AVLTreeNode();
     };

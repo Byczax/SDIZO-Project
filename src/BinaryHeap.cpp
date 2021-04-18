@@ -17,7 +17,7 @@ BinaryHeap::BinaryHeap(const int *initRoot, int myHeapSize) {
         unsigned int i = 1 + (size - 2) / 2;
         do {
             --i;
-            heapify(i);
+            heapifyDown(i);
         } while (i);
     }
 }
@@ -55,6 +55,7 @@ void BinaryHeap::relocate(int newSize) {
     delete[] heap;
     heap = temp;
 }
+
 /**
  * Swap elements
  * @param x
@@ -65,6 +66,7 @@ void BinaryHeap::swap(int *x, int *y) {
     *x = *y;
     *y = temp;
 }
+
 /**
  * Add element to heap
  * @param key
@@ -81,52 +83,59 @@ void BinaryHeap::addValue(int key) {
     }
 }
 
-void BinaryHeap::increaseKey(int index) {
-    heap[index] = INT_MAX;
-    while (index != 0 && heap[getParent(index)] < heap[index]) {
-        swap(&heap[index], &heap[getParent(index)]);
-        index = getParent(index);
-    }
-}
 /**
  * Remove element from heap
  * @return
  */
-int BinaryHeap::removeIndex() {
-    if (size <= 0) {
-        return 0;
-    } else if (size == 1) {
-        size--;
-        return heap[0];
+void BinaryHeap::removeIndex(unsigned int index) {
+    if (index < size) {
+        --size;
+        int *newArray = new int[size];
+        for (unsigned int j = 0; j < index; ++j) {
+            newArray[j] = heap[j];
+        }
+        if (size)
+            newArray[index] = heap[size];
+        for (unsigned int j = index + 1; j < size; ++j) {
+            newArray[j] = heap[j];
+        }
+        delete[] heap;
+        heap = newArray;
+        heapifyDown(index);
     }
-
-    int root = heap[0];
-    heap[0] = heap[size - 1];
-    relocate(size - 1);
-    size--;
-    heapify(0);
-
-    return root;
 }
+
 /**
  * Remove value from heap
  * @param value
  */
-void BinaryHeap::removeValue(int value) {
-    int key = findValue(value);
-    if (key == -1) {
-        std::cout << "Could not remove value: " << value << "\n";
-        return;
+bool BinaryHeap::removeValue(int number) {
+    for (unsigned int i = 0; i < size; ++i) {
+        if (heap[i] == number) {
+            --size;
+            int *newArray = new int[size];
+            for (unsigned int j = 0; j < i; ++j) {
+                newArray[j] = heap[j];
+            }
+            if (size)
+                newArray[i] = heap[size];
+            for (unsigned int j = i + 1; j < size; ++j) {
+                newArray[j] = heap[j];
+            }
+            delete[] heap;
+            heap = newArray;
+            heapifyDown(i);
+            return true;
+        }
     }
-    increaseKey(key);
-    removeIndex();
+    return false;
 }
 
 /**
  * Fix heap
  * @param index
  */
-void BinaryHeap::heapify(int index) {
+void BinaryHeap::heapifyDown(int index) {
     int leftChild = getLeftChild(index);
     int rightChild = getRightChild(index);
     int biggest = index;
@@ -137,7 +146,7 @@ void BinaryHeap::heapify(int index) {
         biggest = rightChild;
     if (biggest != index) {
         swap(&heap[index], &heap[biggest]);
-        heapify(biggest);
+        heapifyDown(biggest);
     }
 }
 

@@ -18,13 +18,11 @@ class BinaryHeap {
 
     void swap(int *, int *);
 
-    void heapify(int);
-
-    void increaseKey(int);
+    void heapifyDown(int);
 
     void printRecursive(const std::string &sp, const std::string &sn, unsigned int index);
 
-    int removeIndex();
+    void removeIndex(unsigned int index);
 
 public:
     BinaryHeap(const int *initRoot = nullptr, int myHeapSize = 0);
@@ -33,7 +31,7 @@ public:
 
     void addValue(int);
 
-    void removeValue(int);
+    bool removeValue(int);
 
     int findValue(int);
 

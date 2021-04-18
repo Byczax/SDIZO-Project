@@ -1,16 +1,16 @@
 #pragma once
 
 #include <string>
-//template<typename T>
 
+using namespace std::chrono;
 
 template<typename T>
 double Timer(T i) {
-    auto start = std::chrono::high_resolution_clock::now();// Start the counter
+    auto start = high_resolution_clock::now();// Start the counter
     i();// our function
-    auto end = std::chrono::high_resolution_clock::now();// Get value after executing function
+    auto end = high_resolution_clock::now();// Get value after executing function
     auto duration = end - start;// get time difference
-    auto elapsed_time = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();// calculate time
+    auto elapsed_time = duration_cast<nanoseconds>(duration).count();// calculate time
     return elapsed_time;// Return executing time in nanoseconds
 }
 

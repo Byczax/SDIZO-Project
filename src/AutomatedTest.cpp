@@ -12,19 +12,19 @@ using std::cout;
 using std::string;
 using std::ofstream;
 
-int startElementQuantity = 10;
-int stopQuantity = 100;
+int startElementQuantity = 1000; // best value is 1000
+int stopElementQuantity = 50000; // best value is 50000
 int *data;
 
 void addCounter(int i) {
-    if (i % ((stopQuantity / startElementQuantity) * 100) == 0) {
-        cout << i / ((stopQuantity / startElementQuantity) * 100) * 10 << "%\n";
+    if (i % ((stopElementQuantity / startElementQuantity) * 100) == 0) {
+        cout << i / ((stopElementQuantity / startElementQuantity) * 100) * 10 << "%\n";
     }
 }
 
 void removeCounter(int i) {
-    if (i % ((stopQuantity / startElementQuantity) * 100) == 0) {
-        cout << ((stopQuantity - i) / startElementQuantity + 1) * 10 << "%\n";
+    if (i % ((stopElementQuantity / startElementQuantity) * 100) == 0) {
+        cout << (stopElementQuantity - i) / (stopElementQuantity / startElementQuantity) / 10 + 10 << "%\n";
     }
 }
 
@@ -34,7 +34,7 @@ void testAdding(string phase, T1 function, string filename, T2 findFunction, ofs
     ofstream file;
     file.open(filename);
     cout << phase;
-    for (int i = startElementQuantity; i <= stopQuantity; ++i) {
+    for (int i = startElementQuantity; i <= stopElementQuantity; ++i) {
         addCounter(i);
         file << i << "," << Timer([&] { function(); }) << "\n";
         findFile << i << "," << Timer([&] { findFunction(); }) << "\n";
@@ -47,7 +47,7 @@ void testRemoving(string phase, T1 function, string filename, T2 findFunction, o
     ofstream file;
     file.open(filename);
     cout << phase;
-    for (int i = stopQuantity; i >= startElementQuantity; --i) {
+    for (int i = stopElementQuantity; i >= startElementQuantity; --i) {
         removeCounter(i);
         file << i << "," << Timer([&] { function(); }) << "\n";
         findFile << i << "," << Timer([&] { findFunction(); }) << "\n";
@@ -100,10 +100,10 @@ void addMiddleFunction(T structure, string filename, ofstream &findFile) {
     ofstream saveFile;
     saveFile.open(filename);
     cout << "phase 5. adding elements middle \n";
-    for (int i = startElementQuantity; i <= stopQuantity; ++i) {
+    for (int i = startElementQuantity; i <= stopElementQuantity; ++i) {
         addCounter(i);
         saveFile << i << "," << Timer([&] { structure->addElementAnywhere(Essentials::randomValue(), i / 2); })
-                  << "\n";
+                 << "\n";
         findFile << i << "," << Timer([&] { structure->findValue(Essentials::randomValue()); }) << "\n";
     }
     saveFile.close();
@@ -115,7 +115,7 @@ void removeMiddleFunction(T structure, string filename, ofstream &findFile) {
     saveFile.open(filename);
     cout << "phase 5. removing elements middle \n";
     // adding to middle and finding elements
-    for (int i = stopQuantity; i >= startElementQuantity; --i)  {
+    for (int i = stopElementQuantity; i >= startElementQuantity; --i) {
         removeCounter(i);
         saveFile << i << "," << Timer([&] { structure->removeElementAnywhere(i / 2); }) << "\n";
         findFile << i << "," << Timer([&] { structure->findValue(Essentials::randomValue()); }) << "\n";
@@ -135,7 +135,7 @@ void addValueFunction(T structure, string filename, ofstream &findFile) {
 
 template<typename T>
 void removeValueFunction(T structure, string filename, ofstream &findFile) {
-    testAdding(
+    testRemoving(
             "phase 2. removing elements\n",
             [&] { structure->removeValue(Essentials::randomValue()); },
             filename,
@@ -154,11 +154,11 @@ string strAddBack = "AddBack";
 string strAdd = "AddValue";
 
 string strRemoveFront = "RemoveFront";
-string strRemoveBack = "strRemoveBack";
-string strRemove = "removeValue";
+string strRemoveBack = "RemoveBack";
+string strRemove = "RemoveValue";
 
-string strAddMiddle = "strAddMiddle";
-string strRemoveMiddle = "strRemoveMiddle";
+string strAddMiddle = "AddMiddle";
+string strRemoveMiddle = "RemoveMiddle";
 
 string strFind = "Find";
 string txt = ".txt";
@@ -254,20 +254,17 @@ void AutomatedTest::redBlackTree() {
 }
 
 void AutomatedTest::avlTree() {
-    ofstream FindBinaryHeapFile;
+    ofstream FindAVLTree;
     data = Essentials::randomData(startElementQuantity);
     auto *avltree = new AVLTree(data + 1, data[0]);
     delete[] data;
-    FindBinaryHeapFile.open(strResultsAVLTree + strFind + txt);
+    FindAVLTree.open(strResultsAVLTree + strFind + txt);
     // adding to front and finding elements
-    addValueFunction(avltree, strResultsAVLTree + strAdd + txt, FindBinaryHeapFile);
+    addValueFunction(avltree, strResultsAVLTree + strAdd + txt, FindAVLTree);
 
     // removing from front and finding elements
-    removeValueFunction(avltree, strResultsAVLTree + strRemove + txt, FindBinaryHeapFile);
+    removeValueFunction(avltree, strResultsAVLTree + strRemove + txt, FindAVLTree);
 
     cout << "Phases Completed! \n\n";
     delete avltree;
 }
-
-
-

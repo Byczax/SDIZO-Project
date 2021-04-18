@@ -4,6 +4,9 @@
 using std::string;
 using std::cout;
 
+
+AVLTree::AVLTreeNode::AVLTreeNode() {
+}
 /**
  * Node constructor
  * @param val
@@ -25,9 +28,9 @@ AVLTree::AVLTreeNode::~AVLTreeNode() {
 
 AVLTree::AVLTree(const int *array, int arraySize) {
     nil = new AVLTreeNode();
-//    nil->left = nil;
-//    nil->right = nil;
-//    nil->balance = 0;
+    nil->left = nil;
+    nil->right = nil;
+    nil->balance = 0;
     root = nil;
     for (int i = 0; i < arraySize; ++i) {
         this->addValue(array[i]);
@@ -171,10 +174,13 @@ bool AVLTree::insertValue(int data, AVLTreeNode *&node) {
  * @param node
  * @return
  */
-int AVLTree::getMin(AVLTreeNode *node) {
+int AVLTree::getMin(AVLTreeNode *node)
+{
     AVLTreeNode *temp = node;
+
     while (temp->left != nil)
         temp = temp->left;
+
     return temp->value;
 }
 
@@ -184,19 +190,24 @@ int AVLTree::getMin(AVLTreeNode *node) {
  * @param node
  * @return
  */
-bool AVLTree::removeValue(int data, AVLTreeNode *&node) {
+bool AVLTree::removeValue(int data, AVLTreeNode *&node)
+{
     if (node == nil)
         return false;
     else if (node->value < data)
         return removeValue(data, node->right) && !decrementBalance(node);
     else if (node->value > data)
         return removeValue(data, node->left) && !incrementBalance(node);
-    else {
-        if (node->left == nil && node->right == nil) {
+    else
+    {
+        if (node->left == nil && node->right == nil)
+        {
             AVLTreeNode *nodeToRemove = node;
             node = nil;
             deleteNode(nodeToRemove);
-        } else if (node->left != nil && node->right != nil) {
+        }
+        else if (node->left != nil && node->right != nil)
+        {
             AVLTreeNode *currentNode = node;
             int minNodeValue = getMin(node->right);
 
@@ -204,13 +215,18 @@ bool AVLTree::removeValue(int data, AVLTreeNode *&node) {
             currentNode->value = minNodeValue;
 
             return isHeightChanged;
-        } else {
+        }
+        else
+        {
             AVLTreeNode *nodeToRemove = node;
 
-            if (node->left == nil) {
+            if (node->left == nil)
+            {
                 node = nodeToRemove->right;
                 nodeToRemove->right = nil;
-            } else {
+            }
+            else
+            {
                 node = nodeToRemove->left;
                 nodeToRemove->left = nil;
             }
