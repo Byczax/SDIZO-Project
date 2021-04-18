@@ -156,7 +156,7 @@ int Array::findValue(int value) {
 int Array::getIndexValue(unsigned int index) {
     if (index >= 0 && index < size) {
         return array[index];
-    } else return -1;
+    } else return false;
 }
 
 /**

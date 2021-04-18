@@ -47,6 +47,7 @@ void ManualTest::array() {
     int value;
     int *data;
     int temp;
+    bool finded;
     string filename;
     unsigned int index;
     while (!exit) {
