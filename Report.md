@@ -71,30 +71,32 @@ W tabelach litera **n** oznacza ilość elementów w strukturze
 | Dodawanie   | $O(n)$  |    $O(n)$     |
 | Usuwanie    | $O(n)$  |    $O(n)$     |
 | Znajdowanie | $O(n)$  |    $O(n)$     |
+| Dostęp      | $O(1)$  |    $O(n)$     |
 
 ### Złożoność listy dwukierunkowej
 
 | Funkcja     | Średnia | Pesymistyczna |
 | :---------- | :-----: | :-----------: |
-| Dodawanie   | $O(-)$  |    $O(n)$     |
-| Usuwanie    | $O(-)$  |    $O(n)$     |
+| Dodawanie   | $O(1)$  |    $O(n)$     |
+| Usuwanie    | $O(1)$  |    $O(n)$     |
 | Znajdowanie | $O(n)$  |    $O(n)$     |
+| Dostęp      | $O(n)$  |    $O(n)$     |
 
 ### Złożoność kopca binarnego
 
-| Funkcja     | Średnia | Pesymistyczna |
-| :---------- | :-----: | :-----------: |
-| Dodawanie   | $O(1)$  |    $O(1)$     |
-| Usuwanie    | $O(1)$  |    $O(1)$     |
-| Znajdowanie | $O(n)$  |    $O(n)$     |
+| Funkcja     |   Średnia    | Pesymistyczna |
+| :---------- | :----------: | :-----------: |
+| Dodawanie   | $O(\log(n))$ |    $O(n)$     |
+| Usuwanie    | $O(\log(n))$ |    $O(n)$     |
+| Znajdowanie |    $O(n)$    |    $O(n)$     |
 
 ### Złożoność drzewa czerwono-czarnego
 
 | Funkcja     |   Średnia    | Pesymistyczna |
 | :---------- | :----------: | :-----------: |
-| Dodawanie   | $O(/log(n))$ | $O(/log(n))$  |
-| Usuwanie    | $O(/log(n))$ | $O(/log(n))$  |
-| Znajdowanie | $O(/log(n))$ | $O(/log(n))$  |
+| Dodawanie   | $O(\log(n))$ | $O(\log(n))$  |
+| Usuwanie    | $O(\log(n))$ | $O(\log(n))$  |
+| Znajdowanie | $O(\log(n))$ | $O(\log(n))$  |
 
 ## Plan eksperymentu
 
@@ -313,7 +315,7 @@ W kopcu typu MAX wartość danego węzła niebędącego korzeniem jest zawsze mn
 
 #### Wnioski na temat kopca
 
-Zgodnie z przewidywaniami działania wykonywane na kopcu były funkcją liniową.
+Można zauważyć że złożoność dodawania oraz odejmowania jest zawsze złożonością pesymistyczną, jest tak dlatego, że kopiec został zaimplementowany jako tablica, więc przy usuwaniu oraz przy dodawaniu jest za każdym razem tworzona nowa tablica.
 
 ### Pomiary drzewa czerwono-czarnego
 
@@ -456,9 +458,3 @@ Eksperymenty wykazały, że najbardziej efektywną strukturą do przechowywania 
 [Lambda in C++](https://en.cppreference.com/w/cpp/language/lambda)
 
 [StackOverflow -  Access violation reading location](https://stackoverflow.com/questions/10478941/0xc0000005-access-violation-reading-location-0x00000000)
-
-[Valgrind Output nr.1](images\extra\~_tmp_SDIZO1_valgrind_output.html)
-
-[Valgrind Output nr.2](images\extra\~_tmp_SDIZO1_valgrind_output2.html)
-
-[Valgrind Output nr.3](images\extra\~_tmp_SDIZO1_valgrind_output3.html)
