@@ -462,4 +462,3 @@ Eksperymenty wykazały, że najbardziej efektywną strukturą do przechowywania 
 [Valgrind Output nr.2](images\extra\~_tmp_SDIZO1_valgrind_output2.html)
 
 [Valgrind Output nr.3](images\extra\~_tmp_SDIZO1_valgrind_output3.html)
-
