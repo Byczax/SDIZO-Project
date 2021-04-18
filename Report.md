@@ -211,7 +211,7 @@ znajdowanie elementu zależy od wielkości tej struktury. Wykresy są w większo
 
 #### Wnioski na temat listy
 
-coś tu będzie.
+Zgodnie z przewidywaniami czas operacji na przodzie tablicy był wręcz zerowy niezależnie od ilości elementów, reszta operacji była głównie liniowa.
 
 ### Pomiary kopca binarnego
 
@@ -241,6 +241,10 @@ coś tu będzie.
 #### Znajdowanie elementu w kopcu
 
 ![heapFind](images/binaryHeap/BinaryHeapFind.png)
+
+#### Wnioski na temat kopca
+
+Zgodnie z przewidywaniami działania wykonywane na kopcu były funkcją liniową.
 
 ### Pomiary drzewa czerwono-czarnego
 
@@ -273,7 +277,7 @@ coś tu będzie.
 
 #### Wnioski na temat drzewa
 
-Coś tu będzie.
+Wykresy wyszły bardzo interesujące, widać wyraźnie momenty przejścia na dłuższe czasy wykonywania operacji lecz i tak wszystkie funkcje miały krótki czas wykonania.
 
 ### Pomiary drzewa AVL
 
@@ -306,8 +310,13 @@ Coś tu będzie.
 
 #### Wnioski na temat drzewa AVL
 
-Coś tu będzie.
+Podobnie do drzewa czerwono-czarnego na wykresach są widoczne sekcje, czasy wykonania są dłuższe ponieważ w drzewie AVL dodatkowo występuje balansowanie drzewa.
 
 ## Wnioski końcowe
 
-Tutaj musi coś być.
+Podsumowując wykonane pomiary większość wyszła zgodnie z przewidywaniami, w niektórych miejscach mamy dziwne przesunięcia, najprawdopodobniej jest to spowodowane:
+
+* Słabo zoptymalizowane algorytmy
+* Działanie innych programów podczas wykonywania pomiarów co spowodowało odchylenia i błędy pomiarowe
+
+Eksperymenty wykazały, że najbardziej efektywną strukturą do przechowywania wartości jest drzewo czerwono-czarne gdyż ma najmniejsze czasy wykonywania operacji ze wszystkich struktur. (Nawet jeżeli lista dwukierunkowa ma wręcz zerowy czas operacji na elementach z przodu tablicy to i tak w większości przypadków potrzebujemy elementów z środkowych części struktury)
