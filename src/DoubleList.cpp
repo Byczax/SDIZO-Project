@@ -154,7 +154,7 @@ void DoubleList::removeElementAnywhere(unsigned int index) {
 void DoubleList::removeValue(int value) {
     ListNode *temp = this->first_element;
     ListNode *temp2;
-    while (temp->next != nullptr) {
+    while (temp != nullptr && temp->next != nullptr) {
         if (temp->value == value) {
             temp2 = temp->prev;
             temp2->next = temp->next;

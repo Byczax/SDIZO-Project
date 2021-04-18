@@ -156,7 +156,7 @@ int Array::findValue(int value) {
 int Array::getIndexValue(unsigned int index) {
     if (index >= 0 && index < size) {
         return array[index];
-    } else throw std::invalid_argument("Niepoprawny indeks");
+    } else return -1;
 }
 
 /**
