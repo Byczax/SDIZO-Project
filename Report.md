@@ -218,7 +218,7 @@ wykonaniu operacji aby ‘odświeżyć’ zawartość tablicy.
 
 #### Wykres znajdowania elementu w tablicy
 
-![arrayFind](images/array/ArrayRemoveMiddle.png)
+![arrayFind](images/array/ArrayFind.png)
 
 #### Wnioski na temat tablicy
 
