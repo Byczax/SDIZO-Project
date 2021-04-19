@@ -1,5 +1,5 @@
 #include "BinaryHeap.h"
-
+#include <iostream>
 using std::string;
 
 /**
