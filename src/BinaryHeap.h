@@ -1,11 +1,9 @@
 #pragma once
 
-#include <iostream>
-#include <iomanip>
+#include <string>
 
 class BinaryHeap {
     int *heap;
-    int capacity;
     int size;
 
     int getParent(int);

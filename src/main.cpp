@@ -32,9 +32,12 @@ int main() {
     int input;
     int mainInput;
     while (!mainExit) {
-        cout << "0. Wyjscie \n"
+        cout << "==============================\n"
+                "0. Wyjscie \n"
                 "1. Testy manualne \n"
-                "2. Testy automatyczne \n";
+                "2. Testy automatyczne \n"
+                "==============================\n"
+                "Twoj wybor: ";
         if (!(cin >> mainInput)) { return 0; }
         switch (mainInput) {
             case 0:
@@ -42,36 +45,48 @@ int main() {
                 break;
             case 1:
                 while (!exit) {
-                    cout << "MANUAL TESTS \n"
+                    cout << "======= MANUAL TESTS ========\n"
                             "0. Wyjscie \n"
                             "1. Tablica \n"
                             "2. Lista dwukierunkowa \n"
                             "3. Kopiec binarny \n"
                             "4. Drzewo czerwono-czarne \n"
-                            "5. Drzewo AVL \n";
+                            "5. Drzewo AVL \n"
+                            "==============================\n"
+                            "Twoj wybor: ";
                     if (!(cin >> input)) { return 0; }
                     switch (input) {
                         case 0:
                             exit = true;
                             break;
                         case 1:
-                            cout << "selected array \n";
+                            cout << "==============================\n"
+                                    "selected array \n"
+                                    "==============================\n";
                             ManualTest::array();
                             break;
                         case 2:
-                            cout << "selected doubleList \n";
+                            cout << "==============================\n"
+                                    "selected doubleList \n"
+                                    "==============================\n";
                             ManualTest::doubleList();
                             break;
                         case 3:
-                            cout << "selected binaryHeap \n";
+                            cout << "==============================\n"
+                                    "selected binaryHeap \n"
+                                    "==============================\n";
                             ManualTest::binaryHeap();
                             break;
                         case 4:
-                            cout << "selected redBlackTree \n";
+                            cout << "==============================\n"
+                                    "selected redBlackTree \n"
+                                    "==============================\n";
                             ManualTest::redBlackTree();
                             break;
                         case 5:
-                            cout << "selected avlTree \n";
+                            cout << "==============================\n"
+                                    "selected avlTree \n"
+                                    "==============================\n";
                             ManualTest::avltree();
                             break;
                         default:
@@ -82,36 +97,48 @@ int main() {
                 break;
             case 2:
                 while (!exit) {
-                    cout << "AUTOMATED TESTS \n"
+                    cout << "====== AUTOMATED TESTS =======\n"
                             "0. Wyjscie \n"
                             "1. Tablica \n"
                             "2. Lista dwukierunkowa \n"
                             "3. Kopiec binarny \n"
                             "4. Drzewo czerwono-czarne \n"
-                            "5. Drzewo AVL \n";
+                            "5. Drzewo AVL \n"
+                            "==============================\n"
+                            "Twoj wybor: ";
                     if (!(cin >> input)) { return 0; }
                     switch (input) {
                         case 0:
                             exit = true;
                             break;
                         case 1:
-                            cout << "selected array \n";
+                            cout << "==============================\n"
+                                    "selected array \n"
+                                    "==============================\n";
                             AutomatedTest::array();
                             break;
                         case 2:
-                            cout << "selected doubleList \n";
+                            cout << "==============================\n"
+                                    "selected doubleList \n"
+                                    "==============================\n";
                             AutomatedTest::doubleList();
                             break;
                         case 3:
-                            cout << "selected binaryHeap \n";
+                            cout << "==============================\n"
+                                    "selected binaryHeap \n"
+                                    "==============================\n";
                             AutomatedTest::binaryHeap();
                             break;
                         case 4:
-                            cout << "selected redBlackTree \n";
+                            cout << "==============================\n"
+                                    "selected redBlackTree \n"
+                                    "==============================\n";
                             AutomatedTest::redBlackTree();
                             break;
                         case 5:
-                            cout << "selected avlTree \n";
+                            cout << "==============================\n"
+                                    "selected avlTree \n"
+                                    "==============================\n";
                             AutomatedTest::avlTree();
                             break;
                         default:
@@ -125,6 +152,8 @@ int main() {
                 break;
         }
     }
-    cout << "\n Do widzenia \n";
+    cout << "==============================\n"
+            "\n Do widzenia \n"
+            "==============================\n";
     return 0;
 }

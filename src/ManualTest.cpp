@@ -51,7 +51,8 @@ void ManualTest::array() {
     string filename;
     unsigned int index;
     while (!exit) {
-        cout << "0. Wyjscie \n"
+        cout << "==============================\n"
+                "0. Wyjscie \n"
                 "1. Stworz nowa pusta tablice \n"
                 "2. Stworz tablice z pliku \n"
                 "3. Stworz tablice z losowych danych \n"
@@ -64,7 +65,9 @@ void ManualTest::array() {
                 "10. Usun wartosc (jezeli istnieje) \n"
                 "11. Znajdz element \n"
                 "12. Wyswietl wartosc pod indeksem \n"
-                "13. Wyswietl zawartosc \n";
+                "13. Wyswietl zawartosc \n"
+                "==============================\n"
+                "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -145,9 +148,13 @@ void ManualTest::array() {
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { temp = array->findValue(value); }) << "\n";
                 if (temp != -1) {
-                    cout << "Znaleziona wartosc znajduje sie pod: " << temp << "\n";
+                    cout << "==============================\n"
+                            "Znaleziona wartosc znajduje sie pod: " << temp << "\n"
+                                                                               "==============================\n";
                 } else {
-                    cout << "Nie ma takiej wartosci" << "\n";
+                    cout << "==============================\n"
+                            "Nie ma takiej wartosci \n"
+                            "==============================\n";
                 }
                 break;
             case 12:
@@ -155,7 +162,9 @@ void ManualTest::array() {
                 cout << textFindIndex;
                 if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { temp = array->getIndexValue(index); }) << "\n";
-                cout << "Wartosc pod indeksem: " << temp << "\n";
+                cout << "==============================\n"
+                        "Wartosc pod indeksem: " << temp << "\n"
+                                                            "==============================\n";
                 break;
             case 13:
                 // Display array in the console
@@ -178,7 +187,8 @@ void ManualTest::doubleList() {
     string filename;
     unsigned int index;
     while (!exit) {
-        cout << "0. Wyjscie \n"
+        cout << "==============================\n"
+                "0. Wyjscie \n"
                 "1. Stworz nowa pusta liste \n"
                 "2. Stworz nowa liste z danych z pliku \n"
                 "3. Stworz nowa liste z losowych danych \n"
@@ -190,7 +200,9 @@ void ManualTest::doubleList() {
                 "9. Usun element gdziekolwiek \n"
                 "10. Usun wartosc (jezeli istnieje) \n"
                 "11. Znajdz element \n"
-                "12. Wyswietl zawartosc \n";
+                "12. Wyswietl zawartosc \n"
+                "==============================\n"
+                "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -284,7 +296,6 @@ void ManualTest::doubleList() {
 }
 
 void ManualTest::binaryHeap() {
-    cout << "W implementacji\n";
     auto heap = new BinaryHeap(nullptr, 0);
     bool exit = false;
     int input;
@@ -292,14 +303,17 @@ void ManualTest::binaryHeap() {
     int intTemp;
     string filename;
     while (!exit) {
-        cout << "0. Wyjscie \n"
+        cout << "==============================\n"
+                "0. Wyjscie \n"
                 "1. Stworz nowy pusty kopiec \n"
                 "2. Stworz nowy kopiec z danych z pliku \n"
                 "3. Stworz nowy kopiec z losowych danych \n"
                 "4. Dodaj wartosc \n"
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "6. Znajdz element \n"
-                "7. Wyswietl kopiec \n";
+                "7. Wyswietl kopiec \n"
+                "==============================\n"
+                "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -371,21 +385,24 @@ void ManualTest::binaryHeap() {
 
 
 void ManualTest::redBlackTree() {
-    cout << "W implementacji\n";
     auto tree = new RedBlackTree(nullptr, 0);
     bool exit = false;
     int input;
     int value;
+    bool temp;
     string filename;
     while (!exit) {
-        cout << "0. Wyjscie \n"
+        cout << "==============================\n"
+                "0. Wyjscie \n"
                 "1. Stworz nowe puste drzewo \n"
                 "2. Stworz nowe drzewo z danych z pliku \n"
                 "3. Stworz nowe drzewo z losowych danych \n"
                 "4. Dodaj wartosc \n"
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "6. Znajdz element \n"
-                "7. Wyswietl drzewo \n";
+                "7. Wyswietl drzewo \n"
+                "==============================\n"
+                "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -433,7 +450,8 @@ void ManualTest::redBlackTree() {
             case 6:
                 cout << textFindValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { tree->findValue(value); }) << "\n";
+                cout << textOperation << Timer([&] { temp = tree->findValue(value); }) << "\n";
+                cout << temp << "\n";
                 break;
             case 7:
                 tree->display();
@@ -446,21 +464,23 @@ void ManualTest::redBlackTree() {
 
 
 void ManualTest::avltree() {
-    cout << "W implementacji\n";
     auto avlTree = new AVLTree(nullptr, 0);
     bool exit = false;
     int input;
     int value;
     string filename;
     while (!exit) {
-        cout << "0. Wyjscie \n"
+        cout << "==============================\n"
+                "0. Wyjscie \n"
                 "1. Stworz nowe puste drzewo \n"
                 "2. Stworz nowe drzewo z danych z pliku \n"
                 "3. Stworz nowe drzewo z losowych danych \n"
                 "4. Dodaj wartosc \n"
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "6. Znajdz element \n"
-                "7. Wyswietl drzewo \n";
+                "7. Wyswietl drzewo \n"
+                "==============================\n"
+                "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
