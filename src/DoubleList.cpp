@@ -30,7 +30,6 @@ void DoubleList::addElementFront(int value) {
     ++size;
     ListNode *temp = new ListNode{value, nullptr, this->first_element};
     this->first_element->prev = temp;
-    temp->next = this->first_element;
     this->first_element = temp;
 }
 
