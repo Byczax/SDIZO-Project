@@ -7,7 +7,7 @@
 
 |     Autor     |
 | :-----------: |
-| Byczko Maciej |
+| Byczko Maciej 252747|
 
 ## Wstęp
 
