@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-import statistics
 import os
+import statistics
 
 
 def read_text_file(filepath):

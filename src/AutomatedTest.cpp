@@ -12,8 +12,8 @@ using std::cout;
 using std::string;
 using std::ofstream;
 
-int startElementQuantity = 10; // best value is 1000
-int stopElementQuantity = 100; // best value is 50000
+int startElementQuantity = 1000; // best value is 1000
+int stopElementQuantity = 80000; // best value is 50000
 int *data;
 
 void addCounter(int i) {
@@ -180,8 +180,8 @@ string strFind = "Find";
 string txt = ".txt";
 
 string strPhaseCompleted = "\n==============================\n"
-                          "Phases Completed! \n"
-                          "==============================\n";
+                           "Phases Completed! \n"
+                           "==============================\n";
 
 
 void AutomatedTest::array() {

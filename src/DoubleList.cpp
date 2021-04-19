@@ -13,6 +13,7 @@ DoubleList::DoubleList(int *array, int arraySize) {
         addElementBack(array[i]);
     }
 }
+
 /**
  * Desctructor
  */
