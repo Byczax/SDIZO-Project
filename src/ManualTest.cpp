@@ -51,7 +51,7 @@ void ManualTest::array() {
     string filename;
     unsigned int index;
     while (!exit) {
-        cout << "==============================\n"
+        cout << "\n==============================\n"
                 "0. Wyjscie \n"
                 "1. Stworz nowa pusta tablice \n"
                 "2. Stworz tablice z pliku \n"
@@ -148,11 +148,11 @@ void ManualTest::array() {
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { temp = array->findValue(value); }) << "\n";
                 if (temp != -1) {
-                    cout << "==============================\n"
+                    cout << "\n==============================\n"
                             "Znaleziona wartosc znajduje sie pod: " << temp << "\n"
                                                                                "==============================\n";
                 } else {
-                    cout << "==============================\n"
+                    cout << "\n==============================\n"
                             "Nie ma takiej wartosci \n"
                             "==============================\n";
                 }
@@ -162,7 +162,7 @@ void ManualTest::array() {
                 cout << textFindIndex;
                 if (!(cin >> index)) { return; }
                 cout << textOperation << Timer([&] { temp = array->getIndexValue(index); }) << "\n";
-                cout << "==============================\n"
+                cout << "\n==============================\n"
                         "Wartosc pod indeksem: " << temp << "\n"
                                                             "==============================\n";
                 break;
@@ -187,7 +187,7 @@ void ManualTest::doubleList() {
     string filename;
     unsigned int index;
     while (!exit) {
-        cout << "==============================\n"
+        cout << "\n==============================\n"
                 "0. Wyjscie \n"
                 "1. Stworz nowa pusta liste \n"
                 "2. Stworz nowa liste z danych z pliku \n"
@@ -303,7 +303,7 @@ void ManualTest::binaryHeap() {
     int intTemp;
     string filename;
     while (!exit) {
-        cout << "==============================\n"
+        cout << "\n==============================\n"
                 "0. Wyjscie \n"
                 "1. Stworz nowy pusty kopiec \n"
                 "2. Stworz nowy kopiec z danych z pliku \n"
@@ -392,7 +392,7 @@ void ManualTest::redBlackTree() {
     bool temp;
     string filename;
     while (!exit) {
-        cout << "==============================\n"
+        cout << "\n==============================\n"
                 "0. Wyjscie \n"
                 "1. Stworz nowe puste drzewo \n"
                 "2. Stworz nowe drzewo z danych z pliku \n"
@@ -470,7 +470,7 @@ void ManualTest::avltree() {
     int value;
     string filename;
     while (!exit) {
-        cout << "==============================\n"
+        cout << "\n==============================\n"
                 "0. Wyjscie \n"
                 "1. Stworz nowe puste drzewo \n"
                 "2. Stworz nowe drzewo z danych z pliku \n"

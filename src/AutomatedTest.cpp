@@ -58,7 +58,7 @@ void testRemoving(string phase, T1 function, string filename, T2 findFunction, o
 template<typename T>
 void addFrontFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
-            "==============================\n"
+            "\n==============================\n"
             "phase 1. adding elements front \n"
             "==============================\n",
             [&] { structure->addElementFront(Essentials::randomValue()); },
@@ -70,7 +70,7 @@ void addFrontFunction(T structure, string filename, ofstream &findFile) {
 template<typename T>
 void removeFrontFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
-            "==============================\n"
+            "\n==============================\n"
             "phase 2. removing elements front \n"
             "==============================\n",
             [&] { structure->removeElementFront(); },
@@ -82,7 +82,7 @@ void removeFrontFunction(T structure, string filename, ofstream &findFile) {
 template<typename T>
 void addBackFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
-            "==============================\n"
+            "\n==============================\n"
             "phase 3. adding elements back \n"
             "==============================\n",
             [&] { structure->addElementBack(Essentials::randomValue()); },
@@ -94,7 +94,7 @@ void addBackFunction(T structure, string filename, ofstream &findFile) {
 template<typename T>
 void removeBackFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
-            "==============================\n"
+            "\n==============================\n"
             "phase 4. removing elements back \n"
             "==============================\n",
             [&] { structure->addElementFront(Essentials::randomValue()); },
@@ -107,7 +107,7 @@ template<typename T>
 void addMiddleFunction(T structure, string filename, ofstream &findFile) {
     ofstream saveFile;
     saveFile.open(filename);
-    cout << "==============================\n"
+    cout << "\n==============================\n"
             "phase 5. adding elements middle \n"
             "==============================\n";
     for (int i = startElementQuantity; i <= stopElementQuantity; ++i) {
@@ -123,7 +123,7 @@ template<typename T>
 void removeMiddleFunction(T structure, string filename, ofstream &findFile) {
     ofstream saveFile;
     saveFile.open(filename);
-    cout << "==============================\n"
+    cout << "\n==============================\n"
             "phase 6. removing elements middle \n"
             "==============================\n ";
     // adding to middle and finding elements
@@ -138,7 +138,7 @@ void removeMiddleFunction(T structure, string filename, ofstream &findFile) {
 template<typename T>
 void addValueFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
-            "==============================\n"
+            "\n==============================\n"
             "phase 1. adding elements\n"
             "==============================\n",
             [&] { structure->addValue(Essentials::randomValue()); },
@@ -150,7 +150,7 @@ void addValueFunction(T structure, string filename, ofstream &findFile) {
 template<typename T>
 void removeValueFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
-            "==============================\n"
+            "\n==============================\n"
             "phase 2. removing elements\n"
             "==============================\n",
             [&] { structure->removeValue(Essentials::randomValue()); },
@@ -179,7 +179,7 @@ string strRemoveMiddle = "RemoveMiddle";
 string strFind = "Find";
 string txt = ".txt";
 
-string strPhaseCompleted = "==============================\n"
+string strPhaseCompleted = "\n==============================\n"
                           "Phases Completed! \n"
                           "==============================\n";
 
