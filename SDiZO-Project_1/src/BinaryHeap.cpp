@@ -30,18 +30,37 @@ BinaryHeap::~BinaryHeap() {
     delete[] heap;
 }
 
+/**
+ * Get node parent
+ * @param index
+ * @return
+ */
 int BinaryHeap::getParent(int index) {
     return (index - 1) / 2;
 }
 
+/**
+ * Get node left child
+ * @param index
+ * @return
+ */
 int BinaryHeap::getLeftChild(int index) {
     return (2 * index + 1);
 }
 
+/**
+ * Get node right child
+ * @param index
+ * @return
+ */
 int BinaryHeap::getRightChild(int index) {
     return (2 * index + 2);
 }
 
+/**
+ * Change size of the heap
+ * @param newSize
+ */
 void BinaryHeap::relocate(int newSize) {
     int *temp = new int[newSize];
     if (newSize >= size) {
@@ -70,33 +89,30 @@ void BinaryHeap::swap(int *x, int *y) {
 
 /**
  * Add element to heap
- * @param key
+ * @param value
  */
-void BinaryHeap::addValue(int key) {
+void BinaryHeap::addValue(int value) {
     relocate(size + 1);
-    size++;
+    ++size;
     int i = size - 1;
-    heap[i] = key;
-
-    while (i != 0 && heap[getParent(i)] < heap[i]) {
-        swap(&heap[i], &heap[getParent(i)]);
-        i = getParent(i);
-    }
+    heap[i] = value;
+    heapifyUp(i);
 }
 
 /**
  * Remove element from heap
  * @return
  */
-void BinaryHeap::removeIndex(unsigned int index) {
-    if (index < size) {
+void BinaryHeap::removeIndex(int index) {
+    if (index >= 0 && index < size) {
         --size;
         int *newArray = new int[size];
         for (unsigned int j = 0; j < index; ++j) {
             newArray[j] = heap[j];
         }
-        if (size)
+        if (size > 0) {
             newArray[index] = heap[size];
+        }
         for (unsigned int j = index + 1; j < size; ++j) {
             newArray[j] = heap[j];
         }
@@ -110,30 +126,48 @@ void BinaryHeap::removeIndex(unsigned int index) {
  * Remove value from heap
  * @param value
  */
-bool BinaryHeap::removeValue(int number) {
-    for (unsigned int i = 0; i < size; ++i) {
-        if (heap[i] == number) {
-            --size;
-            int *newArray = new int[size];
-            for (unsigned int j = 0; j < i; ++j) {
-                newArray[j] = heap[j];
-            }
-            if (size)
-                newArray[i] = heap[size];
-            for (unsigned int j = i + 1; j < size; ++j) {
-                newArray[j] = heap[j];
-            }
-            delete[] heap;
-            heap = newArray;
-            heapifyDown(i);
-            return true;
-        }
-    }
-    return false;
+void BinaryHeap::removeValue(int number) {
+    removeIndex(findValue(number));
 }
 
 /**
- * Fix heap
+ * Delete given value from the heap
+ * @param value
+ */
+void BinaryHeap::deleteValue(int value) {
+    int index = findValue(value);
+    if (index < 0)
+        return;
+
+    int oldValue = heap[index];
+    int newValue = heap[size - 1];
+
+    heap[index] = newValue;
+    relocate(size - 1);
+
+    if (newValue > oldValue) {
+        heapifyUp(index);
+    } else if (newValue < oldValue) {
+        heapifyDown(index);
+    }
+    --size;
+}
+
+/**
+ * Fix heap up
+ * @param index
+ */
+void BinaryHeap::heapifyUp(int index) {
+    int parentIndex = getParent(index);
+    while (index > 0 && heap[parentIndex] < heap[index]) {
+        swap(&heap[parentIndex], &heap[index]);
+        index = parentIndex;
+        parentIndex = getParent(index);
+    }
+}
+
+/**
+ * Fix heap down
  * @param index
  */
 void BinaryHeap::heapifyDown(int index) {
@@ -169,6 +203,7 @@ int BinaryHeap::findValue(int value) {
  * display heap, code from https://eduinf.waw.pl/inf/alg/001_search/0112.php
  */
 void BinaryHeap::display() {
+    std::cout << '\n';
     printRecursive("", "", 0);
     std::cout << '\n';
 }

@@ -27,6 +27,11 @@ AVLTree::AVLTreeNode::~AVLTreeNode() {
     balance = 0;
 }
 
+/**
+ * Tree constructor
+ * @param array
+ * @param arraySize
+ */
 AVLTree::AVLTree(const int *array, int arraySize) {
     nil = new AVLTreeNode();
     nil->left = nil;
@@ -38,6 +43,9 @@ AVLTree::AVLTree(const int *array, int arraySize) {
     }
 }
 
+/**
+ * Tree deconstructor
+ */
 AVLTree::~AVLTree() {
     deleteNode(root);
     root = nullptr;
@@ -45,14 +53,26 @@ AVLTree::~AVLTree() {
     nil = nullptr;
 }
 
+/**
+ * Add value to the tree
+ * @param data
+ */
 void AVLTree::addValue(int data) {
     insertValue(data, root);
 }
 
+/**
+ * Remove value from the tree
+ * @param data
+ */
 void AVLTree::removeValue(int data) {
     removeValue(data, root);
 }
 
+/**
+ * Delete given node from the tree
+ * @param node
+ */
 void AVLTree::deleteNode(AVLTreeNode *&node) {
     if (node == nil)
         return;
@@ -62,7 +82,13 @@ void AVLTree::deleteNode(AVLTreeNode *&node) {
 
     delete node;
 }
-
+/*
+ *        A           B
+ *      /   \   ->  /   \
+ *     B    C      D     A
+ *   /  \              /  \
+ *  D    E            E    C
+ */
 /**
  * Rotate node to left
  * @param node
@@ -81,7 +107,13 @@ void AVLTree::rotateRight(AVLTreeNode *&node) {
     y->balance += 1;
     if (x->balance > 0) y->balance += x->balance;
 }
-
+/*
+ *     B                 A
+ *   /   \      ->     /   \
+ *  D     A           B    C
+ *      /  \        /  \
+ *     E    C      D    E
+ */
 /**
  * Rotate node to left
  * @param node

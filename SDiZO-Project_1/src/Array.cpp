@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "Array.h"
 
@@ -163,7 +164,9 @@ int Array::getIndexValue(unsigned int index) {
  * Display all elements in array
  */
 void Array::display() {
-    for (int i = 0; i < size; ++i) {
-        std::cout << array[i] << "\n";
+    std::cout << "\n[" << array[0];
+    for (int i = 1; i < size; ++i) {
+        std::cout << ", " << array[i];
     }
+    std::cout << "]\n";
 }

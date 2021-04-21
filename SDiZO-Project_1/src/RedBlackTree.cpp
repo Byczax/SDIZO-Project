@@ -1,7 +1,7 @@
 #include <string>
 #include "RedBlackTree.h"
 
-using namespace std;
+using std::string;
 
 /**
  * Node constructor
@@ -79,7 +79,7 @@ void RedBlackTree::addValue(int value) {
 }
 
 /**
-     * Fixing the properties of a red-black tree when a number is added to it  - algorithm - Cormen - wprowadzenie do algorytmów 13.3
+     * Fixing the properties of a red-black tree when a number is added to it
      * @param z
      */
 void RedBlackTree::addFixTree(TreeNode *z) {
@@ -126,7 +126,13 @@ void RedBlackTree::addFixTree(TreeNode *z) {
     }
     root->color = BLACK;
 }
-
+/*
+ *     B                 A
+ *   /   \      ->     /   \
+ *  D     A           B    C
+ *      /  \        /  \
+ *     E    C      D    E
+ */
 /**
      * node rotation to left
      * @param a
@@ -153,7 +159,13 @@ void RedBlackTree::rotateLeft(TreeNode *a) {
         }
     }
 }
-
+/*
+ *        A           B
+ *      /   \   ->  /   \
+ *     B    C      D     A
+ *   /  \              /  \
+ *  D    E            E    C
+ */
 /**
  * node rotation to right
  * @param a
@@ -211,32 +223,44 @@ void RedBlackTree::removeGivenElement(TreeNode *node) {
     if (node->left == nil || node->right == nil)
         y = node;
     else {
+        // find succesor
         y = node->right;
-        while (y->left != nil)
+        while (y->left != nil) {
             y = y->left;
+        }
     }
     TreeNode *x;
-    x = y->right;
+    // only one son
+    if (y->left != nil) {
+        x = y->left;
+    } else {
+        x = y->right;
+    }
     if (x != nil)
         x->parent = y->parent;
     if (y->parent == nil) {
         root = x;
-    } else if (y == y->parent->left) {
-        x = y->parent->left;
-    } else x = y->parent->right;
-    if (y != node)
+    }
+    if (y == y->parent->left) {
+        y->parent->left = x;
+    } else {
+        y->parent->right = x;
+    }
+    if (y != node) {
         node->value = y->value;
+    }
+
     if (y->color == BLACK)
         removeFixTree(x);
     //remove the reference to the element in the parent of the element to be removed
-    TreeNode *deletedParentNode = y->parent;
-    if (deletedParentNode->left == y)
-        deletedParentNode->left = nil;
-    else
-        deletedParentNode->right = nil;
+
     delete y;
 }
 
+/**
+ * Fix tree after node deletion
+ * @param node
+ */
 void RedBlackTree::removeFixTree(TreeNode *node) {
     while (node != root && node->color == BLACK) {
         if (node == node->parent->left) {
@@ -314,7 +338,7 @@ bool RedBlackTree::findValue(int value) {
  */
 void RedBlackTree::display() {
     printRecursive("", "", root);
-    cout << '\n';
+    std::cout << '\n';
 }
 
 /**
@@ -337,8 +361,9 @@ void RedBlackTree::printRecursive(const string &sp, const string &sn, TreeNode *
             s[s.length() - 2] = ' ';
         printRecursive(s + cp, cr, node->right);
         s = s.substr(0, sp.length() - 2);
-        string value = (node->color == RED) ? to_string(node->value) + "(R)" : to_string(node->value) + "(B)";
-        cout << s << sn << value << '\n';
+        string value = (node->color == RED) ? std::to_string(node->value) + "(R)" : std::to_string(node->value) + "(B)";
+        printf("%s%s%s\n", s.c_str(), sn.c_str(), value.c_str());
+//        cout << s << sn << value << '\n';
         s = sp;
         if (sn == cl)
             s[s.length() - 2] = ' ';

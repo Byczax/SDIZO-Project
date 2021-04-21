@@ -3,35 +3,55 @@
 #include <string>
 
 class BinaryHeap {
-    int *heap;
-    int size;
+    int *heap;// pointer to heap
+    int size;// heap size
 
-    int getParent(int);
+    //get parent for given index
+    int getParent(int index);
 
-    int getLeftChild(int);
+    // get left child for given index element
+    int getLeftChild(int index);
 
-    int getRightChild(int);
+    // get right child for given index element
+    int getRightChild(int index);
 
-    void relocate(int);
+    // change heap size
+    void relocate(int index);
 
-    void swap(int *, int *);
+    // swap two elements
+    void swap(int *a, int *b);
 
-    void heapifyDown(int);
+    // fix heap down
+    void heapifyDown(int index);
 
+    // fix heap up
+    void heapifyUp(int index);
+
+    // display
     void printRecursive(const std::string &sp, const std::string &sn, unsigned int index);
 
-    void removeIndex(unsigned int index);
+    // remove value under the index
+    void removeIndex(int index);
 
 public:
+    // constructor
     BinaryHeap(const int *initRoot = nullptr, int myHeapSize = 0);
 
+    // deconstructor
     ~BinaryHeap();
 
-    void addValue(int);
+    // add value to heap
+    void addValue(int value);
 
-    bool removeValue(int);
+    // remove value from heap
+    void removeValue(int value);
 
-    int findValue(int);
+    // find value in the heap
+    int findValue(int value);
 
+    // display
     void display();
+
+    // delete value from the heap
+    void deleteValue(int value);
 };

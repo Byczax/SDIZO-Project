@@ -27,19 +27,19 @@ int main() {
     createResultsFolders();
     string textErrorChoice = "Blad, zly wybor\n";
     cout << std::boolalpha; // change bool values to bool words
-    bool exit = false;
+
     bool mainExit = false;
     int input;
-    int mainInput;
     while (!mainExit) {
+        bool exit = false;
         cout << "\n==============================\n"
                 "0. Wyjscie \n"
                 "1. Testy manualne \n"
                 "2. Testy automatyczne \n"
                 "==============================\n"
                 "Twoj wybor: ";
-        if (!(cin >> mainInput)) { return 0; }
-        switch (mainInput) {
+        if (!(cin >> input)) { return 0; }
+        switch (input) {
             case 0:
                 mainExit = true;
                 break;
@@ -54,6 +54,7 @@ int main() {
                             "5. Drzewo AVL \n"
                             "==============================\n"
                             "Twoj wybor: ";
+
                     if (!(cin >> input)) { return 0; }
                     switch (input) {
                         case 0:
@@ -106,6 +107,7 @@ int main() {
                             "5. Drzewo AVL \n"
                             "==============================\n"
                             "Twoj wybor: ";
+
                     if (!(cin >> input)) { return 0; }
                     switch (input) {
                         case 0:

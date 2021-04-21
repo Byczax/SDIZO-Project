@@ -1,8 +1,6 @@
 #include <iostream>
 #include "DoubleList.h"
 
-using namespace std;
-
 /**
  * Constructor
  * @param array
@@ -18,7 +16,7 @@ DoubleList::DoubleList(int *array, int arraySize) {
  * Desctructor
  */
 DoubleList::~DoubleList() {
-    while (first_element != nullptr) {
+    while (head != nullptr) {
         removeElementFront();
     }
 }
@@ -28,10 +26,15 @@ DoubleList::~DoubleList() {
  * @param value
  */
 void DoubleList::addElementFront(int value) {
+    ListNode *temp = new ListNode{value, nullptr, this->head};
+    if (size == 0) {
+        this->head = temp;
+        this->tail = temp;
+    } else {
+        this->head->prev = temp;
+        this->head = temp;
+    }
     ++size;
-    ListNode *temp = new ListNode{value, nullptr, this->first_element};
-    this->first_element->prev = temp;
-    this->first_element = temp;
 }
 
 /**
@@ -39,18 +42,16 @@ void DoubleList::addElementFront(int value) {
  * @param value
  */
 void DoubleList::addElementBack(int value) {
-    ++size;
-    ListNode *end = this->first_element;
-    ListNode *temp = new ListNode{value, nullptr, nullptr};
-    if (end) {
-        while (end && end->next) {
-            end = end->next;
-        }
-        end->next = temp;
-        temp->prev = end;
+
+    ListNode *temp = new ListNode{value, this->tail, nullptr};
+    if (size == 0) {
+        this->head = temp;
+        this->tail = temp;
     } else {
-        this->first_element = temp;
+        this->tail->next = temp;
+        this->tail = temp;
     }
+    ++size;
 }
 
 /**
@@ -59,47 +60,50 @@ void DoubleList::addElementBack(int value) {
  * @param index
  */
 void DoubleList::addElementAnywhere(int value, unsigned int index) {
-    size++;
+
     if (index == 0) {
         addElementFront(value);
-        return;
-    }
-    ListNode *left = this->first_element;
-    ListNode *temp = new ListNode{value, nullptr};
-    if (left != nullptr) {
-        for (int i = 0; i < index - 1; ++i) {
-            left = left->next;
-            if (left->next == nullptr) {
-                exit(1);
-            }
-        }
-        ListNode *right = left->next;
-
-        left->next = temp;
-        temp->prev = left;
-        temp->next = right;
-        right->prev = temp;
-
+    } else if (index >= size - 1) {
+        addElementBack(value);
     } else {
-        this->first_element = temp;
-        temp->prev = this->first_element;
+        ListNode *left = this->head;
+        ListNode *temp = new ListNode{value, nullptr};
+        if (left != nullptr) {
+            for (int i = 0; i < index - 1; ++i) {
+                left = left->next;
+                if (left->next == nullptr) {
+                    exit(1);
+                }
+            }
+            ListNode *right = left->next;
+
+            left->next = temp;
+            temp->prev = left;
+            temp->next = right;
+            right->prev = temp;
+
+        } else {
+            this->head = temp;
+            temp->prev = this->head;
+        }
     }
+    size++;
 }
 
 /**
  * Remove element in front of the list
  */
 void DoubleList::removeElementFront() {
-    if (this->first_element == nullptr) {
+    if (size == 0) {
         return;
     } else {
-        --size;
-        ListNode *temp = this->first_element->next;
+        ListNode *temp = this->head->next;
         if (temp != nullptr) {
             temp->prev = nullptr;
         }
-        delete this->first_element;
-        this->first_element = temp;
+        delete this->head;
+        this->head = temp;
+        --size;
     }
 }
 
@@ -107,21 +111,18 @@ void DoubleList::removeElementFront() {
  * Remove element in back of the list
  */
 void DoubleList::removeElementBack() {
-    if (this->first_element == nullptr) {
+    if (size == 0) {
         return;
-    } else {
-        size--;
-        ListNode *temp;
-        ListNode *end = this->first_element;
-        while (end && end->next) {
-            end = end->next;
-        }
-        temp = end->prev;
-        if (temp) {
-            temp->next = nullptr;
-        }
-        delete end;
+    }else if(size == 1){
+        delete this->tail;
     }
+    else {
+        ListNode *temp = this->tail->prev;
+        temp->next = nullptr;
+        delete this->tail;
+        this->tail = temp;
+    }
+    --size;
 }
 
 /**
@@ -129,11 +130,15 @@ void DoubleList::removeElementBack() {
  * @param index
  */
 void DoubleList::removeElementAnywhere(unsigned int index) {
-    if (this->first_element == nullptr) {
+    if (this->head == nullptr) {
         return;
+    } else if (index == 0) {
+        removeElementFront();
+    } else if (index == size - 1) {
+        removeElementBack();
     } else {
         ListNode *temp;
-        ListNode *left = this->first_element;
+        ListNode *left = this->head;
         for (int i = 0; i < index - 1; ++i) {
             left = left->next;
             if (left->next == nullptr) {
@@ -145,6 +150,7 @@ void DoubleList::removeElementAnywhere(unsigned int index) {
         temp = left->next;
         temp->prev = left->prev;
         delete left;
+        --size;
     }
 }
 
@@ -153,7 +159,7 @@ void DoubleList::removeElementAnywhere(unsigned int index) {
  * @param value
  */
 void DoubleList::removeValue(int value) {
-    ListNode *temp = this->first_element;
+    ListNode *temp = this->head;
     ListNode *temp2;
     while (temp != nullptr && temp->next != nullptr) {
         if (temp->value == value) {
@@ -173,24 +179,32 @@ void DoubleList::removeValue(int value) {
  * @param value
  * @return
  */
-ListNode *DoubleList::findValue(int value) {
-    ListNode *temp = this->first_element;
-    while (temp != nullptr && temp->next != nullptr) {
+int DoubleList::findValue(int value) {
+    ListNode *temp = this->head;
+    int counter = 0;
+    while (temp != nullptr) {
         if (temp->value == value) {
-            return temp;
+            return counter;
         }
         temp = temp->next;
+        ++counter;
     }
-    return nullptr;
+    return -1;
 }
 
 /**
  * Display all elements in list
  */
 void DoubleList::display() {
-    ListNode *my_node = this->first_element;
+    if (size == 0) {
+        return;
+    }
+    ListNode *my_node = this->head;
+    std::cout << "\n" << my_node->value;
+    my_node = my_node->next;
     while (my_node != nullptr) {
-        cout << my_node->value << '\n';
+        std::cout << " <=> " << my_node->value;
         my_node = my_node->next;
     }
+    std::cout << "\n";
 }

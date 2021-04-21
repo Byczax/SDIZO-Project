@@ -1,12 +1,12 @@
 #include <string>
 #include <chrono>
 
-#include "ManualTest.h"
-#include "DoubleList.h"
 #include "Array.h"
+#include "DoubleList.h"
 #include "BinaryHeap.h"
 #include "RedBlackTree.h"
 #include "AVLTree.h"
+#include "ManualTest.h"
 #include "Essentials.h"
 
 
@@ -21,33 +21,19 @@ string textRemoveValue = "Podaj wartosc ktora chcesz usunac: ";
 string textGetIndex = "Podaj pozycje na ktora chcesz dodac element: ";
 string textRemoveIndex = "Podaj pozycje ktora chcesz usunac: ";
 string textFindValue = "Podaj wartosc ktora chcesz znalezc: ";
-string textFindIndex = "Podaj pozycje ktora chcesz wyswietlic: ";
 string textReadFile = "Podaj nazwe pliku, ktory chcesz wczytac: ";
 string textDataAmount = "Podaj ile chcesz danych: ";
 string textOperation = "Czas wykonania operacji: ";
 string textErrorFile = "ERROR, Zla nazwa pliku lub plik nie istnieje\n";
 string textErrorChoice = "Blad, zly wybor\n";
 
-Essentials tool;
-
-//template<typename T>
-//double Timer(T i) {
-//    auto start = std::chrono::high_resolution_clock::now();// Start the counter
-//    i();// our function
-//    auto end = std::chrono::high_resolution_clock::now();// Get value after executing function
-//    auto duration = end - start;// get time difference
-//    auto elapsed_time = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();// calculate time
-//    return elapsed_time;// Return executing time in nanoseconds
-//}
 void ManualTest::array() {
-    auto *array = new Array(nullptr, 0); // Create empty array
-
+    auto *array = new Array(); // Create empty array
     bool exit = false;
     int input;
     int value;
     int *data;
     int temp;
-    bool finded;
     string filename;
     unsigned int index;
     while (!exit) {
@@ -64,8 +50,7 @@ void ManualTest::array() {
                 "9. Usun element gdziekolwiek \n"
                 "10. Usun wartosc (jezeli istnieje) \n"
                 "11. Znajdz element \n"
-                "12. Wyswietl wartosc pod indeksem \n"
-                "13. Wyswietl zawartosc \n"
+                "12. Wyswietl zawartosc \n"
                 "==============================\n"
                 "Twoj wybor: ";
         if (!(cin >> input)) { return; }
@@ -158,15 +143,6 @@ void ManualTest::array() {
                 }
                 break;
             case 12:
-                // Get value under given index in the array
-                cout << textFindIndex;
-                if (!(cin >> index)) { return; }
-                cout << textOperation << Timer([&] { temp = array->getIndexValue(index); }) << "\n";
-                cout << "\n==============================\n"
-                        "Wartosc pod indeksem: " << temp << "\n"
-                                                            "==============================\n";
-                break;
-            case 13:
                 // Display array in the console
                 array->display();
                 break;
@@ -183,7 +159,7 @@ void ManualTest::doubleList() {
     int input;
     int value;
     int *data = nullptr;
-    ListNode *temp = nullptr;
+    int temp;
     string filename;
     unsigned int index;
     while (!exit) {
@@ -282,7 +258,12 @@ void ManualTest::doubleList() {
                 cout << textFindValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { temp = list->findValue(value); }) << "\n";
-                cout << (temp != nullptr) << "\n";
+                if (temp >= 0) {
+                    cout << "Znaleziona wartosc znajduje sie pod: " << temp << "\n";
+                } else {
+                    cout << "Nie ma takiej wartosci\n";
+                }
+
                 break;
             case 12:
                 // Display doubleList
@@ -359,15 +340,15 @@ void ManualTest::binaryHeap() {
                 // Remove value from the binaryHeap
                 cout << textRemoveValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { heap->removeValue(value); }) << "\n";
+                cout << textOperation << Timer([&] { heap->deleteValue(value); }) << "\n";
                 break;
             case 6:
                 // Find element in the binaryHeap
                 cout << textFindValue;
                 if (!(cin >> value)) { return; }
                 cout << textOperation << Timer([&] { intTemp = heap->findValue(value); }) << "\n";
-                if (!intTemp) {
-                    cout << intTemp << "\n";
+                if (intTemp >= 0) {
+                    cout << true << "\n";
                 } else {
                     cout << false << "\n";
                 }
@@ -455,6 +436,7 @@ void ManualTest::redBlackTree() {
                 break;
             case 7:
                 tree->display();
+                break;
             default:
                 cout << textErrorChoice;
                 break;

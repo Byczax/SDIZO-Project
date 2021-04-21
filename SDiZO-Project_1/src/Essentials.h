@@ -4,6 +4,12 @@
 
 using namespace std::chrono;
 
+/**
+ * MEasuring time function
+ * @tparam T
+ * @param i
+ * @return
+ */
 template<typename T>
 double Timer(T i) {
     auto start = high_resolution_clock::now();// Start the counter
@@ -17,10 +23,12 @@ double Timer(T i) {
 class Essentials {
 
 public:
-
+    // Get data from given filename
     static int *getDataFromFile(const std::basic_string<char, std::char_traits<char>, std::allocator<char>> &filename);
 
+    // random data generator, file emulation
     static int *randomData(int amount);
 
+    // return random value [-int, int]
     static int randomValue();
 };

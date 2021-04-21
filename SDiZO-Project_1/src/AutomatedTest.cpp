@@ -16,45 +16,49 @@ int startElementQuantity = 1000; // best value is 1000
 int stopElementQuantity = 50000; // best value is 50000
 int *data;
 
-void addCounter(int i) {
+// Percentage counter in the console when adding elements
+void addPercentageCounter(int i) {
     if (i % ((stopElementQuantity / startElementQuantity) * 100) == 0) {
         cout << i / ((stopElementQuantity / startElementQuantity) * 100) * 10 << "%\n";
     }
 }
 
-void removeCounter(int i) {
+// Percentage counter in the console when removing elements
+void removePercentageCounter(int i) {
     if (i % ((stopElementQuantity / startElementQuantity) * 100) == 0) {
         cout << (stopElementQuantity - i) / (stopElementQuantity / startElementQuantity) / 10 + 10 << "%\n";
     }
 }
 
-
+// When adding elements
 template<typename T1, typename T2>
 void testAdding(string phase, T1 function, string filename, T2 findFunction, ofstream &findFile) {
     ofstream file;
     file.open(filename);
     cout << phase;
     for (int i = startElementQuantity; i <= stopElementQuantity; ++i) {
-        addCounter(i);
+        addPercentageCounter(i);
         file << i << "," << Timer([&] { function(); }) << "\n";
         findFile << i << "," << Timer([&] { findFunction(); }) << "\n";
     }
     file.close();
 }
 
+// When removing elements
 template<typename T1, typename T2>
 void testRemoving(string phase, T1 function, string filename, T2 findFunction, ofstream &findFile) {
     ofstream file;
     file.open(filename);
     cout << phase;
     for (int i = stopElementQuantity; i >= startElementQuantity; --i) {
-        removeCounter(i);
+        removePercentageCounter(i);
         file << i << "," << Timer([&] { function(); }) << "\n";
         findFile << i << "," << Timer([&] { findFunction(); }) << "\n";
     }
     file.close();
 }
 
+// Add front, only array and list
 template<typename T>
 void addFrontFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
@@ -67,6 +71,7 @@ void addFrontFunction(T structure, string filename, ofstream &findFile) {
             findFile);
 }
 
+// Remove front, only array and list
 template<typename T>
 void removeFrontFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
@@ -79,6 +84,7 @@ void removeFrontFunction(T structure, string filename, ofstream &findFile) {
             findFile);
 }
 
+// Add back, only array and list
 template<typename T>
 void addBackFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
@@ -91,6 +97,7 @@ void addBackFunction(T structure, string filename, ofstream &findFile) {
             findFile);
 }
 
+// Remove back, only array and list
 template<typename T>
 void removeBackFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
@@ -103,6 +110,7 @@ void removeBackFunction(T structure, string filename, ofstream &findFile) {
             findFile);
 }
 
+// Add middle, only array and list
 template<typename T>
 void addMiddleFunction(T structure, string filename, ofstream &findFile) {
     ofstream saveFile;
@@ -111,7 +119,7 @@ void addMiddleFunction(T structure, string filename, ofstream &findFile) {
             "phase 5. adding elements middle \n"
             "==============================\n";
     for (int i = startElementQuantity; i <= stopElementQuantity; ++i) {
-        addCounter(i);
+        addPercentageCounter(i);
         saveFile << i << "," << Timer([&] { structure->addElementAnywhere(Essentials::randomValue(), i / 2); })
                  << "\n";
         findFile << i << "," << Timer([&] { structure->findValue(Essentials::randomValue()); }) << "\n";
@@ -119,6 +127,7 @@ void addMiddleFunction(T structure, string filename, ofstream &findFile) {
     saveFile.close();
 }
 
+// Remove middle, only array and list
 template<typename T>
 void removeMiddleFunction(T structure, string filename, ofstream &findFile) {
     ofstream saveFile;
@@ -128,13 +137,14 @@ void removeMiddleFunction(T structure, string filename, ofstream &findFile) {
             "==============================\n ";
     // adding to middle and finding elements
     for (int i = stopElementQuantity; i >= startElementQuantity; --i) {
-        removeCounter(i);
+        removePercentageCounter(i);
         saveFile << i << "," << Timer([&] { structure->removeElementAnywhere(i / 2); }) << "\n";
         findFile << i << "," << Timer([&] { structure->findValue(Essentials::randomValue()); }) << "\n";
     }
     saveFile.close();
 }
 
+// Add elements, only heap, RBTree and AVLTree
 template<typename T>
 void addValueFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
@@ -147,6 +157,7 @@ void addValueFunction(T structure, string filename, ofstream &findFile) {
             findFile);
 }
 
+// Remove elements, only heap, RBTree and AVLTree
 template<typename T>
 void removeValueFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
@@ -159,6 +170,7 @@ void removeValueFunction(T structure, string filename, ofstream &findFile) {
             findFile);
 }
 
+// String for constructing filenames
 string strResultsArray = "results/array/Array";
 string strResultsDoubleList = "results/doubleList/DoubleList";
 string strResultsBinaryHeap = "results/binaryHeap/BinaryHeap";
@@ -182,7 +194,7 @@ string txt = ".txt";
 string strPhaseCompleted = "\n==============================\n"
                            "Phases Completed! \n"
                            "==============================\n";
-
+//------------------------------------------------------------------
 
 void AutomatedTest::array() {
     ofstream FindArrayFile;
