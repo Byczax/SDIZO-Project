@@ -99,9 +99,17 @@ W tabelach litera **n** oznacza ilość elementów w strukturze
 
 | Funkcja     |   Średnia    | Pesymistyczna |
 | :---------- | :----------: | :-----------: |
-| Dodawanie   | $O(\log(n))$ | $O(\log(n))$  |
-| Usuwanie    | $O(\log(n))$ | $O(\log(n))$  |
-| Znajdowanie | $O(\log(n))$ | $O(\log(n))$  |
+| Dodawanie   | $O(\log(n))$ |    $O(n)$     |
+| Usuwanie    | $O(\log(n))$ |    $O(n)$     |
+| Znajdowanie | $O(\log(n))$ |    $O(n)$     |
+
+### Złożoność drzewa AVL
+
+| Funkcja     |   Średnia    |    Pesymistyczna     |
+| :---------- | :----------: | :------------------: |
+| Dodawanie   | $O(\log(n))$ | $O(1.44(\log_2(n)))$ |
+| Usuwanie    | $O(\log(n))$ | $O(1.44(\log_2(n)))$ |
+| Znajdowanie | $O(\log(n))$ | $O(1.44(\log_2(n)))$ |
 
 ## Plan eksperymentu
 
