@@ -130,6 +130,9 @@ void DoubleList::removeElementBack() {
  * @param index
  */
 void DoubleList::removeElementAnywhere(unsigned int index) {
+    if(index >= size){
+        return;
+    }
     if (this->head == nullptr) {
         return;
     } else if (index == 0) {

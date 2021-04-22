@@ -110,15 +110,15 @@ void Array::removeElementBack() {
  * @param index
  */
 void Array::removeElementAnywhere(unsigned int index) {
-    if (size > 0 && index < size && index > 0) {
+    if (size > 0 && index < size && index >= 0) {
         --size;
         int *newArray = new int[size];
         unsigned int i;
         for (i = 0; i < index; ++i) {
             newArray[i] = array[i];
         }
-        for (; i < size; ++i) {
-            newArray[i] = array[i];
+        for (i = index; i < size; ++i) {
+            newArray[i] = array[i + 1];
         }
         delete[] array;
         array = newArray;
@@ -164,9 +164,14 @@ int Array::getIndexValue(unsigned int index) {
  * Display all elements in array
  */
 void Array::display() {
-    std::cout << "\n[" << array[0];
-    for (int i = 1; i < size; ++i) {
-        std::cout << ", " << array[i];
+    std::cout << "\n[";
+    if (size > 0) {
+        std::cout  << array[0];
+        for (int i = 1; i < size; ++i) {
+            std::cout << ", " << array[i];
+        }
+    } else{
+        std::cout << " ";
     }
     std::cout << "]\n";
 }

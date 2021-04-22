@@ -450,6 +450,7 @@ void ManualTest::avltree() {
     bool exit = false;
     int input;
     int value;
+    bool find;
     string filename;
     while (!exit) {
         cout << "\n==============================\n"
@@ -510,7 +511,12 @@ void ManualTest::avltree() {
             case 6:
                 cout << textFindValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { avlTree->findValue(value); }) << "\n";
+                cout << textOperation << Timer([&] {find = avlTree->findValue(value); }) << "\n";
+                if (find){
+                    cout << true << "\n";
+                } else{
+                    cout << false << "\n";
+                }
                 break;
             case 7:
                 avlTree->display();
