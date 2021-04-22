@@ -2,6 +2,7 @@
 
 class AutomatedTest {
 
+
 public:
     // Start testing array
     static void array();

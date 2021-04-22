@@ -14,6 +14,7 @@ using std::ofstream;
 
 int startElementQuantity = 1000; // best value is 1000
 int stopElementQuantity = 50000; // best value is 50000
+
 int *data;
 
 // Percentage counter in the console when adding elements
