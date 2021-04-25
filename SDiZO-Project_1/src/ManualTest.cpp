@@ -401,6 +401,7 @@ void ManualTest::redBlackTree() {
     int input;
     int value;
     bool temp;
+    bool exist;
     string filename;
     while (!exit) {
         cout << "\n==============================\n"
@@ -456,7 +457,10 @@ void ManualTest::redBlackTree() {
             case 5:
                 cout << textRemoveValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { tree->removeValue(value); }) << "\n";
+                cout << textOperation << Timer([&] {exist = tree->removeValue(value); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 6:
                 cout << textFindValue;
