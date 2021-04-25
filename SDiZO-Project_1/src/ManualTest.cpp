@@ -25,7 +25,9 @@ string textReadFile = "Podaj nazwe pliku, ktory chcesz wczytac: ";
 string textDataAmount = "Podaj ile chcesz danych: ";
 string textOperation = "Czas wykonania operacji: ";
 string textErrorFile = "ERROR, Zla nazwa pliku lub plik nie istnieje\n";
+string deleteErrorChoice = "Blad, nie ma takiego elementu\n";
 string textErrorChoice = "Blad, zly wybor\n";
+string separator = "==============================\n";
 
 void ManualTest::array() {
     auto *array = new Array(); // Create empty array
@@ -34,6 +36,7 @@ void ManualTest::array() {
     int value;
     int *data;
     int temp;
+    bool exist;
     string filename;
     unsigned int index;
     while (!exit) {
@@ -51,8 +54,8 @@ void ManualTest::array() {
                 "10. Usun wartosc (jezeli istnieje) \n"
                 "11. Znajdz element \n"
                 "12. Wyswietl zawartosc \n"
-                "==============================\n"
-                "Twoj wybor: ";
+             << separator <<
+             "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -109,23 +112,35 @@ void ManualTest::array() {
                 break;
             case 7:
                 // Remove an element from the front in the array
-                cout << textOperation << Timer([&] { array->removeElementFront(); }) << "\n";
+                cout << textOperation << Timer([&] { exist = array->removeElementFront(); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 8:
                 // Remove an element from the back in the array
-                cout << textOperation << Timer([&] { array->removeElementBack(); }) << "\n";
+                cout << textOperation << Timer([&] { exist = array->removeElementBack(); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 9:
                 // Remove an element anywhere in the array
                 cout << textRemoveIndex;
                 if (!(cin >> index)) { return; }
-                cout << textOperation << Timer([&] { array->removeElementAnywhere(index); }) << "\n";
+                cout << textOperation << Timer([&] { exist = array->removeElementAnywhere(index); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 10:
                 // Remove value from the array
                 cout << textRemoveValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { array->removeValue(value); }) << "\n";
+                cout << textOperation << Timer([&] { exist = array->removeValue(value); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 11:
                 // Find value in the array
@@ -135,11 +150,9 @@ void ManualTest::array() {
                 if (temp != -1) {
                     cout << "\n==============================\n"
                             "Znaleziona wartosc znajduje sie pod: " << temp << "\n"
-                                                                               "==============================\n";
+                         << separator;
                 } else {
-                    cout << "\n==============================\n"
-                            "Nie ma takiej wartosci \n"
-                            "==============================\n";
+                    cout << deleteErrorChoice;
                 }
                 break;
             case 12:
@@ -160,6 +173,7 @@ void ManualTest::doubleList() {
     int value;
     int *data = nullptr;
     int temp;
+    bool exist;
     string filename;
     unsigned int index;
     while (!exit) {
@@ -177,8 +191,8 @@ void ManualTest::doubleList() {
                 "10. Usun wartosc (jezeli istnieje) \n"
                 "11. Znajdz element \n"
                 "12. Wyswietl zawartosc \n"
-                "==============================\n"
-                "Twoj wybor: ";
+             << separator <<
+             "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -235,23 +249,35 @@ void ManualTest::doubleList() {
                 break;
             case 7:
                 // Remove an element from the front of the doubleList
-                cout << textOperation << Timer([&] { list->removeElementFront(); }) << "\n";
+                cout << textOperation << Timer([&] { exist = list->removeElementFront(); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 8:
                 // Remove an element from the back of the doubleList
-                cout << textOperation << Timer([&] { list->removeElementBack(); }) << "\n";
+                cout << textOperation << Timer([&] { exist = list->removeElementBack(); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 9:
                 // Remove an element anywhere in the doubleList
                 cout << textRemoveIndex;
                 if (!(cin >> index)) { return; }
-                cout << textOperation << Timer([&] { list->removeElementAnywhere(index); }) << "\n";
+                cout << textOperation << Timer([&] { exist = list->removeElementAnywhere(index); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 10:
                 // Remove value from the doubleList
                 cout << textRemoveValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { list->removeValue(value); }) << "\n";
+                cout << textOperation << Timer([&] { exist = list->removeValue(value); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 11:
                 // strFind value from the doubleList
@@ -261,7 +287,7 @@ void ManualTest::doubleList() {
                 if (temp >= 0) {
                     cout << "Znaleziona wartosc znajduje sie pod: " << temp << "\n";
                 } else {
-                    cout << "Nie ma takiej wartosci\n";
+                    cout << deleteErrorChoice;
                 }
 
                 break;
@@ -282,6 +308,7 @@ void ManualTest::binaryHeap() {
     int input;
     int value;
     int intTemp;
+    bool exist;
     string filename;
     while (!exit) {
         cout << "\n==============================\n"
@@ -293,8 +320,8 @@ void ManualTest::binaryHeap() {
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "6. Znajdz element \n"
                 "7. Wyswietl kopiec \n"
-                "==============================\n"
-                "Twoj wybor: ";
+             << separator <<
+             "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -340,7 +367,10 @@ void ManualTest::binaryHeap() {
                 // Remove value from the binaryHeap
                 cout << textRemoveValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] { heap->deleteValue(value); }) << "\n";
+                cout << textOperation << Timer([&] {exist = heap->removeValue(value); }) << "\n";
+                if (!exist) {
+                    cout << deleteErrorChoice;
+                }
                 break;
             case 6:
                 // Find element in the binaryHeap
@@ -382,8 +412,8 @@ void ManualTest::redBlackTree() {
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "6. Znajdz element \n"
                 "7. Wyswietl drzewo \n"
-                "==============================\n"
-                "Twoj wybor: ";
+             << separator <<
+             "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -462,8 +492,8 @@ void ManualTest::avltree() {
                 "5. Usun wartosc (jezeli istnieje) \n"
                 "6. Znajdz element \n"
                 "7. Wyswietl drzewo \n"
-                "==============================\n"
-                "Twoj wybor: ";
+             << separator <<
+             "Twoj wybor: ";
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -511,10 +541,10 @@ void ManualTest::avltree() {
             case 6:
                 cout << textFindValue;
                 if (!(cin >> value)) { return; }
-                cout << textOperation << Timer([&] {find = avlTree->findValue(value); }) << "\n";
-                if (find){
+                cout << textOperation << Timer([&] { find = avlTree->findValue(value); }) << "\n";
+                if (find) {
                     cout << true << "\n";
-                } else{
+                } else {
                     cout << false << "\n";
                 }
                 break;

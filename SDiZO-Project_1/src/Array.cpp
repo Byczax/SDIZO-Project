@@ -78,7 +78,7 @@ void Array::addElementAnywhere(int value, unsigned int index) {
 /**
  * Remove element in front of the array
  */
-void Array::removeElementFront() {
+bool Array::removeElementFront() {
     if (size > 0) {
         --size;
         int *newArray = new int[size];
@@ -87,13 +87,15 @@ void Array::removeElementFront() {
         }
         delete[] array;
         array = newArray;
+        return true;
     }
+    return false;
 }
 
 /**
  * Remove element in back of the array
  */
-void Array::removeElementBack() {
+bool Array::removeElementBack() {
     if (size > 0) {
         --size;
         int *newArray = new int[size];
@@ -102,14 +104,16 @@ void Array::removeElementBack() {
         }
         delete[] array;
         array = newArray;
+        return true;
     }
+    return false;
 }
 
 /**
  * Remove element anywhere in the array
  * @param index
  */
-void Array::removeElementAnywhere(unsigned int index) {
+bool Array::removeElementAnywhere(unsigned int index) {
     if (size > 0 && index < size && index >= 0) {
         --size;
         int *newArray = new int[size];
@@ -122,15 +126,22 @@ void Array::removeElementAnywhere(unsigned int index) {
         }
         delete[] array;
         array = newArray;
+        return true;
     }
+    return false;
 }
 
 /**
  * Remove value from array if exist
  * @param value
  */
-void Array::removeValue(int value) {
-    removeElementAnywhere(findValue(value));
+bool Array::removeValue(int value) {
+    int index = findValue(value);
+    if (index >= 0) {
+        removeElementAnywhere(index);
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -166,11 +177,11 @@ int Array::getIndexValue(unsigned int index) {
 void Array::display() {
     std::cout << "\n[";
     if (size > 0) {
-        std::cout  << array[0];
+        std::cout << array[0];
         for (int i = 1; i < size; ++i) {
             std::cout << ", " << array[i];
         }
-    } else{
+    } else {
         std::cout << " ";
     }
     std::cout << "]\n";

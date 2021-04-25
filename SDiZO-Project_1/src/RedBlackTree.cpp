@@ -362,7 +362,7 @@ void RedBlackTree::printRecursive(const string &sp, const string &sn, TreeNode *
         printRecursive(s + cp, cr, node->right);
         s = s.substr(0, sp.length() - 2);
         string value = (node->color == RED) ? std::to_string(node->value) + "(R)" : std::to_string(node->value) + "(B)";
-        printf("%s%s%s\n", s.c_str(), sn.c_str(), value.c_str());
+        printf("%s%s[%s]\n", s.c_str(), sn.c_str(), value.c_str());
 //        cout << s << sn << value << '\n';
         s = sp;
         if (sn == cl)

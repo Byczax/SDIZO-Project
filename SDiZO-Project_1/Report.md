@@ -189,7 +189,6 @@ wykonaniu operacji aby ‘odświeżyć’ zawartość tablicy.
 |      | Liczba danych | Dodawanie na koniec | Dodawanie na początek | Dodawanie gdziekolwiek | Szukanie  | Usuwanie koniec | Usuwanie początek | Usuwanie gdziekolwiek |
 | ---- | ------------- | ------------------- | --------------------- | ---------------------- | --------- | --------------- | ----------------- | --------------------- |
 | L.p. | j             | $[ns]$              | $[ns]$                | $[ns]$                 | $[ns]$    | $[ns]$          | $[ns]$            | $[ns]$                |
-|      |               | ArrayAddBack        | ArrayAddFront         | ArrayAddMiddle         | ArrayFind | ArrayRemoveBack | ArrayRemoveFront  | ArrayRemoveMiddle     |
 | 1    | 1000          | 3300                | 5500                  | 195300                 | 1000      | 84500           | 3202              | 165800                |
 | 2    | 5000          | 9000                | 10300                 | 204100                 | 5100      | 90600           | 8900              | 172300                |
 | 3    | 10000         | 17900               | 19300                 | 215600                 | 11100     | 99600           | 17700             | 183400                |
@@ -275,7 +274,6 @@ równy NULL.
 |      | Liczba danych | Dodawanie na koniec | Dodawanie na początek | Dodawanie gdziekolwiek | Szukanie       | Usuwanie koniec      | Usuwanie początek     | Usuwanie gdziekolwiek  |
 | ---- | ------------- | ------------------- | --------------------- | ---------------------- | -------------- | -------------------- | --------------------- | ---------------------- |
 | L.p. | j             | $[ns]$              | $[ns]$                | $[ns]$                 | $[ns]$         | $[ns]$               | $[ns]$                | $[ns]$                 |
-|      |               | DoubleListAddBack   | DoubleListAddFront    | DoubleListAddMiddle    | DoubleListFind | DoubleListRemoveBack | DoubleListRemoveFront | DoubleListRemoveMiddle |
 | 1    | 1000          | 400                 | 400                   | 4600                   | 2600           | 400                  | 200                   | 4500                   |
 | 2    | 5000          | 400                 | 400                   | 15900                  | 14700          | 400                  | 300                   | 15800                  |
 | 3    | 10000         | 400                 | 400                   | 33700                  | 35000          | 400                  | 300                   | 33600                  |

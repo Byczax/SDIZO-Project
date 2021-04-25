@@ -29,16 +29,16 @@ public:
     void addElementAnywhere(int value, unsigned int index);
 
     // Remove element from the front in the list
-    void removeElementFront();
+    bool removeElementFront();
 
     // remove element from the back of the list
-    void removeElementBack();
+    bool removeElementBack();
 
     // remove element from anywhere in the list
-    void removeElementAnywhere(unsigned int index);
+    bool removeElementAnywhere(unsigned int index);
 
     // remove given value from the list
-    void removeValue(int value);
+    bool removeValue(int value);
 
     // find value in the list
     int findValue(int value);

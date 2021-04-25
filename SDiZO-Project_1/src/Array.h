@@ -21,16 +21,16 @@ public:
     void addElementAnywhere(int value, unsigned int index);
 
     // remove element from the front of the array
-    void removeElementFront();
+    bool removeElementFront();
 
     // remove element from the back of the array
-    void removeElementBack();
+    bool removeElementBack();
 
     // remove element from given index
-    void removeElementAnywhere(unsigned int index);
+    bool removeElementAnywhere(unsigned int index);
 
     // remove given value
-    void removeValue(int value);
+    bool removeValue(int value);
 
     // find given value
     int findValue(int value);

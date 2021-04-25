@@ -45,7 +45,7 @@ int main() {
                 break;
             case 1:
                 while (!exit) {
-                    cout << "\n======= MANUAL TESTS ========\n"
+                    cout << "\n======= TESTY MANUALNE =======\n"
                             "0. Wyjscie \n"
                             "1. Tablica \n"
                             "2. Lista dwukierunkowa \n"
@@ -62,31 +62,31 @@ int main() {
                             break;
                         case 1:
                             cout << "\n==============================\n"
-                                    "selected array \n"
+                                    "Wybrano tablice \n"
                                     "==============================\n";
                             ManualTest::array();
                             break;
                         case 2:
                             cout << "\n==============================\n"
-                                    "selected doubleList \n"
+                                    "Wybrano liste dwukierunkowa \n"
                                     "==============================\n";
                             ManualTest::doubleList();
                             break;
                         case 3:
                             cout << "\n==============================\n"
-                                    "selected binaryHeap \n"
+                                    "Wybrano kopiec binarny \n"
                                     "==============================\n";
                             ManualTest::binaryHeap();
                             break;
                         case 4:
                             cout << "\n==============================\n"
-                                    "selected redBlackTree \n"
+                                    "Wybrano drzewo czerwono-czarne \n"
                                     "==============================\n";
                             ManualTest::redBlackTree();
                             break;
                         case 5:
                             cout << "\n==============================\n"
-                                    "selected avlTree \n"
+                                    "Wybrano drzewo AVL \n"
                                     "==============================\n";
                             ManualTest::avltree();
                             break;
@@ -98,7 +98,7 @@ int main() {
                 break;
             case 2:
                 while (!exit) {
-                    cout << "\n====== AUTOMATED TESTS =======\n"
+                    cout << "\n====== TESTY AUTOMATYCZNE =======\n"
                             "0. Wyjscie \n"
                             "1. Tablica \n"
                             "2. Lista dwukierunkowa \n"
@@ -115,31 +115,31 @@ int main() {
                             break;
                         case 1:
                             cout << "\n==============================\n"
-                                    "selected array \n"
+                                    "Wybrano tablice \n"
                                     "==============================\n";
                             AutomatedTest::array();
                             break;
                         case 2:
                             cout << "\n==============================\n"
-                                    "selected doubleList \n"
+                                    "Wybrano liste dwukierunkowa \n"
                                     "==============================\n";
                             AutomatedTest::doubleList();
                             break;
                         case 3:
                             cout << "\n==============================\n"
-                                    "selected binaryHeap \n"
+                                    "Wybrano kopiec binarny \n"
                                     "==============================\n";
                             AutomatedTest::binaryHeap();
                             break;
                         case 4:
                             cout << "\n==============================\n"
-                                    "selected redBlackTree \n"
+                                    "Wybrano drzewo czerwono-czarne \n"
                                     "==============================\n";
                             AutomatedTest::redBlackTree();
                             break;
                         case 5:
                             cout << "\n==============================\n"
-                                    "selected avlTree \n"
+                                    "Wybrano drzewo AVL \n"
                                     "==============================\n";
                             AutomatedTest::avlTree();
                             break;

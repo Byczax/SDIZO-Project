@@ -93,9 +93,9 @@ void DoubleList::addElementAnywhere(int value, unsigned int index) {
 /**
  * Remove element in front of the list
  */
-void DoubleList::removeElementFront() {
+bool DoubleList::removeElementFront() {
     if (size == 0) {
-        return;
+        return false;
     } else {
         ListNode *temp = this->head->next;
         if (temp != nullptr) {
@@ -104,37 +104,38 @@ void DoubleList::removeElementFront() {
         delete this->head;
         this->head = temp;
         --size;
+        return true;
     }
 }
 
 /**
  * Remove element in back of the list
  */
-void DoubleList::removeElementBack() {
+bool DoubleList::removeElementBack() {
     if (size == 0) {
-        return;
-    }else if(size == 1){
+        return false;
+    } else if (size == 1) {
         delete this->tail;
-    }
-    else {
+    } else {
         ListNode *temp = this->tail->prev;
         temp->next = nullptr;
         delete this->tail;
         this->tail = temp;
     }
     --size;
+    return true;
 }
 
 /**
  * Remove element anywhere in the list
  * @param index
  */
-void DoubleList::removeElementAnywhere(unsigned int index) {
-    if(index >= size){
-        return;
+bool DoubleList::removeElementAnywhere(unsigned int index) {
+    if (index >= size) {
+        return false;
     }
     if (this->head == nullptr) {
-        return;
+        return false;
     } else if (index == 0) {
         removeElementFront();
     } else if (index == size - 1) {
@@ -142,10 +143,10 @@ void DoubleList::removeElementAnywhere(unsigned int index) {
     } else {
         ListNode *temp;
         ListNode *left = this->head;
-        for (int i = 0; i < index - 1; ++i) {
+        for (int i = 0; i < index; ++i) {
             left = left->next;
             if (left->next == nullptr) {
-                return;
+                return true;
             }
         }
         temp = left->prev;
@@ -161,7 +162,7 @@ void DoubleList::removeElementAnywhere(unsigned int index) {
  * Remove value from list if exist
  * @param value
  */
-void DoubleList::removeValue(int value) {
+bool DoubleList::removeValue(int value) {
     ListNode *temp = this->head;
     ListNode *temp2;
     while (temp != nullptr && temp->next != nullptr) {
@@ -171,10 +172,11 @@ void DoubleList::removeValue(int value) {
             temp2 = temp->next;
             temp2->prev = temp->prev;
             delete temp;
-            return;
+            return true;
         }
         temp = temp->next;
     }
+    return false;
 }
 
 /**

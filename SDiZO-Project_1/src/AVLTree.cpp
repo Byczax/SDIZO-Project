@@ -310,7 +310,7 @@ void AVLTree::printRecursive(const string &sp, const string &sn, AVLTreeNode *no
             s[s.length() - 2] = ' ';
         printRecursive(s + cp, cr, node->right);
         s = s.substr(0, sp.length() - 2);
-        cout << s << sn << node->value << "(" << node->balance << ")" << '\n';
+        printf("%s%s[%d(%d)]\n", s.c_str(), sn.c_str(), node->value, node->balance);
         s = sp;
         if (sn == cl)
             s[s.length() - 2] = ' ';

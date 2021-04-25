@@ -103,7 +103,7 @@ void BinaryHeap::addValue(int value) {
  * Remove element from heap
  * @return
  */
-void BinaryHeap::removeIndex(int index) {
+bool BinaryHeap::removeIndex(int index) {
     if (index >= 0 && index < size) {
         --size;
         int *newArray = new int[size];
@@ -119,25 +119,19 @@ void BinaryHeap::removeIndex(int index) {
         delete[] heap;
         heap = newArray;
         heapifyDown(index);
+        return true;
     }
+    return false;
 }
 
 /**
- * Remove value from heap
+ * Remove given value from the heap
  * @param value
  */
-void BinaryHeap::removeValue(int number) {
-    removeIndex(findValue(number));
-}
-
-/**
- * Delete given value from the heap
- * @param value
- */
-void BinaryHeap::deleteValue(int value) {
+bool BinaryHeap::removeValue(int value) {
     int index = findValue(value);
     if (index < 0)
-        return;
+        return false;
 
     int oldValue = heap[index];
     int newValue = heap[size - 1];
@@ -151,6 +145,7 @@ void BinaryHeap::deleteValue(int value) {
         heapifyDown(index);
     }
     --size;
+    return true;
 }
 
 /**

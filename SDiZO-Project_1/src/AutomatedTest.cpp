@@ -33,10 +33,10 @@ void removePercentageCounter(int i) {
 
 // When adding elements
 template<typename T1, typename T2>
-void testAdding(string phase, T1 function, string filename, T2 findFunction, ofstream &findFile) {
+void testAdding(string Faza, T1 function, string filename, T2 findFunction, ofstream &findFile) {
     ofstream file;
     file.open(filename);
-    cout << phase;
+    cout << Faza;
     for (int i = startElementQuantity; i <= stopElementQuantity; ++i) {
         addPercentageCounter(i);
         file << i << "," << Timer([&] { function(); }) << "\n";
@@ -47,10 +47,10 @@ void testAdding(string phase, T1 function, string filename, T2 findFunction, ofs
 
 // When removing elements
 template<typename T1, typename T2>
-void testRemoving(string phase, T1 function, string filename, T2 findFunction, ofstream &findFile) {
+void testRemoving(string Faza, T1 function, string filename, T2 findFunction, ofstream &findFile) {
     ofstream file;
     file.open(filename);
-    cout << phase;
+    cout << Faza;
     for (int i = stopElementQuantity; i >= startElementQuantity; --i) {
         removePercentageCounter(i);
         file << i << "," << Timer([&] { function(); }) << "\n";
@@ -64,7 +64,7 @@ template<typename T>
 void addFrontFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
             "\n==============================\n"
-            "phase 1. adding elements front \n"
+            "Faza 1. Dodawanie elementow do przodu \n"
             "==============================\n",
             [&] { structure->addElementFront(Essentials::randomValue()); },
             filename,
@@ -77,7 +77,7 @@ template<typename T>
 void removeFrontFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
             "\n==============================\n"
-            "phase 2. removing elements front \n"
+            "Faza 2. Usuwanie elementow z przodu \n"
             "==============================\n",
             [&] { structure->removeElementFront(); },
             filename,
@@ -90,7 +90,7 @@ template<typename T>
 void addBackFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
             "\n==============================\n"
-            "phase 3. adding elements back \n"
+            "Faza 3. Dodawanie elementow z tylu \n"
             "==============================\n",
             [&] { structure->addElementBack(Essentials::randomValue()); },
             filename,
@@ -103,7 +103,7 @@ template<typename T>
 void removeBackFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
             "\n==============================\n"
-            "phase 4. removing elements back \n"
+            "Faza 4. Usuwanie elementow z tylu \n"
             "==============================\n",
             [&] { structure->addElementFront(Essentials::randomValue()); },
             filename,
@@ -117,7 +117,7 @@ void addMiddleFunction(T structure, string filename, ofstream &findFile) {
     ofstream saveFile;
     saveFile.open(filename);
     cout << "\n==============================\n"
-            "phase 5. adding elements middle \n"
+            "Faza 5. Dodawanie elemntow gdziekolwiek \n"
             "==============================\n";
     for (int i = startElementQuantity; i <= stopElementQuantity; ++i) {
         addPercentageCounter(i);
@@ -134,8 +134,8 @@ void removeMiddleFunction(T structure, string filename, ofstream &findFile) {
     ofstream saveFile;
     saveFile.open(filename);
     cout << "\n==============================\n"
-            "phase 6. removing elements middle \n"
-            "==============================\n ";
+            "Faza 6. Usuwanie elementow ze srodka \n"
+            "==============================\n";
     // adding to middle and finding elements
     for (int i = stopElementQuantity; i >= startElementQuantity; --i) {
         removePercentageCounter(i);
@@ -150,7 +150,7 @@ template<typename T>
 void addValueFunction(T structure, string filename, ofstream &findFile) {
     testAdding(
             "\n==============================\n"
-            "phase 1. adding elements\n"
+            "Faza 1. Dodawanie elementow\n"
             "==============================\n",
             [&] { structure->addValue(Essentials::randomValue()); },
             filename,
@@ -163,7 +163,7 @@ template<typename T>
 void removeValueFunction(T structure, string filename, ofstream &findFile) {
     testRemoving(
             "\n==============================\n"
-            "phase 2. removing elements\n"
+            "Faza 2. Usuwanie elementow\n"
             "==============================\n",
             [&] { structure->removeValue(Essentials::randomValue()); },
             filename,
@@ -192,9 +192,9 @@ string strRemoveMiddle = "RemoveMiddle";
 string strFind = "Find";
 string txt = ".txt";
 
-string strPhaseCompleted = "\n==============================\n"
-                           "Phases Completed! \n"
-                           "==============================\n";
+string strFazaCompleted = "\n==============================\n"
+                          "Fazy zakonczone! \n"
+                          "==============================\n";
 //------------------------------------------------------------------
 
 void AutomatedTest::array() {
@@ -221,7 +221,7 @@ void AutomatedTest::array() {
     // removing from middle and finding elements
     removeMiddleFunction(array, strResultsArray + strRemoveMiddle + txt, FindArrayFile);
 
-    cout << strPhaseCompleted;
+    cout << strFazaCompleted;
     delete array;
 }
 
@@ -249,7 +249,7 @@ void AutomatedTest::doubleList() {
     // removing from middle and finding elements
     removeMiddleFunction(array, strResultsDoubleList + strRemoveMiddle + txt, FindDoubleListFile);
 
-    cout << strPhaseCompleted;
+    cout << strFazaCompleted;
     delete array;
 }
 
@@ -266,7 +266,7 @@ void AutomatedTest::binaryHeap() {
     // removing from front and finding elements
     removeValueFunction(binaryHeap, strResultsBinaryHeap + strRemove + txt, FindBinaryHeapFile);
 
-    cout << strPhaseCompleted;
+    cout << strFazaCompleted;
     delete binaryHeap;
 }
 
@@ -282,7 +282,7 @@ void AutomatedTest::redBlackTree() {
     // removing from front and finding elements
     removeValueFunction(redBlackTree, strResultsRedBlackTree + strRemove + txt, FindRBTreeFile);
 
-    cout << strPhaseCompleted;
+    cout << strFazaCompleted;
     delete redBlackTree;
 }
 
@@ -298,6 +298,6 @@ void AutomatedTest::avlTree() {
     // removing from front and finding elements
     removeValueFunction(avltree, strResultsAVLTree + strRemove + txt, FindAVLTree);
 
-    cout << strPhaseCompleted;
+    cout << strFazaCompleted;
     delete avltree;
 }

@@ -31,7 +31,7 @@ class BinaryHeap {
     void printRecursive(const std::string &sp, const std::string &sn, unsigned int index);
 
     // remove value under the index
-    void removeIndex(int index);
+    bool removeIndex(int index);
 
 public:
     // constructor
@@ -44,14 +44,11 @@ public:
     void addValue(int value);
 
     // remove value from heap
-    void removeValue(int value);
+    bool removeValue(int value);
 
     // find value in the heap
     int findValue(int value);
 
     // display
     void display();
-
-    // delete value from the heap
-    void deleteValue(int value);
 };
