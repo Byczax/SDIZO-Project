@@ -2,6 +2,11 @@
 
 Struktury Danych i Złożoności Obliczeniowe - Projekt, część pierwsza
 
+## Ocena
+
+Otrzymana ocena: 5.0,
+balansowanie drzewa czerwono-czarnego nie działa.
+
 ## Badanie efektywności operacji na danych w podstawowych strukturach danych
 
 ### Polecenie
@@ -21,9 +26,9 @@ wyszukanie elementu w następujących strukturach danych:
   najmniej miejsca tzn. powinny być relokowane przy dodawaniu/usuwaniu elementów),
 - w przypadku tablicy i listy rozpatrzeć osobno operacje dodawania i usuwania elementu na następujących pozycjach (
   powinny to być oddzielne funkcje/metody) :
-    - a.początek tablicy/listy
-    - b. koniec tablicy/listy
-    - c.dowolne miejsce tablicy/listy (określane jako parametr odpowiedniej funkcji).
+  - a.początek tablicy/listy
+  - b. koniec tablicy/listy
+  - c.dowolne miejsce tablicy/listy (określane jako parametr odpowiedniej funkcji).
 - należy zmierzyć czasy wykonywania poszczególnych operacji w funkcji rozmiaru danej struktury (liczby elementów w niej
   przechowywanych). Ponieważ pojedynczy pomiar może być obarczony znacznym błędem oraz otrzymane wyniki mogą zależeć
   także od rozkładu danych, to pomiary dla konkretnego rozmiaru struktury należy wykonać wielokrotnie  (np. 100 razy –
