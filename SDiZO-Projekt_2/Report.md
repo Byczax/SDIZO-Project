@@ -1,0 +1,3 @@
+- wyznaczanie minimalnego drzewa rozpinającego (MST) - algorytm Prima oraz algorytm Kruskala, (Grafy nieskierowane)
+- wyznaczanie najkrótszej ścieżki w grafie – algorytm Dijkstry oraz algorytm Forda-Bellmana, (Grafy skierowane)
+- wyznaczanie maksymalnego przepływu – algorytm Forda-Fulkersona (na ocenę 5.5). ()

@@ -1,4 +1,4 @@
-#include "MSTPrim.h"
+#include "Prim.h"
 
 #include <iostream>
 
@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void MSTPrim::Prim() {
+void Prim::Prim() {
     int graf[100][100]; // graf nad	ktorym bedziemy	pracowac
     int odwiedzone[MX]; //tablica odwiedzonych
     int waga[MX];        //tablica wag poszczegolnych polaczen

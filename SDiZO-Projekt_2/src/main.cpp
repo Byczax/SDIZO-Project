@@ -19,6 +19,10 @@ void createResultsFolders() {
 string textErrorChoice = "Blad, zly wybor\n";
 string barrier = "\n==============================\n";
 
+void textSelect(const string& selected){
+    cout << barrier << selected << barrier;
+}
+
 int main() {
     createResultsFolders();
 
@@ -41,11 +45,11 @@ int main() {
                 while (!exit) {
                     cout << "\n======= TESTY MANUALNE =======\n"
                             "0. Wyjscie \n"
-                            "1. Drzewo rozponajace (MST) - Algorytm Prima\n"
-                            "2. Drzewo rozponajace (MST) - Algorytm Kruskala\n"
-                            "3. Najkrótsza ścieżka w grafie - Algorytm Dijkstry\n"
-                            "4. Najkrótsza ścieżka w grafie - Algorytm Forlda-Bellmana\n"
-                            "5. Wyznaczanie maksymalnego przepływu - Algorytm Forda-Fulkersona\n"
+                            "1. Drzewo rozpinajace (MST) - Algorytm Prima\n"
+                            "2. Drzewo rozpinajace (MST) - Algorytm Kruskala\n"
+                            "3. Najkrótsza ścieżka w grafie (SPF) - Algorytm Dijkstry\n"
+                            "4. Najkrótsza ścieżka w grafie (SPF) - Algorytm Forlda-Bellmana\n"
+                            "5. Wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona\n"
                          << barrier << "Twoj wybor: ";
 
                     if (!(cin >> input)) { return 0; }
@@ -54,14 +58,19 @@ int main() {
                             exit = true;
                             break;
                         case 1:
+                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Prima");
                             break;
                         case 2:
+                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Kruskala");
                             break;
                         case 3:
+                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Dijkstry");
                             break;
                         case 4:
+                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Forda-Bellmana");
                             break;
                         case 5:
+                            textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona");
                             break;
                         default:
                             cout << textErrorChoice;
