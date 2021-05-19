@@ -1,14 +1,14 @@
-//
-// Created by byczax on 5/19/2021.
-//
-
-#ifndef SDIZO_PROJEKT_2_AUTOMATEDTESTS_H
-#define SDIZO_PROJEKT_2_AUTOMATEDTESTS_H
-
+#pragma once
 
 class AutomatedTests {
+public:
+    static void prim();
 
+    static void kruskal();
+
+    static void dijkstra();
+
+    static void bellmanFord();
+
+    static void fordFulkerson();
 };
-
-
-#endif //SDIZO_PROJEKT_2_AUTOMATEDTESTS_H

@@ -1,15 +1,6 @@
-//
-// Created by byczax on 5/7/2021.
-//
-
-#ifndef SDIZO_PROJEKT_2_PRIM_H
-#define SDIZO_PROJEKT_2_PRIM_H
-
+#pragma once
 
 class Prim {
-
-    void Prim();
+public:
+    void prim(int **graph);
 };
-
-
-#endif //SDIZO_PROJEKT_2_PRIM_H

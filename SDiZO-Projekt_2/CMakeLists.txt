@@ -13,4 +13,4 @@ add_executable(SDiZO_Projekt_2
         src/Prim.h
         src/Kruskal.cpp
         src/Kruskal.h
-        src/Dijkstra.cpp src/Dijkstra.h src/BellmanFord.cpp src/BellmanFord.h src/FordFulkerson.cpp src/FordFulkerson.h src/AutomatedTests.cpp src/AutomatedTests.h)
+        src/Dijkstra.cpp src/Dijkstra.h src/BellmanFord.cpp src/BellmanFord.h src/FordFulkerson.cpp src/FordFulkerson.h src/AutomatedTests.cpp src/AutomatedTests.h src/Matrix.cpp src/Matrix.h src/List.cpp src/List.h)

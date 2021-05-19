@@ -2,6 +2,9 @@
 #include <string>
 #include <filesystem>
 
+#include "ManualTests.h"
+#include "AutomatedTests.h"
+
 using std::cout;
 using std::cin;
 using std::string;
@@ -19,7 +22,7 @@ void createResultsFolders() {
 string textErrorChoice = "Blad, zly wybor\n";
 string barrier = "\n==============================\n";
 
-void textSelect(const string& selected){
+void textSelect(const string &selected) {
     cout << barrier << selected << barrier;
 }
 
@@ -59,18 +62,24 @@ int main() {
                             break;
                         case 1:
                             textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Prima");
+                            ManualTests::prim();
                             break;
                         case 2:
                             textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Kruskala");
+                            ManualTests::kruskal();
                             break;
                         case 3:
                             textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Dijkstry");
+                            ManualTests::dijkstra();
                             break;
                         case 4:
-                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Forda-Bellmana");
+                            textSelect(
+                                    "Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Forda-Bellmana");
+                            ManualTests::bellmanFord();
                             break;
                         case 5:
                             textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona");
+                            ManualTests::fordFulkerson();
                             break;
                         default:
                             cout << textErrorChoice;
@@ -79,6 +88,47 @@ int main() {
                 }
                 break;
             case 2:
+                while (!exit) {
+                    cout << "\n======= TESTY AUTOMAAutomated =======\n"
+                            "0. Wyjscie \n"
+                            "1. Drzewo rozpinajace (MST) - Algorytm Prima\n"
+                            "2. Drzewo rozpinajace (MST) - Algorytm Kruskala\n"
+                            "3. Najkrótsza ścieżka w grafie (SPF) - Algorytm Dijkstry\n"
+                            "4. Najkrótsza ścieżka w grafie (SPF) - Algorytm Forlda-Bellmana\n"
+                            "5. Wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona\n"
+                         << barrier << "Twoj wybor: ";
+
+                    if (!(cin >> input)) { return 0; }
+                    switch (input) {
+                        case 0:
+                            exit = true;
+                            break;
+                        case 1:
+                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Prima");
+                            AutomatedTests::prim();
+                            break;
+                        case 2:
+                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Kruskala");
+                            AutomatedTests::kruskal();
+                            break;
+                        case 3:
+                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Dijkstry");
+                            AutomatedTests::dijkstra();
+                            break;
+                        case 4:
+                            textSelect(
+                                    "Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Forda-Bellmana");
+                            AutomatedTests::bellmanFord();
+                            break;
+                        case 5:
+                            textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona");
+                            AutomatedTests::fordFulkerson();
+                            break;
+                        default:
+                            cout << textErrorChoice;
+                            break;
+                    }
+                }
                 break;
             default:
                 cout << textErrorChoice;
