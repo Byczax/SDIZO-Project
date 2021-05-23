@@ -1,21 +1,13 @@
 #include "AutomatedTests.h"
 
-void AutomatedTests::prim() {
+void AutomatedTests::mst() {
 //TODO
 }
 
-void AutomatedTests::kruskal() {
+void AutomatedTests::spf() {
 //TODO
 }
 
-void AutomatedTests::dijkstra() {
-//TODO
-}
-
-void AutomatedTests::bellmanFord() {
-//TODO
-}
-
-void AutomatedTests::fordFulkerson() {
+void AutomatedTests::ffa() {
 //TODO
 }
