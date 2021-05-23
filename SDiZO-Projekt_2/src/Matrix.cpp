@@ -22,20 +22,51 @@ Matrix::~Matrix() {
     delete[] array;
 }
 
-void Matrix::setValue(int x, int y, int value) {
+void Matrix::addDirectedEdge(int x, int y, int value) {
     array[x][y] = value;
 }
 
-int Matrix::getValue(int x, int y) {
-    return array[x][y];
+void Matrix::addUndirectedEdge(int x, int y, int value) {
+    array[x][y] = value;
+    array[y][x] = value;
+
 }
 
 void Matrix::display() {
+    cout << "\nx\\y | ";
     for (int i = 0; i < sizeY; ++i) {
-        for (int j = 0; j < sizeX; ++j) {
-            cout<<"|"<<array[i][j]<<"\t";
+        if (i < 10) {
+            cout << " " << i << "  | ";
+        } else if (i < 100) {
+            cout << i << "  | ";
+        } else {
+            cout << i << " | ";
         }
-        cout<<"\n";
     }
-    cout<<"\n";
+    cout << "\n---  ";
+    for (int i = 0; i < sizeY; ++i) {
+        cout << "----- ";
+    }
+    cout << "\n";
+    for (int i = 0; i < sizeY; ++i) {
+        if (i < 10) {
+            cout << " " << i << "  | ";
+        } else if (i < 100) {
+            cout << i << "  | ";
+        } else {
+            cout << i << " | ";
+        }
+        for (int j = 0; j < sizeX; ++j) {
+            if (array[i][j] < 10) {
+                cout << " " << array[i][j] << "  | ";
+            } else if (array[i][j] < 100) {
+                cout << array[i][j] << "  | ";
+            } else {
+                cout << array[i][j] << " | ";
+            }
+
+        }
+        cout << "\n";
+    }
+    cout << "\n";
 }

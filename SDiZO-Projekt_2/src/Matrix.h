@@ -6,13 +6,13 @@ class Matrix {
     int sizeX;
     int sizeY;
 public:
-    Matrix(int width, int height);
+    explicit Matrix(int width = 0, int height = 0);
 
     virtual ~Matrix();
 
-    void setValue(int x, int y, int value);
-
-    int getValue(int x, int y);
+    void addDirectedEdge(int x, int y, int value);
 
     void display();
+
+    void addUndirectedEdge(int x, int y, int value);
 };
