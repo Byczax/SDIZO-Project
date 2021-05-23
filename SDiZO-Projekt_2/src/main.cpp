@@ -19,8 +19,12 @@ void createResultsFolders() {
     create_directory("results/flowFordFulkerson");
 }
 
-string textErrorChoice = "Blad, zly wybor\n";
+string textErrorChoicea = "Blad, zly wybor\n";
 string barrier = "\n==============================\n";
+string menu = "0. Wyjscie \n"
+              "1. Drzewo rozpinajace (mst)\n"
+              "2. Najkrótsza ścieżka w grafie (SPF)\n"
+              "3. Wyznaczanie maksymalnego przepływu (FFA)\n" + barrier + "Twoj wybor: ";
 
 void textSelect(const string &selected) {
     cout << barrier << selected << barrier;
@@ -46,95 +50,61 @@ int main() {
                 break;
             case 1:
                 while (!exit) {
-                    cout << "\n======= TESTY MANUALNE =======\n"
-                            "0. Wyjscie \n"
-                            "1. Drzewo rozpinajace (MST) - Algorytm Prima\n"
-                            "2. Drzewo rozpinajace (MST) - Algorytm Kruskala\n"
-                            "3. Najkrótsza ścieżka w grafie (SPF) - Algorytm Dijkstry\n"
-                            "4. Najkrótsza ścieżka w grafie (SPF) - Algorytm Forlda-Bellmana\n"
-                            "5. Wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona\n"
-                         << barrier << "Twoj wybor: ";
-
+                    cout << "\n======= TESTY MANUALNE =======\n" << menu;
                     if (!(cin >> input)) { return 0; }
                     switch (input) {
                         case 0:
                             exit = true;
                             break;
                         case 1:
-                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Prima");
-                            ManualTests::prim();
+                            textSelect("Wybrano drzewo rozpinajace (mst)");
+                            ManualTests::mst();
                             break;
                         case 2:
-                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Kruskala");
-                            ManualTests::kruskal();
+                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF)");
+                            ManualTests::spf();
                             break;
                         case 3:
-                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Dijkstry");
-                            ManualTests::dijkstra();
-                            break;
-                        case 4:
-                            textSelect(
-                                    "Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Forda-Bellmana");
-                            ManualTests::bellmanFord();
-                            break;
-                        case 5:
-                            textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona");
-                            ManualTests::fordFulkerson();
+                            textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA)");
+                            ManualTests::ffa();
                             break;
                         default:
-                            cout << textErrorChoice;
+                            cout << textErrorChoicea;
                             break;
                     }
                 }
                 break;
             case 2:
                 while (!exit) {
-                    cout << "\n======= TESTY AUTOMAAutomated =======\n"
-                            "0. Wyjscie \n"
-                            "1. Drzewo rozpinajace (MST) - Algorytm Prima\n"
-                            "2. Drzewo rozpinajace (MST) - Algorytm Kruskala\n"
-                            "3. Najkrótsza ścieżka w grafie (SPF) - Algorytm Dijkstry\n"
-                            "4. Najkrótsza ścieżka w grafie (SPF) - Algorytm Forlda-Bellmana\n"
-                            "5. Wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona\n"
-                         << barrier << "Twoj wybor: ";
-
+                    cout << "\n======= TESTY AUTOMATYCZNE =======\n" << menu;
                     if (!(cin >> input)) { return 0; }
                     switch (input) {
                         case 0:
                             exit = true;
                             break;
                         case 1:
-                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Prima");
-                            AutomatedTests::prim();
+                            textSelect("Wybrano drzewo rozpinajace (mst)");
+                            AutomatedTests::mst();
                             break;
                         case 2:
-                            textSelect("Wybrano drzewo rozpinajace (MST) - Algorytm Kruskala");
-                            AutomatedTests::kruskal();
+                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF)");
+                            AutomatedTests::spf();
                             break;
                         case 3:
-                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Dijkstry");
-                            AutomatedTests::dijkstra();
-                            break;
-                        case 4:
-                            textSelect(
-                                    "Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF) - Algorytm Forda-Bellmana");
-                            AutomatedTests::bellmanFord();
-                            break;
-                        case 5:
-                            textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA) - Algorytm Forda-Fulkersona");
-                            AutomatedTests::fordFulkerson();
+                            textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA)");
+                            AutomatedTests::ffa();
                             break;
                         default:
-                            cout << textErrorChoice;
+                            cout << textErrorChoicea;
                             break;
                     }
                 }
                 break;
             default:
-                cout << textErrorChoice;
+                cout << textErrorChoicea;
                 break;
         }
     }
-    cout << barrier << "\nDo widzenia!\n" << barrier;
+    textSelect("\nDo widzenia!\n");
     return 0;
 }
