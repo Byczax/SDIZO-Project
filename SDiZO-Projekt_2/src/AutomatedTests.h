@@ -2,13 +2,9 @@
 
 class AutomatedTests {
 public:
-    static void prim();
+    static void mst();
 
-    static void kruskal();
+    static void spf();
 
-    static void dijkstra();
-
-    static void bellmanFord();
-
-    static void fordFulkerson();
+    static void ffa();
 };
