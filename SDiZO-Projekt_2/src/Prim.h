@@ -4,7 +4,6 @@
 #include "List.h"
 
 class PrimVertex {
-
 public:
     int vertexNumber;
     int key;
@@ -17,14 +16,25 @@ class Prim {
     int heapSize;
     int originalSize;
 
-    PrimVertex **primVertices;
-    int *position; // position[i] pokazuje gdzie w stosie jest wierzchołek 'i'
+    PrimVertex **primVertices; // list of vertices
+    int *position; // position[i] show where is vertex 'i'
+
 public:
-    static void primMatrix(int *&key, int *&parent, int startingVertex, Matrix *graphMatrix);
+    explicit Prim(int vertices);
 
-    static void primList(int *&key, int *&parent, int startingVertex, AdjacencyList *graphList);
+    virtual ~Prim();
 
+    static void primMatrix(int *&key, int *&parent, int startingVertex, int vertices, Matrix *graphMatrix);
 
+    static void primList(int *&key, int *&parent, int startingVertex, int vertices, AdjacencyList *graphList);
+
+    void createMinHeap();
+
+    void minHeapifyDown(int parentIndex);
+
+    PrimVertex *extractMin();
+
+    bool isElementInHeap(int vertex);
+
+    static void display(int *&key, int *&parent, int vertices, const std::string &info);
 };
-
-

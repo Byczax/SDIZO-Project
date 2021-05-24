@@ -22,6 +22,11 @@ Matrix::~Matrix() {
     delete[] array;
 }
 
+int Matrix::get(int x, int y) const {
+    return array[x][y];
+}
+
+
 void Matrix::addDirectedEdge(int x, int y, int value) {
     array[x][y] = value;
 }
@@ -64,7 +69,6 @@ void Matrix::display() {
             } else {
                 cout << array[i][j] << " | ";
             }
-
         }
         cout << "\n";
     }

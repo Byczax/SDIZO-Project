@@ -3,6 +3,9 @@
 #include "ManualTests.h"
 #include "Essentials.h"
 #include "Prim.h"
+#include "Kruskal.h"
+#include "Dijkstra.h"
+#include "BellmanFord.h"
 
 using std::string;
 using std::cout;
@@ -18,8 +21,8 @@ string textMenu = separator +
 string textReadFile = "Podaj nazwe pliku, ktory chcesz wczytac: ";
 string textErrorFile = "ERROR, Zla nazwa pliku lub plik nie istnieje\n";
 string textErrorChoice = "Blad, zly wybor\n";
-string textVerticesCount = "Podaj ilosc wierzcholkow:  ";
-string textDensity = "Podaj gestosc grafu:  ";
+string textVerticesCount = "Podaj ilosc wierzcholkow:";
+string textDensity = "Podaj gestosc grafu:";
 string textStartVertex = "Podaj wierzcholek startowy";
 
 int input;
@@ -31,8 +34,13 @@ void ManualTests::mst() {
     int vertices;
     int density;
     int startVertex;
+    int edges;
+    int *key = nullptr;
+    int *parent = nullptr;
+    Edge **mstEdges;
     auto *graphMatrix = new Matrix();
     auto *graphList = new AdjacencyList(0, 0);
+
     while (!exit) {
         cout << textMenu << "4.Wykonaj algorytm Prima\n" << "5.Wykonaj algorytm Kruskala\n" << separator;
         if (!(cin >> input)) { return; }
@@ -46,6 +54,7 @@ void ManualTests::mst() {
                 try {
                     Essentials::getDataFromFile(filename, graphMatrix, graphList, false);
                     vertices = graphList->verticesCount();
+                    edges = graphList->getEdges();
                 }
                 catch (exception &e) {
                     cout << textErrorFile;
@@ -58,21 +67,36 @@ void ManualTests::mst() {
                 cout << textDensity;
                 if (!(cin >> density)) { return; }
                 Essentials::generateRandomGraph(vertices, density, graphMatrix, graphList, false);
+                edges = graphList->getEdges();
                 break;
             case 3:
                 graphMatrix->display();
                 graphList->allDisplay();
                 break;
             case 4:
-                cout << textStartVertex << " (max: "<<vertices<<"):  ";
+                cout << textStartVertex << " (max: " << vertices << "):  ";
                 if (!(cin >> startVertex)) { return; }
-                int *key = new int[vertices];
-                int *parent = new int[vertices];
-                Prim::primList(key, parent, startVertex, graphList);
-                Prim::primMatrix(key, parent, startVertex, graphMatrix);
-
+                key = new int[vertices];
+                parent = new int[vertices];
+                Prim::primList(key, parent, startVertex, vertices, graphList);
+                Prim::display(key, parent, vertices, "Algorytm Prima jako lista");
+                cout << separator;
+                Prim::primMatrix(key, parent, startVertex, vertices, graphMatrix);
+                Prim::display(key, parent, vertices, "Algorytm Prima jako macierz");
+                delete[] key;
+                delete[] parent;
                 break;
             case 5:
+                mstEdges = new Edge *[vertices - 1];
+                for (int i = 0; i < vertices - 1; i++) {
+                    mstEdges[i] = new Edge(0, 0, 0);
+                }
+                Kruskal::kruskalList(mstEdges, vertices, edges, graphList);
+                Kruskal::display(mstEdges, vertices, "Algorytm Kruskala jako lista");
+                cout << separator;
+                Kruskal::kruskalMatrix(mstEdges, vertices, edges, graphMatrix);
+                Kruskal::display(mstEdges, vertices, "Algorytm Kruskala jako macierz");
+                delete[] mstEdges;
                 break;
             default:
                 cout << textErrorChoice;
@@ -81,11 +105,18 @@ void ManualTests::mst() {
     }
     delete graphMatrix;
     delete graphList;
+
 }
 
 void ManualTests::spf() {
 //TODO
+    int vertices;
+    int edges;
+    int density;
+    int startVertex;
     bool exit = false;
+    int *distance = nullptr;
+    int *parent = nullptr;
     auto *graphMatrix = new Matrix();
     auto *graphList = new AdjacencyList(0, 0);
     while (!exit) {
@@ -100,6 +131,8 @@ void ManualTests::spf() {
                 if (!(cin >> filename)) { return; }
                 try {
                     Essentials::getDataFromFile(filename, graphMatrix, graphList, true);
+                    vertices = graphList->verticesCount();
+                    edges = graphList->getEdges();
                 }
                 catch (exception &e) {
                     cout << textErrorFile;
@@ -107,15 +140,40 @@ void ManualTests::spf() {
                 }
                 break;
             case 2:
+                cout << textVerticesCount;
+                if (!(cin >> vertices)) { return; }
+                cout << textDensity;
+                if (!(cin >> density)) { return; }
+                Essentials::generateRandomGraph(vertices, density, graphMatrix, graphList, true);
+                edges = graphList->getEdges();
                 break;
             case 3:
                 graphMatrix->display();
                 graphList->allDisplay();
                 break;
             case 4:
-                cout << textStartVertex << " (max: "<<graphList->verticesCount()<<"):  ";
+                cout << textStartVertex << " (max: " << graphList->verticesCount() << "):  ";
+                if (!(cin >> startVertex)) { return; }
+                distance = new int[vertices];
+                parent = new int[vertices];
+                Dijkstra::dijkstraList(distance, parent, startVertex, vertices, graphList);
+                Dijkstra::display(distance, parent, vertices, "Algorytm Dijkstry jako lista");
+                Dijkstra::dijkstraMatrix(distance, parent, startVertex, vertices, graphMatrix);
+                Dijkstra::display(distance, parent, vertices, "Algorytm Dijkstry jako macierz");
+                delete[] distance;
+                delete[] parent;
                 break;
             case 5:
+                cout << textStartVertex << " (max: " << graphList->verticesCount() << "):  ";
+                if (!(cin >> startVertex)) { return; }
+                distance = new int[vertices];
+                parent = new int[vertices];
+                BellmanFord::bfList(distance, parent, startVertex, vertices, graphList);
+                BellmanFord::display(distance, parent, vertices, "Algorytm Belmanna-Forda jako lista");
+                BellmanFord::bfMatrix(distance, parent, startVertex, vertices, edges, graphMatrix);
+                BellmanFord::display(distance, parent, vertices, "Algorytm Belmanna-Forda jako macierz");
+                delete[] distance;
+                delete[] parent;
                 break;
             default:
                 cout << textErrorChoice;
@@ -125,7 +183,6 @@ void ManualTests::spf() {
     delete graphMatrix;
     delete graphList;
 }
-
 
 void ManualTests::ffa() {
 //TODO

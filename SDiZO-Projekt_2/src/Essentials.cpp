@@ -4,8 +4,6 @@
 #include <random>
 
 #include "Essentials.h"
-#include "Matrix.h"
-#include "List.h"
 
 using std::string;
 
@@ -14,7 +12,8 @@ using std::string;
  * @param filename
  * @return
  */
-void Essentials::getDataFromFile(const string &filename, Matrix *&matrixGraph, AdjacencyList *&matrixList, bool directed) {
+void
+Essentials::getDataFromFile(const string &filename, Matrix *&matrixGraph, AdjacencyList *&matrixList, bool directed) {
     std::ifstream is(filename);
 
     int edges, vertices;
@@ -38,29 +37,19 @@ void Essentials::getDataFromFile(const string &filename, Matrix *&matrixGraph, A
     }
 }
 
-/**
- * Generate random edgeWeight
- * @param amount
- * @return
- */
-int *Essentials::randomData(int amount) {
-    int *data_table = new int[amount + 1];
-    data_table[0] = amount;
-    for (int i = 1; i < amount + 1; ++i) {
-        data_table[i] = rand() - rand();
-    }
-    return data_table;
+//int Essentials::randomNumber(int minimum, int maximum) {
+//    return minimum + rand() % (maximum - minimum + 1);
+//}
+
+int Essentials::randomNumber(int mini, int maxi) {
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> distribution(mini, maxi);
+    return distribution(mt);
 }
 
-int Essentials::randomValue() {
-    return rand() - rand();
-}
-
-int Essentials::randomNumber(int minimum, int maximum) {
-    return minimum + rand() % (maximum - minimum + 1);
-}
-
-void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixGraph, AdjacencyList *&listGraph, bool directed) {
+void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixGraph, AdjacencyList *&listGraph,
+                                     bool directed) {
     int possibleEdges = (vertices * (vertices - 1)); // all possible edges
     int wantedEdges = (density * possibleEdges) / 100; // all wanted edges
     auto *verticesList = new List(); // create empty list for vertices
@@ -73,6 +62,8 @@ void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixG
     for (int i = 0; i < vertices; ++i) {
         verticesList->addElement(-1, i);
     }
+    delete matrixGraph;
+    delete listGraph;
     matrixGraph = new Matrix(vertices, vertices);
     listGraph = new AdjacencyList(vertices, 0);
 
@@ -86,42 +77,47 @@ void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixG
     if (directed) {
         for (int i = 0; i < vertices; ++i) {
             for (int j = 0; j < vertices; ++j) {
-                if (i!=j){
-                allEdges->addElement(i, j);
+                if (i != j) {
+                    allEdges->addElement(i, j);
                 }
             }
         }
         wantedEdges -= edgeCounter;
-        randomVertex1 = verticesList->findValue(randomIndex1);
-        int firstVertex = randomVertex1;
+        randomVertex1 = 0; // get first vertex = 0
+        verticesList->removeElementFront();// remove 0 from list
+        int firstVertex = randomVertex1; // set 0 as first vertex
         while (edgeCounter > 0) {
-            while (randomIndex1 == randomIndex2) {
-                randomIndex2 = randomNumber(0, verticesList->getSize() - 1);
-            }
+            randomIndex2 = randomNumber(0, verticesList->getSize() - 1); // get random vertex from list without 0
 
-            randomVertex2 = verticesList->findValue(randomIndex2);
+            randomVertex2 = verticesList->findValue(randomIndex2); // get that random vertex
 
-            verticesList->removeElementAnywhere(randomIndex1);
+            verticesList->removeElementAnywhere(randomIndex2); // remove chosen above vertex from list
 
-            --edgeCounter;
+            --edgeCounter; // decrement
 
-            randomIndex1 = randomIndex2;
-            randomValue = randomNumber(1, 999);
+//            randomIndex1 = randomIndex2; //
+            randomValue = randomNumber(1, 999); // get random value for edge
 
             matrixGraph->addDirectedEdge(randomVertex1, randomVertex2, randomValue);
             listGraph->addDirectedEdge(randomVertex1, randomVertex2, randomValue);
-            allEdges->removePair(randomVertex1, randomVertex2);
 
-            randomVertex1 = randomVertex2;
+            allEdges->removePair(randomVertex1, randomVertex2); // remove added pair from all pair list
+
+            randomVertex1 = randomVertex2; // set vertex above as next vertex
         }
-        verticesList->removeElementFront();
+        verticesList->removeElementFront();// remove last element from list
+
+        // fill list with new vertices
         for (int i = 0; i < vertices; ++i) {
             verticesList->addElement(-1, i);
         }
-        matrixGraph->addDirectedEdge(randomVertex2,firstVertex,  randomValue);
-        listGraph->addDirectedEdge(randomVertex2,firstVertex,  randomValue);
+
+        // connect first vertex with last to create consistent graph
+        matrixGraph->addDirectedEdge(randomVertex2, firstVertex, randomValue);
+        listGraph->addDirectedEdge(randomVertex2, firstVertex, randomValue);
         allEdges->removePair(randomVertex1, randomVertex2);
         --wantedEdges;
+
         while (wantedEdges > 0) {
             ListNode *tempNode;
             int index;
@@ -135,9 +131,6 @@ void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixG
             allEdges->removeElementAnywhere(index);
             --wantedEdges;
         }
-
-
-
     } else {
         for (int i = 0; i < vertices; ++i) {
             for (int j = i + 1; j < vertices; ++j) {
@@ -191,5 +184,6 @@ void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixG
             --wantedEdges;
         }
     }
+    delete allEdges;
+    delete verticesList;
 }
-

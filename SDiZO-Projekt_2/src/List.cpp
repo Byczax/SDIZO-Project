@@ -56,7 +56,7 @@ int List::getSize() const {
     return listSize;
 }
 
-int List::findPair(int neighbour, int value) {
+int List::findPair(int neighbour, int value) const {
     ListNode *temp = this->head;
     int counter = 0;
     while (temp != nullptr) {
@@ -74,7 +74,7 @@ int List::findPair(int neighbour, int value) {
  * @param index
  * @return
  */
-int List::findValue(int index) {
+int List::findValue(int index) const {
     ListNode *temp = this->head;
     for (int i = 0; i < index; ++i) {
         if (temp != nullptr) {
@@ -87,7 +87,7 @@ int List::findValue(int index) {
     return -1;
 }
 
-ListNode *List::getPair(int index) {
+ListNode *List::getPair(int index) const {
     ListNode *temp = this->head;
     for (int i = 0; i < index; ++i) {
         if (temp != nullptr) {
@@ -113,6 +113,9 @@ bool List::removeElementFront() {
         }
         delete this->head;
         this->head = temp;
+        if (this->head == nullptr) {
+            this->tail = nullptr;
+        }
         --listSize;
         return true;
     }
@@ -178,6 +181,13 @@ AdjacencyList::AdjacencyList(int vertices, int edges) {
     }
 }
 
+AdjacencyList::~AdjacencyList() {
+    for (int i = 0; i < vertices; ++i) {
+        delete this->adjacencyList[i];
+    }
+    delete[] adjacencyList;
+}
+
 void AdjacencyList::addUndirectedEdge(int x, int y, int value) {
     adjacencyList[x]->addElement(y, value);
     adjacencyList[y]->addElement(x, value);
@@ -189,18 +199,31 @@ void AdjacencyList::addDirectedEdge(int x, int y, int value) {
     ++edges;
 }
 
+int AdjacencyList::verticesCount() const {
+    return vertices;
+}
+
+ListNode *AdjacencyList::getHead(int index) const {
+    return this->adjacencyList[index]->head;
+}
+
+int AdjacencyList::getEdges() const {
+    return edges;
+}
+
 /**
  * Display all elements in list
  */
-void List::display() {
+void List::display() const {
     if (listSize == 0) {
+        std::cout << "\n";
         return;
     }
     ListNode *my_node = this->head;
     std::cout << "[" << my_node->neighbour << ", " << my_node->edgeWeight << "]";
     my_node = my_node->next;
     while (my_node != nullptr) {
-        std::cout << " <=> " << "[" <<  my_node->neighbour << ", " << my_node->edgeWeight << "]";
+        std::cout << " <=> " << "[" << my_node->neighbour << ", " << my_node->edgeWeight << "]";
         my_node = my_node->next;
     }
     std::cout << "\n";
@@ -211,8 +234,4 @@ void AdjacencyList::allDisplay() {
         std::cout << i << " | ";
         this->adjacencyList[i]->display();
     }
-}
-
-int AdjacencyList::verticesCount() const {
-    return vertices;
 }

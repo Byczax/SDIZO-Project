@@ -23,8 +23,8 @@ string textErrorChoicea = "Blad, zly wybor\n";
 string barrier = "\n==============================\n";
 string menu = "0. Wyjscie \n"
               "1. Drzewo rozpinajace (mst)\n"
-              "2. Najkrótsza ścieżka w grafie (SPF)\n"
-              "3. Wyznaczanie maksymalnego przepływu (FFA)\n" + barrier + "Twoj wybor: ";
+              "2. Najkrotsza sciezka w grafie (SPF)\n"
+              "3. Wyznaczanie maksymalnego przeplywu (FFA)\n" + barrier + "Twoj wybor: ";
 
 void textSelect(const string &selected) {
     cout << barrier << selected << barrier;

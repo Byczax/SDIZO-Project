@@ -28,16 +28,12 @@ class Essentials {
 
 public:
     // Get data from given filename
-    static void getDataFromFile(const string &filename, Matrix *&matrixGraph, AdjacencyList *&matrixList, bool directed);
-
-    // random data generator, file emulation
-    static int *randomData(int amount);
-
-    // return random edgeWeight [-int, int]
-    static int randomValue();
+    static void
+    getDataFromFile(const string &filename, Matrix *&matrixGraph, AdjacencyList *&matrixList, bool directed);
 
     // generate random edgeWeight between minimum and maximum
     static int randomNumber(int minimum, int maximum);
 
-    static void generateRandomGraph(int vertices, int density, Matrix *&matrixGraph, AdjacencyList *&listGraph, bool directed);
+    static void
+    generateRandomGraph(int vertices, int density, Matrix *&matrixGraph, AdjacencyList *&listGraph, bool directed);
 };

@@ -1,7 +1,6 @@
 #pragma once
 
 class Matrix {
-
     int **array;
     int sizeX;
     int sizeY;
@@ -15,4 +14,6 @@ public:
     void display();
 
     void addUndirectedEdge(int x, int y, int value);
+
+    [[nodiscard]] int get(int x, int y) const;
 };

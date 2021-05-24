@@ -1,6 +1,5 @@
 #pragma once
 
-
 class ListNode {
 public:
     int neighbour;
@@ -12,11 +11,13 @@ public:
 };
 
 class List {
+
+public:
     ListNode *head = nullptr;
     ListNode *tail = nullptr;
     int listSize = 0;
 
-public:
+
     // Constructor
     List();
 
@@ -26,14 +27,14 @@ public:
     // Add element to the back of the list
     void addElement(int neighbour, int value);
 
-    int getSize() const;
+    [[nodiscard]] int getSize() const;
 
-    int findPair(int neighbour, int value);
+    [[nodiscard]] int findPair(int neighbour, int value) const;
 
     // display
-    void display();
+    void display() const;
 
-    int findValue(int index);
+    [[nodiscard]] int findValue(int index) const;
 
     bool removeElementAnywhere(unsigned int index);
 
@@ -43,18 +44,20 @@ public:
 
     bool removePair(int neighbour, int value);
 
-    ListNode *getPair(int index);
+    [[nodiscard]] ListNode *getPair(int index) const;
 };
-
-
-
 
 class AdjacencyList {
     int vertices;
     int edges;
     List **adjacencyList;
+
 public:
+    [[nodiscard]] int getEdges() const;
+
     AdjacencyList(int vertices, int edges);
+
+    virtual ~AdjacencyList();
 
     void addUndirectedEdge(int x, int y, int value);
 
@@ -62,5 +65,7 @@ public:
 
     void allDisplay();
 
-    int verticesCount() const;
+    [[nodiscard]] int verticesCount() const;
+
+    [[nodiscard]] ListNode *getHead(int index) const;
 };
