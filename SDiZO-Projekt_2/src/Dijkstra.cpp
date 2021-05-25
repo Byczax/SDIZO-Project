@@ -92,7 +92,7 @@ Dijkstra::dijkstraMatrix(int *&distance, int *&parent, int startingVertex, int v
             if (graphMatrix->get(i, vertexNumber) != 0) {
                 int edgeWeight = graphMatrix->get(i, vertexNumber);
                 for (int j = 0; j < vertices; ++j) {
-                    if (graphMatrix->get(i, j) == -1) {
+                    if (graphMatrix->get(i, j) != 0) {
 
                         int neighbourPosition = heap->position[j];
                         int distanceU = vertexU->getDistance();

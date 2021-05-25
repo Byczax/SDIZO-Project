@@ -10,14 +10,14 @@ using std::cin;
 using std::string;
 using namespace std::filesystem;
 
-void createResultsFolders() {
-    create_directory("results");
-    create_directory("results/mstPrim");
-    create_directory("results/mstKruskal");
-    create_directory("results/pathDijkstra");
-    create_directory("results/pathFordBellman");
-    create_directory("results/flowFordFulkerson");
-}
+//void createResultsFolders() {
+//    create_directory("results");
+//    create_directory("results/mstPrim");
+//    create_directory("results/mstKruskal");
+//    create_directory("results/pathDijkstra");
+//    create_directory("results/pathFordBellman");
+//    create_directory("results/flowFordFulkerson");
+//}
 
 string textErrorChoicea = "Blad, zly wybor\n";
 string barrier = "\n==============================\n";
@@ -31,8 +31,8 @@ void textSelect(const string &selected) {
 }
 
 int main() {
-    createResultsFolders();
-
+//    createResultsFolders();
+    create_directory("results");
     cout << std::boolalpha; // change bool values to bool words
 
     bool mainExit = false;

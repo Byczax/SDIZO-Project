@@ -8,6 +8,14 @@ public:
     int vertexNumber;
     int key;
 
+    int getVertexNumber() const;
+
+    void setVertexNumber(int vertexValue);
+
+    int getKey() const;
+
+    void setKey(int k);
+
     PrimVertex(int vertexNumber, int key);
 };
 

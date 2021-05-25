@@ -6,6 +6,22 @@ using std::cout;
 
 PrimVertex::PrimVertex(int vertexNumber, int key) : vertexNumber(vertexNumber), key(key) {}
 
+int PrimVertex::getVertexNumber() const {
+    return vertexNumber;
+}
+
+void PrimVertex::setVertexNumber(int vertexValue) {
+    PrimVertex::vertexNumber = vertexValue;
+}
+
+int PrimVertex::getKey() const {
+    return key;
+}
+
+void PrimVertex::setKey(int k) {
+    PrimVertex::key = k;
+}
+
 Prim::Prim(int vertices) {
     primVertices = new PrimVertex *[vertices];
     position = new int[vertices];
@@ -68,35 +84,35 @@ PrimVertex *Prim::extractMin() {
 }
 
 void Prim::primMatrix(int *&key, int *&parent, int startingVertex, int vertices, Matrix *graphMatrix) {
-    // Prim heap
+    //stos wierzchołków Prima (tzn. obiektów wierzchołek posiadających swój numer, oraz key)
     auto *heap = new Prim(vertices);
-    heap->primVertices[startingVertex]->key = 0;
+    heap->primVertices[startingVertex]->setKey(0);
     key[startingVertex] = 0;
     parent[startingVertex] = -1;
     while (heap->heapSize > 0) {
-        // create heap
+        //tworzymy stos (aby mieć wierzchołek o najmniejszej wadze), trzeba co pętlę ponieważ w pętli zmieniają się elementy stosu
         heap->createMinHeap();
         PrimVertex *vertexU = heap->extractMin();
-        int vertexNumber = vertexU->vertexNumber;
+        int vertexNumber = vertexU->getVertexNumber();
         for (int i = 0; i < vertices; ++i) {
-            if (graphMatrix->get(i, vertexNumber) != 0) {
-                int edgeWeight = graphMatrix->get(i, vertexNumber);
-                for (int j = 0; j < vertices; ++j) {
-                    if (graphMatrix->get(i, j) != 0 && j != vertexNumber) {
-                        // 'j' = neighbour
-                        if (heap->isElementInHeap(j)) {
-                            int neighbourPosition = heap->position[j];
-                            if (edgeWeight < heap->primVertices[neighbourPosition]->key) {
-                                heap->primVertices[neighbourPosition]->key = edgeWeight;
-                                key[j] = edgeWeight;
-                                parent[j] = vertexU->vertexNumber;
+            if (graphMatrix->get(vertexNumber,i) != 0) {
+                int edgeWeight = graphMatrix->get(vertexNumber,i);
+//                for (int j = 0; j < vertices; ++j) {
+//                    if (graphMatrix->get(i, j) != 0 && j != vertexNumber) {
+                        // 'j' to sąsiad (neighbour)
+                        if (heap->isElementInHeap(i)) {
+                            int neighbourPosition = heap->position[i];
+                            if (edgeWeight < heap->primVertices[neighbourPosition]->getKey()) {
+                                heap->primVertices[neighbourPosition]->setKey(edgeWeight);
+                                key[i] = edgeWeight;
+                                parent[i] = vertexU->getVertexNumber();
                             }
-                            break;
+//                            break;
                         }
                     }
                 }
-            }
-        }
+//            }
+//        }
     }
     delete heap;
 }

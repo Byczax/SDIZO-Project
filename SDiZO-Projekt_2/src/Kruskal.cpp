@@ -3,34 +3,34 @@
 
 using std::cout;
 
-Edge::Edge(int v1, int v2, int weight) {
+KruskalEdge::KruskalEdge(int v1, int v2, int weight) {
     vertex1 = v1;
     vertex2 = v2;
     edgeWeight = weight;
 }
 
-int Edge::getVertex1() const {
+int KruskalEdge::getVertex1() const {
     return vertex1;
 }
 
-int Edge::getVertex2() const {
+int KruskalEdge::getVertex2() const {
     return vertex2;
 }
 
-int Edge::getEdgeWeight() const {
+int KruskalEdge::getEdgeWeight() const {
     return edgeWeight;
 }
 
-void Edge::setVertex1(int vertex) {
-    Edge::vertex1 = vertex;
+void KruskalEdge::setVertex1(int vertex) {
+    KruskalEdge::vertex1 = vertex;
 }
 
-void Edge::setVertex2(int vertex) {
-    Edge::vertex2 = vertex;
+void KruskalEdge::setVertex2(int vertex) {
+    KruskalEdge::vertex2 = vertex;
 }
 
-void Edge::setEdgeWeight(int weight) {
-    Edge::edgeWeight = weight;
+void KruskalEdge::setEdgeWeight(int weight) {
+    KruskalEdge::edgeWeight = weight;
 }
 
 int Kruskal::kruskalFindSet(int *parent, int x) {
@@ -39,10 +39,10 @@ int Kruskal::kruskalFindSet(int *parent, int x) {
     return parent[x];
 }
 
-void Kruskal::kruskalList(Edge **mstEdges, int vertices, int edges, AdjacencyList *graphList) {
+void Kruskal::kruskalList(KruskalEdge **mstEdges, int vertices, int edges, AdjacencyList *graphList) {
     int *parent = new int[vertices];
     int *rank = new int[vertices];
-    Edge **graphEdges = new Edge *[2 * edges]; //2*edges because of duplicates
+    auto **graphEdges = new KruskalEdge *[2 * edges]; //2*edges because of duplicates
     int graphEdgeIndex = 0;
 
     for (int j = 0; j < vertices; ++j) {
@@ -50,8 +50,8 @@ void Kruskal::kruskalList(Edge **mstEdges, int vertices, int edges, AdjacencyLis
         rank[j] = 0;
         auto listTraverse = graphList->getHead(j);
         while (listTraverse != nullptr) {
-            graphEdges[graphEdgeIndex] = new Edge(j, listTraverse->neighbour, listTraverse->edgeWeight);
-            Edge *swap = graphEdges[graphEdgeIndex];
+            graphEdges[graphEdgeIndex] = new KruskalEdge(j, listTraverse->neighbour, listTraverse->edgeWeight);
+            KruskalEdge *swap = graphEdges[graphEdgeIndex];
             int k = graphEdgeIndex - 1;
             while (k >= 0 && graphEdges[k]->getEdgeWeight() > swap->getEdgeWeight()) {
                 graphEdges[k + 1] = graphEdges[k];
@@ -63,8 +63,8 @@ void Kruskal::kruskalList(Edge **mstEdges, int vertices, int edges, AdjacencyLis
         }
     }
     int mstEdgeIndex = 0;
-    for (graphEdgeIndex = 0; graphEdgeIndex < 2 * edges; ++graphEdgeIndex) {
-        Edge *edge = graphEdges[graphEdgeIndex];
+    for (graphEdgeIndex = 0; graphEdgeIndex < vertices; ++graphEdgeIndex) {
+        KruskalEdge *edge = graphEdges[graphEdgeIndex];
         int v1 = edge->getVertex1();
         int v2 = edge->getVertex2();
         int set1 = Kruskal::kruskalFindSet(parent, v1);
@@ -88,10 +88,10 @@ void Kruskal::kruskalList(Edge **mstEdges, int vertices, int edges, AdjacencyLis
     delete[] graphEdges;
 }
 
-void Kruskal::kruskalMatrix(Edge **mstEdges, int vertices, int edges, Matrix *graphMatrix) {
+void Kruskal::kruskalMatrix(KruskalEdge **mstEdges, int vertices, int edges, Matrix *graphMatrix) {
     int *parent = new int[vertices];
     int *rank = new int[vertices];
-    Edge **graphEdges = new Edge *[edges];
+    auto **graphEdges = new KruskalEdge *[edges];
     int graphEdgeIndex = 0;
     int mstEdgeIndex = 0;
     for (int i = 0; i < vertices; ++i) {
@@ -116,8 +116,8 @@ void Kruskal::kruskalMatrix(Edge **mstEdges, int vertices, int edges, Matrix *gr
                 break;
             }
         }
-        graphEdges[graphEdgeIndex] = new Edge(vertex1, vertex2, graphMatrix->get(vertex1, vertex2));
-        Edge *swap = graphEdges[graphEdgeIndex];
+        graphEdges[graphEdgeIndex] = new KruskalEdge(vertex1, vertex2, graphMatrix->get(vertex1, vertex2));
+        KruskalEdge *swap = graphEdges[graphEdgeIndex];
         int k = graphEdgeIndex - 1;
         while (k >= 0 && graphEdges[k]->getEdgeWeight() > swap->getEdgeWeight()) {
             graphEdges[k + 1] = graphEdges[k];
@@ -127,7 +127,7 @@ void Kruskal::kruskalMatrix(Edge **mstEdges, int vertices, int edges, Matrix *gr
         ++graphEdgeIndex;
     }
     for (graphEdgeIndex = 0; graphEdgeIndex < vertices; ++graphEdgeIndex) {
-        Edge *edge = graphEdges[graphEdgeIndex];
+        KruskalEdge *edge = graphEdges[graphEdgeIndex];
         int v1 = edge->getVertex1();
         int v2 = edge->getVertex2();
         int set1 = Kruskal::kruskalFindSet(parent, v1);
@@ -148,10 +148,10 @@ void Kruskal::kruskalMatrix(Edge **mstEdges, int vertices, int edges, Matrix *gr
     }
     delete[] parent;
     delete[] rank;
-    delete[] graphEdges;
+//    delete[] graphEdges;
 }
 
-void Kruskal::display(Edge **mstEdges, int vertices, const std::string &info) {
+void Kruskal::display(KruskalEdge **mstEdges, int vertices, const std::string &info) {
     cout << info << " \nKrawedzie MST:\n";
     for (int i = 0; i < vertices - 1; ++i) {
         cout << mstEdges[i]->getVertex1() << " - " << mstEdges[i]->getVertex2() << " : Waga = "

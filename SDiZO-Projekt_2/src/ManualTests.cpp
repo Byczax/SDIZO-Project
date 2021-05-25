@@ -37,7 +37,7 @@ void ManualTests::mst() {
     int edges;
     int *key = nullptr;
     int *parent = nullptr;
-    Edge **mstEdges;
+    KruskalEdge **mstEdges;
     auto *graphMatrix = new Matrix();
     auto *graphList = new AdjacencyList(0, 0);
 
@@ -87,9 +87,9 @@ void ManualTests::mst() {
                 delete[] parent;
                 break;
             case 5:
-                mstEdges = new Edge *[vertices - 1];
+                mstEdges = new KruskalEdge *[vertices - 1];
                 for (int i = 0; i < vertices - 1; i++) {
-                    mstEdges[i] = new Edge(0, 0, 0);
+                    mstEdges[i] = new KruskalEdge(0, 0, 0);
                 }
                 Kruskal::kruskalList(mstEdges, vertices, edges, graphList);
                 Kruskal::display(mstEdges, vertices, "Algorytm Kruskala jako lista");
@@ -115,6 +115,7 @@ void ManualTests::spf() {
     int density;
     int startVertex;
     bool exit = false;
+    bool cycle;
     int *distance = nullptr;
     int *parent = nullptr;
     auto *graphMatrix = new Matrix();
@@ -168,10 +169,10 @@ void ManualTests::spf() {
                 if (!(cin >> startVertex)) { return; }
                 distance = new int[vertices];
                 parent = new int[vertices];
-                BellmanFord::bfList(distance, parent, startVertex, vertices, graphList);
-                BellmanFord::display(distance, parent, vertices, "Algorytm Belmanna-Forda jako lista");
-                BellmanFord::bfMatrix(distance, parent, startVertex, vertices, edges, graphMatrix);
-                BellmanFord::display(distance, parent, vertices, "Algorytm Belmanna-Forda jako macierz");
+                cycle = BellmanFord::bfList(distance, parent, startVertex, vertices, graphList);
+                BellmanFord::display(distance, parent, vertices, cycle, "Algorytm Belmanna-Forda jako lista");
+                cycle = BellmanFord::bfMatrix(distance, parent, startVertex, vertices, edges, graphMatrix);
+                BellmanFord::display(distance, parent, vertices, cycle, "Algorytm Belmanna-Forda jako macierz");
                 delete[] distance;
                 delete[] parent;
                 break;

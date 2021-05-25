@@ -23,7 +23,7 @@ Essentials::getDataFromFile(const string &filename, Matrix *&matrixGraph, Adjace
     delete matrixList;
     matrixGraph = new Matrix(vertices, vertices);
     matrixList = new AdjacencyList(vertices, edges);
-    if (directed) {
+    if (!directed) {
         for (int i = 0; i < edges; ++i) {
             if (!(is >> edgeStart >> edgeEnd >> edgeValue)) { throw; }
             matrixGraph->addUndirectedEdge(edgeStart, edgeEnd, edgeValue);
@@ -33,6 +33,7 @@ Essentials::getDataFromFile(const string &filename, Matrix *&matrixGraph, Adjace
         for (int i = 0; i < edges; ++i) {
             if (!(is >> edgeStart >> edgeEnd >> edgeValue)) { throw; }
             matrixGraph->addDirectedEdge(edgeStart, edgeEnd, edgeValue);
+            matrixList->addDirectedEdge(edgeStart, edgeEnd, edgeValue);
         }
     }
 }
