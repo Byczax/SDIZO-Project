@@ -13,9 +13,9 @@ using std::cout;
 using std::string;
 using std::ofstream;
 
-int repeat = 10;
+int repeat = 100;
 
-int graphSize[] = {20, 40, 60, 80, 100};
+int graphSize[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
 int graphDensity[] = {25, 50, 75, 99};
 
 int graphSizeMin = 20;

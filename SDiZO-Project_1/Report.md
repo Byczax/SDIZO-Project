@@ -145,6 +145,8 @@ return elapsed_time;// Return executing time in nanoseconds
 }
 ```
 
+Następnie zostały przeliczone na mikrosekundy (`μs`)
+
 ## Wyniki wykonanych eksperymentów
 
 ### Pomiary tablicy dynamicznej
@@ -188,7 +190,7 @@ wykonaniu operacji aby ‘odświeżyć’ zawartość tablicy.
 
 |      | Liczba danych | Dodawanie na koniec | Dodawanie na początek | Dodawanie gdziekolwiek | Szukanie | Usuwanie koniec | Usuwanie początek | Usuwanie gdziekolwiek |
 | ---- | ------------- | ------------------- | --------------------- | ---------------------- | -------- | --------------- | ----------------- | --------------------- |
-| L.p. | j             | $[ns]$              | $[ns]$                | $[ns]$                 | $[ns]$   | $[ns]$          | $[ns]$            | $[ns]$                |
+| L.p. | j             | $[μs]$              | $[μs]$                | $[μs]$                 | $[μs]$   | $[μs]$          | $[μs]$            | $[μs]$                |
 | 1    | 1000          | 3300                | 5500                  | 195300                 | 1000     | 84500           | 3202              | 165800                |
 | 2    | 5000          | 9000                | 10300                 | 204100                 | 5100     | 90600           | 8900              | 172300                |
 | 3    | 10000         | 17900               | 19300                 | 215600                 | 11100    | 99600           | 17700             | 183400                |
@@ -273,7 +275,7 @@ równy NULL.
 
 |      | Liczba danych | Dodawanie na koniec | Dodawanie na początek | Dodawanie gdziekolwiek | Szukanie | Usuwanie koniec | Usuwanie początek | Usuwanie gdziekolwiek |
 | ---- | ------------- | ------------------- | --------------------- | ---------------------- | -------- | --------------- | ----------------- | --------------------- |
-| L.p. | j             | $[ns]$              | $[ns]$                | $[ns]$                 | $[ns]$   | $[ns]$          | $[ns]$            | $[ns]$                |
+| L.p. | j             | $[μs]$              | $[μs]$                | $[μs]$                 | $[μs]$   | $[μs]$          | $[μs]$            | $[μs]$                |
 | 1    | 1000          | 400                 | 400                   | 4600                   | 2600     | 400             | 200               | 4500                  |
 | 2    | 5000          | 400                 | 400                   | 15900                  | 14700    | 400             | 300               | 15800                 |
 | 3    | 10000         | 400                 | 400                   | 33700                  | 35000    | 400             | 300               | 33600                 |
@@ -341,7 +343,7 @@ kopcu typu MAX wartość danego węzła niebędącego korzeniem jest zawsze mnie
 
 |      | Liczba danych | Dodawanie | Szukanie | Usuwanie |
 | ---- | ------------- | --------- | -------- | -------- |
-| L.p. | j             | $[ns]$    | $[ns]$   | $[ns]$   |
+| L.p. | j             | $[μs]$    | $[μs]$   | $[μs]$   |
 | 1    | 1000          | 3400      | 2000     | 40500    |
 | 2    | 5000          | 9600      | 6700     | 43500    |
 | 3    | 10000         | 23000     | 13200    | 48400    |
@@ -406,7 +408,7 @@ własność należy przekolorować wybrane węzły i zmienić relację między k
 
 |      | Liczba danych | Dodawanie | Szukanie | Usuwanie |
 | ---- | ------------- | --------- | -------- | -------- |
-| L.p. | j             | $[ns]$    | $[ns]$   | $[ns]$   |
+| L.p. | j             | $[μs]$    | $[μs]$   | $[μs]$   |
 | 1    | 1000          | 500       | 300      | 400      |
 | 2    | 5000          | 500       | 400      | 400      |
 | 3    | 10000         | 600       | 400      | 400      |
@@ -462,7 +464,7 @@ niż innych drzew lecz mamy gwarancję że pesymistyczny czas wyszukiwania nigdy
 
 |      | Liczba danych | Dodawanie | Szukanie | Usuwanie |
 | ---- | ------------- | --------- | -------- | -------- |
-| L.p. | j             | $[ns]$    | $[ns]$   | $[ns]$   |
+| L.p. | j             | $[μs]$    | $[μs]$   | $[μs]$   |
 | 1    | 1000          | 300       | 300      | 500      |
 | 2    | 5000          | 400       | 300      | 600      |
 | 3    | 10000         | 500       | 400      | 600      |

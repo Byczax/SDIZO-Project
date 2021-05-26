@@ -15,13 +15,13 @@ using std::string;
  * @return
  */
 template<typename T>
-double Timer(T i) {
+long Timer(T i) {
     auto start = high_resolution_clock::now();// Start the counter
     i();// our function
     auto end = high_resolution_clock::now();// Get edgeWeight after executing function
     auto duration = end - start;// get time difference
     auto elapsed_time = duration_cast<nanoseconds>(duration).count();// calculate time
-    return static_cast<float>(elapsed_time);// Return executing time in nanoseconds
+    return static_cast<long>(elapsed_time);// Return executing time in nanoseconds
 }
 
 class Essentials {
