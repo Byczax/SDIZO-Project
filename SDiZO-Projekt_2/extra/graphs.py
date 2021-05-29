@@ -15,8 +15,8 @@ def read_text_file(filepath):
         for line in txt_file:
             counter += 1
             splitted = line.split(",")
-            graph_list.append(int(splitted[2])/1000)
-            graph_matrix.append(int(splitted[3])/1000)
+            graph_list.append(int(splitted[2]))
+            graph_matrix.append(int(splitted[3]))
             if counter == 100:
                 g_list = [round(q, 1) for q in statistics.quantiles(graph_list, n=10)]
                 g_matrix = [round(q, 1) for q in statistics.quantiles(graph_matrix, n=10)]
@@ -24,14 +24,14 @@ def read_text_file(filepath):
                 g_matrix_mean = statistics.mean(g_matrix)
                 round_values.append(
                     [int(splitted[0]), int(splitted[1]), g_list_mean, g_matrix_mean])
-
-                # print("|" +
-                #       str(number) + "|" +
-                #       str(splitted[0]) + "|" +
-                #       str(splitted[1]) + "%|" +
-                #       str(int(g_list_mean)) + "|" +
-                #       str(int(g_matrix_mean)) + "|")
-                number += 1
+                if int(splitted[0]) % 20 == 0:
+                    print("|" +
+                          str(number) + "|" +
+                          str(splitted[0]) + "|" +
+                          str(splitted[1]) + "%|" +
+                          str(int(g_list_mean)) + "|" +
+                          str(int(g_matrix_mean)) + "|")
+                    number += 1
                 graph_list.clear()
                 graph_matrix.clear()
                 counter = 0
@@ -68,13 +68,13 @@ def draw_graph(data, graph_name, first_name, second_name, type_name, select):
     plt.rcParams.update({'font.size': 20})
     plt.figure(num=None, figsize=(20, 8), dpi=400, facecolor='w', edgecolor='k')
 
-    result = calculate_data(data[1][1], select)
+    result = calculate_data(data[0][1], select)
     plot_data(result, first_name, 0)
 
     # result = calculate_data(data[1][1], 3)
     # plot_data(result, first_name, 0)
 
-    result = calculate_data(data[0][1], select)
+    result = calculate_data(data[1][1], select)
     plot_data(result, second_name, 1)
 
     # result = calculate_data(data[0][1], 3)
@@ -134,10 +134,15 @@ def main():
     os.chdir(path)
     for file in os.listdir():
         if file.endswith(".txt"):
-            # print(file)
+            print(file)
             read_text_file(file)
+
     # for result in results:
     #     print(result)
+    # 3 - Prim
+    # 2 - Kruskal
+    # 1 - Dijkstra
+    # 0 - Bellman
     draw_graph([results[3], results[2]], "Graph MST", "Prim", "Kruskal", "Macierz", 3)
     draw_graph([results[3], results[2]], "Graph MST", "Prim", "Kruskal", "Lista", 2)
     draw_graph([results[1], results[0]], "Graph SPF", "Dijkstra", "Bellman-Ford", "Macierz", 3)

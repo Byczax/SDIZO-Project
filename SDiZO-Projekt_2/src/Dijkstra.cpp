@@ -140,8 +140,8 @@ void Dijkstra::dijkstraList(int *&distance, int *&parent, int startingVertex, in
 }
 
 void Dijkstra::display(int *&distance, int *&parent, int vertices, const std::string &info) {
-    std::cout << info << "\n Wierzcholek: distance/parent\n";
+    std::cout << info << "\n\nWierzcholek: distance | parent\n\n";
     for (int i = 0; i < vertices; ++i) {
-        std::cout << i << ": " << distance[i] << "/" << parent[i] << "\n";
+        std::cout << i << ": " << distance[i] << " | " << parent[i] << "\n";
     }
 }

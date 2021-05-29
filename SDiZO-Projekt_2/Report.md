@@ -167,27 +167,27 @@ Schemat działania:
 
 |      | Liczba wierzchołków | Gęstość | Prim - Lista | Prim - macierz |
 | ---- | ------------------- | ------- | ------------ | -------------- |
-| L.p. | j                   | %       | $[ns]$       | $[ns]$         |
-| 1    | 20                  | 25%     | 9240         | 11214          |
-| 2    | 20                  | 50%     | 14524        | 17021          |
-| 3    | 20                  | 75%     | 14844        | 16168          |
-| 4    | 20                  | 99%     | 14050        | 13085          |
-| 5    | 40                  | 25%     | 22114        | 30017          |
-| 6    | 40                  | 50%     | 26530        | 38537          |
-| 7    | 40                  | 75%     | 28040        | 37621          |
-| 8    | 40                  | 99%     | 30496        | 35353          |
-| 9    | 60                  | 25%     | 38671        | 57627          |
-| 10   | 60                  | 50%     | 49325        | 77230          |
-| 11   | 60                  | 75%     | 57622        | 75432          |
-| 12   | 60                  | 99%     | 61922        | 70844          |
-| 13   | 80                  | 25%     | 56992        | 90294          |
-| 14   | 80                  | 50%     | 69220        | 120508         |
-| 15   | 80                  | 75%     | 83300        | 117092         |
-| 16   | 80                  | 99%     | 100908       | 110685         |
-| 17   | 100                 | 25%     | 80758        | 134076         |
-| 18   | 100                 | 50%     | 105581       | 182993         |
-| 19   | 100                 | 75%     | 131887       | 177651         |
-| 20   | 100                 | 99%     | 161401       | 163115         |
+| L.p. | j                   | %       | [μs]         | [μs]           |
+| 1    | 20                  | 25%     | 6            | 8              |
+| 2    | 20                  | 50%     | 7            | 10             |
+| 3    | 20                  | 75%     | 9            | 11             |
+| 4    | 20                  | 99%     | 10           | 11             |
+| 5    | 40                  | 25%     | 20           | 29             |
+| 6    | 40                  | 50%     | 23           | 36             |
+| 7    | 40                  | 75%     | 27           | 38             |
+| 8    | 40                  | 99%     | 30           | 35             |
+| 9    | 60                  | 25%     | 38           | 57             |
+| 10   | 60                  | 50%     | 49           | 76             |
+| 11   | 60                  | 75%     | 57           | 76             |
+| 12   | 60                  | 99%     | 65           | 72             |
+| 13   | 80                  | 25%     | 54           | 89             |
+| 14   | 80                  | 50%     | 68           | 121            |
+| 15   | 80                  | 75%     | 83           | 121            |
+| 16   | 80                  | 99%     | 98           | 112            |
+| 17   | 100                 | 25%     | 82           | 132            |
+| 18   | 100                 | 50%     | 104          | 183            |
+| 19   | 100                 | 75%     | 130          | 182            |
+| 20   | 100                 | 99%     | 154          | 168            |
 
 #### Opis ogólny Algorytmu Kruskala
 
@@ -206,33 +206,33 @@ Po zakończeniu algorytmu L jest minimalnym drzewem rozpinającym.
 
 |      | Liczba wierzchołków | Gęstość | Kruskal - Lista | Kruskal - macierz |
 | ---- | ------------------- | ------- | --------------- | ----------------- |
-| L.p. | j                   | %       | $[ns]$          | $[ns]$            |
-| 1    | 20                  | 25%     | 15673           | 4111              |
-| 2    | 20                  | 50%     | 48121           | 3998              |
-| 3    | 20                  | 75%     | 97032           | 3512              |
-| 4    | 20                  | 99%     | 162271          | 2917              |
-| 5    | 40                  | 25%     | 168585          | 8121              |
-| 6    | 40                  | 50%     | 629824          | 7812              |
-| 7    | 40                  | 75%     | 1389096         | 6882              |
-| 8    | 40                  | 99%     | 2377145         | 5374              |
-| 9    | 60                  | 25%     | 789663          | 12306             |
-| 10   | 60                  | 50%     | 3093432         | 14343             |
-| 11   | 60                  | 75%     | 6928117         | 12658             |
-| 12   | 60                  | 99%     | 12022868        | 9367              |
-| 13   | 80                  | 25%     | 2477581         | 17231             |
-| 14   | 80                  | 50%     | 9828423         | 19131             |
-| 15   | 80                  | 75%     | 22072520        | 15373             |
-| 16   | 80                  | 99%     | 38366155        | 12778             |
-| 17   | 100                 | 25%     | 5991820         | 21836             |
-| 18   | 100                 | 50%     | 24056947        | 23207             |
-| 19   | 100                 | 75%     | 55538894        | 23215             |
-| 20   | 100                 | 99%     | 96191921        | 17712             |
+| L.p. | j                   | %       | [μs]            | [μs]              |
+| 1    | 20                  | 25%     | 19              | 8                 |
+| 2    | 20                  | 50%     | 56              | 20                |
+| 3    | 20                  | 75%     | 113             | 34                |
+| 4    | 20                  | 99%     | 182             | 51                |
+| 5    | 40                  | 25%     | 196             | 60                |
+| 6    | 40                  | 50%     | 714             | 185               |
+| 7    | 40                  | 75%     | 1538            | 374               |
+| 8    | 40                  | 99%     | 2629            | 624               |
+| 9    | 60                  | 25%     | 895             | 236               |
+| 10   | 60                  | 50%     | 3407            | 821               |
+| 11   | 60                  | 75%     | 7497            | 1787              |
+| 12   | 60                  | 99%     | 12935           | 3058              |
+| 13   | 80                  | 25%     | 2747            | 687               |
+| 14   | 80                  | 50%     | 10593           | 2532              |
+| 15   | 80                  | 75%     | 23602           | 5606              |
+| 16   | 80                  | 99%     | 40736           | 9668              |
+| 17   | 100                 | 25%     | 6512            | 1590              |
+| 18   | 100                 | 50%     | 26254           | 6094              |
+| 19   | 100                 | 75%     | 59099           | 14018             |
+| 20   | 100                 | 99%     | 110081          | 25117             |
 
 #### Wykresy MST
 
 ![MST-Macierz](extra/pictures/Graph-MST-Macierz.png)
 
-![MST-Macierz](extra/pictures/Graph-MST-Lista.png)
+![MST-Lista](extra/pictures/Graph-MST-Lista.png)
 
 ![MST-25](extra/pictures/Graph-MST-25.png)
 
@@ -244,8 +244,7 @@ Po zakończeniu algorytmu L jest minimalnym drzewem rozpinającym.
 
 #### Wnioski MST
 
-Na strukturze macierzy sąsiedztwa algorytm Prima okazał się znacznie szybszy.
-Inaczej sprawa wygląda w przypadku listy następników, tutaj efektywniejszy okazał się algorytm Kruskala.
+Na obydwu strukturach algorytm Prima okazał się znacznie szybszy, można zauważyć że zachodzą delikatne zmiany w czasie (zwiększenie) gdy zwiększa się ilość krawędzi przy implementacji listowej w algorytmie Prima lecz to i tak znikome zmiany w porównaniu to czasu trwania algorytmu Kruskala.
 
 ### Wyznaczanie najkrótszej ścieżki w grafie
 
@@ -263,27 +262,27 @@ Algorytm Dijkstry jest przykładem algorytmu zachłannego
 
 |      | Liczba wierzchołków | Gęstość | Dijkstra - Lista | Dijkstra - macierz |
 | ---- | ------------------- | ------- | ---------------- | ------------------ |
-| L.p. | j                   | %       | $[ns]$           | $[ns]$             |
-| 1    | 20                  | 25%     | 6726             | 8643               |
-| 2    | 20                  | 50%     | 7578             | 11080              |
-| 3    | 20                  | 75%     | 8398             | 10044              |
-| 4    | 20                  | 99%     | 9026             | 8501               |
-| 5    | 40                  | 25%     | 22407            | 32444              |
-| 6    | 40                  | 50%     | 25555            | 41924              |
-| 7    | 40                  | 75%     | 28842            | 37355              |
-| 8    | 40                  | 99%     | 31782            | 31334              |
-| 9    | 60                  | 25%     | 39955            | 66355              |
-| 10   | 60                  | 50%     | 46916            | 87673              |
-| 11   | 60                  | 75%     | 53647            | 77831              |
-| 12   | 60                  | 99%     | 60336            | 62470              |
-| 13   | 80                  | 25%     | 61927            | 112957             |
-| 14   | 80                  | 50%     | 74621            | 152578             |
-| 15   | 80                  | 75%     | 92035            | 133228             |
-| 16   | 80                  | 99%     | 107567           | 106005             |
-| 17   | 100                 | 25%     | 91931            | 175374             |
-| 18   | 100                 | 50%     | 115646           | 239630             |
-| 19   | 100                 | 75%     | 145733           | 206966             |
-| 20   | 100                 | 99%     | 179772           | 164874             |
+| L.p. | j                   | %       | [μs]             | [μs]               |
+| 1    | 20                  | 25%     | 7                | 9                  |
+| 2    | 20                  | 50%     | 7                | 11                 |
+| 3    | 20                  | 75%     | 8                | 10                 |
+| 4    | 20                  | 99%     | 9                | 9                  |
+| 5    | 40                  | 25%     | 23               | 34                 |
+| 6    | 40                  | 50%     | 28               | 44                 |
+| 7    | 40                  | 75%     | 30               | 40                 |
+| 8    | 40                  | 99%     | 33               | 33                 |
+| 9    | 60                  | 25%     | 44               | 69                 |
+| 10   | 60                  | 50%     | 53               | 91                 |
+| 11   | 60                  | 75%     | 60               | 81                 |
+| 12   | 60                  | 99%     | 69               | 66                 |
+| 13   | 80                  | 25%     | 62               | 112                |
+| 14   | 80                  | 50%     | 80               | 151                |
+| 15   | 80                  | 75%     | 95               | 131                |
+| 16   | 80                  | 99%     | 112              | 105                |
+| 17   | 100                 | 25%     | 100              | 176                |
+| 18   | 100                 | 50%     | 130              | 240                |
+| 19   | 100                 | 75%     | 153              | 207                |
+| 20   | 100                 | 99%     | 183              | 165                |
 
 #### Algorytm Bellmana-Forda
 
@@ -308,27 +307,27 @@ Po zakończeniu algorytmu L jest minimalnym drzewem rozpinającym.
 
 |      | Liczba wierzchołków | Gęstość | Bellman-Ford - Lista | Bellman-Ford - macierz |
 | ---- | ------------------- | ------- | -------------------- | ---------------------- |
-| L.p. | j                   | %       | $[ns]$               | $[ns]$                 |
-| 1    | 20                  | 25%     | 5377                 | 7837                   |
-| 2    | 20                  | 50%     | 9500                 | 15104                  |
-| 3    | 20                  | 75%     | 15404                | 25725                  |
-| 4    | 20                  | 99%     | 19850                | 29418                  |
-| 5    | 40                  | 25%     | 22650                | 32355                  |
-| 6    | 40                  | 50%     | 39662                | 61820                  |
-| 7    | 40                  | 75%     | 61313                | 84110                  |
-| 8    | 40                  | 99%     | 88412                | 101254                 |
-| 9    | 60                  | 25%     | 42822                | 67238                  |
-| 10   | 60                  | 50%     | 84184                | 138688                 |
-| 11   | 60                  | 75%     | 132001               | 187180                 |
-| 12   | 60                  | 99%     | 200600               | 226891                 |
-| 13   | 80                  | 25%     | 76078                | 119753                 |
-| 14   | 80                  | 50%     | 148134               | 237182                 |
-| 15   | 80                  | 75%     | 247180               | 327912                 |
-| 16   | 80                  | 99%     | 370941               | 394213                 |
-| 17   | 100                 | 25%     | 121800               | 186782                 |
-| 18   | 100                 | 50%     | 235326               | 365975                 |
-| 19   | 100                 | 75%     | 403975               | 506068                 |
-| 20   | 100                 | 99%     | 606176               | 624052                 |
+| L.p. | j                   | %       | [μs]                 | [μs]                   |
+| 1    | 20                  | 25%     | 9                    | 11                     |
+| 2    | 20                  | 50%     | 17                   | 21                     |
+| 3    | 20                  | 75%     | 26                   | 28                     |
+| 4    | 20                  | 99%     | 35                   | 37                     |
+| 5    | 40                  | 25%     | 41                   | 50                     |
+| 6    | 40                  | 50%     | 84                   | 99                     |
+| 7    | 40                  | 75%     | 124                  | 132                    |
+| 8    | 40                  | 99%     | 161                  | 162                    |
+| 9    | 60                  | 25%     | 95                   | 116                    |
+| 10   | 60                  | 50%     | 187                  | 214                    |
+| 11   | 60                  | 75%     | 285                  | 302                    |
+| 12   | 60                  | 99%     | 377                  | 375                    |
+| 13   | 80                  | 25%     | 173                  | 211                    |
+| 14   | 80                  | 50%     | 344                  | 397                    |
+| 15   | 80                  | 75%     | 549                  | 578                    |
+| 16   | 80                  | 99%     | 728                  | 707                    |
+| 17   | 100                 | 25%     | 279                  | 339                    |
+| 18   | 100                 | 50%     | 555                  | 640                    |
+| 19   | 100                 | 75%     | 848                  | 893                    |
+| 20   | 100                 | 99%     | 1117                 | 1123                   |
 
 #### Wykresy SPF
 
@@ -346,16 +345,15 @@ Po zakończeniu algorytmu L jest minimalnym drzewem rozpinającym.
 
 #### Wnioski SPF
 
-Algorytm Dijkstry okazał się lepszy w obydwu przypadkach, w macierzy sąsiedztwa jak i w liście następników.
+Algorytm Dijkstry okazał się lepszy w obydwu przypadkach, w macierzy sąsiedztwa jak i w liście następników. Można zauważyć że wersja algorytmu Dijkstry znacząco spowalnia na strukturze listowej przy zwiększaniu ilości krawędzi.
 
 ## Wnioski końcowe
 
-Podsumowując wykonane pomiary większość wyszła zgodnie z przewidywaniami, w niektórych miejscach mamy dziwne
-przesunięcia, najprawdopodobniej jest to spowodowane:
+Podsumowując wykonane pomiary większość wyszła zgodnie z przewidywaniami, możemy zauważyć że implementacja Macierzy sąsiedztwa jest znaczenie bardziej efektywna od implementacji listy następników, więc lepiej przedstawiać grafy w komputerach jako macierze sąsiedztwa.
 
-- Słabo zoptymalizowane algorytmy
+<!-- - Słabo zoptymalizowane algorytmy
 
-- Działanie innych programów podczas wykonywania pomiarów co spowodowało odchylenia i błędy pomiarowe
+- Działanie innych programów podczas wykonywania pomiarów co spowodowało odchylenia i błędy pomiarowe -->
 
 <!-- Algorytmy Prima, Dijkstry i Bellmana-Forda lepiej pracowały na listach następników,
 algorytm Kruskala natomiast lepiej pracował na macierzy incydencji.

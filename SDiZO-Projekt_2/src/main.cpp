@@ -61,12 +61,13 @@ int main() {
                             ManualTests::mst();
                             break;
                         case 2:
-                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF)");
+                            textSelect("Wybrano wyznaczenie najkrotszej sciezki w grafie (SPF)");
                             ManualTests::spf();
                             break;
                         case 3:
                             textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA)");
-                            ManualTests::ffa();
+                            cout << "Niestety nie zaimplementowane";
+//                            ManualTests::ffa();
                             break;
                         default:
                             cout << textErrorChoicea;
@@ -87,12 +88,13 @@ int main() {
                             AutomatedTests::mst();
                             break;
                         case 2:
-                            textSelect("Wybrano wyznaczenie najkrótszej ścieżki w grafie (SPF)");
+                            textSelect("Wybrano wyznaczenie najkrotszej sciezki w grafie (SPF)");
                             AutomatedTests::spf();
                             break;
                         case 3:
                             textSelect("Wybrano wyznaczanie maksymalnego przepływu (FFA)");
-                            AutomatedTests::ffa();
+                            cout << "Niestety nie zaimplementowane";
+//                            AutomatedTests::ffa();
                             break;
                         default:
                             cout << textErrorChoicea;

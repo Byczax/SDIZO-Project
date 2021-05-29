@@ -95,7 +95,7 @@ void Prim::primMatrix(int *&key, int *&parent, int startingVertex, int vertices,
         PrimVertex *vertexU = heap->extractMin();
         int vertexNumber = vertexU->getVertexNumber();
         for (int i = 0; i < vertices; ++i) {
-            if (graphMatrix->get(vertexNumber,i) != 0) {
+            if (graphMatrix->get(vertexNumber,i) != 0 && vertexNumber != i) {
                 int edgeWeight = graphMatrix->get(vertexNumber,i);
 //                for (int j = 0; j < vertices; ++j) {
 //                    if (graphMatrix->get(i, j) != 0 && j != vertexNumber) {
@@ -147,11 +147,11 @@ void Prim::primList(int *&key, int *&parent, int startingVertex, int vertices, A
 }
 
 void Prim::display(int *&key, int *&parent, int vertices, const std::string &info) {
-    cout << "\n" << info << "\twierzcholek: klucz/rodzic\n";
+    cout << "\n" << info << "\nwierzcholek: klucz | rodzic\n\n";
     for (int i = 0; i < vertices; ++i) {
-        cout << i << ": " << key[i] << "/" << parent[i] << "\n";
+        cout << i << ": " << key[i] << " | " << parent[i] << "\n";
     }
-    cout << "\nKrawedzie MST:\n";
+    cout << "\nKrawedzie MST:\n\n";
     for (int i = 0; i < vertices; ++i) {
         if (parent[i] != -1) {
             cout << i << " - " << parent[i] << " : Waga = " << key[i] << "\n";

@@ -24,6 +24,7 @@ string textErrorChoice = "Blad, zly wybor\n";
 string textVerticesCount = "Podaj ilosc wierzcholkow:";
 string textDensity = "Podaj gestosc grafu:";
 string textStartVertex = "Podaj wierzcholek startowy";
+string textEmptyGraph = "Blad, pusty graf";
 
 int input;
 string filename;
@@ -31,7 +32,7 @@ string filename;
 void ManualTests::mst() {
     //TODO
     bool exit = false;
-    int vertices;
+    int vertices = 0;
     int density;
     int startVertex;
     int edges;
@@ -42,7 +43,7 @@ void ManualTests::mst() {
     auto *graphList = new AdjacencyList(0, 0);
 
     while (!exit) {
-        cout << textMenu << "4.Wykonaj algorytm Prima\n" << "5.Wykonaj algorytm Kruskala\n" << separator;
+        cout << textMenu << "4. Wykonaj algorytm Prima\n" << "5. Wykonaj algorytm Kruskala\n" << separator;
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -74,6 +75,10 @@ void ManualTests::mst() {
                 graphList->allDisplay();
                 break;
             case 4:
+                if (vertices == 0){
+                    cout << textEmptyGraph;
+                    break;
+                }
                 cout << textStartVertex << " (max: " << vertices << "):  ";
                 if (!(cin >> startVertex)) { return; }
                 key = new int[vertices];
@@ -87,6 +92,10 @@ void ManualTests::mst() {
                 delete[] parent;
                 break;
             case 5:
+                if (vertices == 0){
+                    cout << textEmptyGraph;
+                    break;
+                }
                 mstEdges = new KruskalEdge *[vertices - 1];
                 for (int i = 0; i < vertices - 1; i++) {
                     mstEdges[i] = new KruskalEdge(0, 0, 0);
@@ -110,7 +119,7 @@ void ManualTests::mst() {
 
 void ManualTests::spf() {
 //TODO
-    int vertices;
+    int vertices = 0;
     int edges;
     int density;
     int startVertex;
@@ -153,6 +162,10 @@ void ManualTests::spf() {
                 graphList->allDisplay();
                 break;
             case 4:
+                if (vertices == 0){
+                    cout << textEmptyGraph;
+                    break;
+                }
                 cout << textStartVertex << " (max: " << graphList->verticesCount() << "):  ";
                 if (!(cin >> startVertex)) { return; }
                 distance = new int[vertices];
@@ -165,6 +178,10 @@ void ManualTests::spf() {
                 delete[] parent;
                 break;
             case 5:
+                if (vertices == 0){
+                    cout << textEmptyGraph;
+                    break;
+                }
                 cout << textStartVertex << " (max: " << graphList->verticesCount() << "):  ";
                 if (!(cin >> startVertex)) { return; }
                 distance = new int[vertices];

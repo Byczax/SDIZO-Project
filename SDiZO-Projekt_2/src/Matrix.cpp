@@ -38,6 +38,9 @@ void Matrix::addUndirectedEdge(int x, int y, int value) {
 }
 
 void Matrix::display() {
+    if (sizeY == 0){
+        return;
+    }
     cout << "\nx\\y | ";
     for (int i = 0; i < sizeY; ++i) {
         if (i < 10) {
