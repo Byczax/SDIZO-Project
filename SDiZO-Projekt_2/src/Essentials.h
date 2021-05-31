@@ -34,6 +34,7 @@ public:
     // generate random edgeWeight between minimum and maximum
     static int randomNumber(int minimum, int maximum);
 
+    // generate random graph for algorithms
     static void
     generateRandomGraph(int vertices, int density, Matrix *&matrixGraph, AdjacencyList *&listGraph, bool directed);
 };

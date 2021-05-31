@@ -10,10 +10,6 @@ int PrimVertex::getVertexNumber() const {
     return vertexNumber;
 }
 
-void PrimVertex::setVertexNumber(int vertexValue) {
-    PrimVertex::vertexNumber = vertexValue;
-}
-
 int PrimVertex::getKey() const {
     return key;
 }
@@ -22,6 +18,7 @@ void PrimVertex::setKey(int k) {
     PrimVertex::key = k;
 }
 
+// constructor
 Prim::Prim(int vertices) {
     primVertices = new PrimVertex *[vertices];
     position = new int[vertices];
@@ -34,6 +31,7 @@ Prim::Prim(int vertices) {
     originalSize = vertices;
 }
 
+// destructor
 Prim::~Prim() {
     for (int i = 0; i < originalSize; ++i) {
         delete primVertices[i];
@@ -42,16 +40,18 @@ Prim::~Prim() {
     delete[] position;
 }
 
+// find if vertex is in heap
 bool Prim::isElementInHeap(int vertex) {
     return position[vertex] < heapSize;
 }
 
-void Prim::createMinHeap() {
+void Prim::createHeap() {
     for (int i = (heapSize - 2) / 2; i >= 0; --i)
-        minHeapifyDown(i);
+        heapifyDown(i);
 }
 
-void Prim::minHeapifyDown(int parentIndex) {
+// heap function
+void Prim::heapifyDown(int parentIndex) {
     int smallestIndex = parentIndex;
     int leftIndex = 2 * parentIndex + 1;
     int rightIndex = 2 * parentIndex + 2;
@@ -65,10 +65,11 @@ void Prim::minHeapifyDown(int parentIndex) {
         auto swap = primVertices[parentIndex];
         primVertices[parentIndex] = primVertices[smallestIndex];
         primVertices[smallestIndex] = swap;
-        minHeapifyDown(smallestIndex);
+        heapifyDown(smallestIndex);
     }
 }
 
+// get minimal value
 PrimVertex *Prim::extractMin() {
     if (heapSize > 0) {
         --heapSize;
@@ -83,40 +84,34 @@ PrimVertex *Prim::extractMin() {
     return nullptr;
 }
 
+// prim implementation for matrix
 void Prim::primMatrix(int *&key, int *&parent, int startingVertex, int vertices, Matrix *graphMatrix) {
-    //stos wierzchołków Prima (tzn. obiektów wierzchołek posiadających swój numer, oraz key)
     auto *heap = new Prim(vertices);
     heap->primVertices[startingVertex]->setKey(0);
     key[startingVertex] = 0;
     parent[startingVertex] = -1;
     while (heap->heapSize > 0) {
-        //tworzymy stos (aby mieć wierzchołek o najmniejszej wadze), trzeba co pętlę ponieważ w pętli zmieniają się elementy stosu
-        heap->createMinHeap();
+        heap->createHeap();
         PrimVertex *vertexU = heap->extractMin();
         int vertexNumber = vertexU->getVertexNumber();
         for (int i = 0; i < vertices; ++i) {
-            if (graphMatrix->get(vertexNumber,i) != 0 && vertexNumber != i) {
-                int edgeWeight = graphMatrix->get(vertexNumber,i);
-//                for (int j = 0; j < vertices; ++j) {
-//                    if (graphMatrix->get(i, j) != 0 && j != vertexNumber) {
-                        // 'j' to sąsiad (neighbour)
-                        if (heap->isElementInHeap(i)) {
-                            int neighbourPosition = heap->position[i];
-                            if (edgeWeight < heap->primVertices[neighbourPosition]->getKey()) {
-                                heap->primVertices[neighbourPosition]->setKey(edgeWeight);
-                                key[i] = edgeWeight;
-                                parent[i] = vertexU->getVertexNumber();
-                            }
-//                            break;
-                        }
+            if (graphMatrix->get(vertexNumber, i) != 0 && vertexNumber != i) {
+                int edgeWeight = graphMatrix->get(vertexNumber, i);
+                if (heap->isElementInHeap(i)) {
+                    int neighbourPosition = heap->position[i];
+                    if (edgeWeight < heap->primVertices[neighbourPosition]->getKey()) {
+                        heap->primVertices[neighbourPosition]->setKey(edgeWeight);
+                        key[i] = edgeWeight;
+                        parent[i] = vertexU->getVertexNumber();
                     }
                 }
-//            }
-//        }
+            }
+        }
     }
     delete heap;
 }
 
+// prim implementation for list
 void Prim::primList(int *&key, int *&parent, int startingVertex, int vertices, AdjacencyList *graphList) {
     // Prim heap
     auto *heap = new Prim(vertices);
@@ -125,7 +120,7 @@ void Prim::primList(int *&key, int *&parent, int startingVertex, int vertices, A
     parent[startingVertex] = -1;
     while (heap->heapSize > 0) {
         // create heap
-        heap->createMinHeap();
+        heap->createHeap();
         PrimVertex *vertexU = heap->extractMin();
 
         auto neighbourTraverse = graphList->getHead(vertexU->vertexNumber);
@@ -146,6 +141,7 @@ void Prim::primList(int *&key, int *&parent, int startingVertex, int vertices, A
     delete heap;
 }
 
+// Display generated results
 void Prim::display(int *&key, int *&parent, int vertices, const std::string &info) {
     cout << "\n" << info << "\nwierzcholek: klucz | rodzic\n\n";
     for (int i = 0; i < vertices; ++i) {
@@ -158,5 +154,3 @@ void Prim::display(int *&key, int *&parent, int vertices, const std::string &inf
         }
     }
 }
-
-

@@ -3,6 +3,7 @@
 
 using std::cout;
 
+// constructor
 Matrix::Matrix(int width, int height) {
     sizeX = width;
     sizeY = height;
@@ -15,6 +16,7 @@ Matrix::Matrix(int width, int height) {
     }
 }
 
+// destructor
 Matrix::~Matrix() {
     for (int i = 0; i < sizeX; ++i) {
         delete[] array[i];
@@ -36,9 +38,9 @@ void Matrix::addUndirectedEdge(int x, int y, int value) {
     array[y][x] = value;
 
 }
-
+// display generated/loaded graph in matrix
 void Matrix::display() {
-    if (sizeY == 0){
+    if (sizeY == 0) {
         return;
     }
     cout << "\nx\\y | ";

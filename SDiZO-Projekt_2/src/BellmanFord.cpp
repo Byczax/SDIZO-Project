@@ -22,18 +22,8 @@ int Edge::getEdgeWeight() const {
     return edgeWeight;
 }
 
-void Edge::setVertex1(int vertex) {
-    Edge::vertex1 = vertex;
-}
 
-void Edge::setVertex2(int vertex) {
-    Edge::vertex2 = vertex;
-}
-
-void Edge::setEdgeWeight(int weight) {
-    Edge::edgeWeight = weight;
-}
-
+// Bellman-Ford for Matrix implementation
 bool
 BellmanFord::bfMatrix(int *&distance, int *&parent, int startingVertex, int vertices, int edges, Matrix *graphMatrix) {
     for (int i = 0; i < vertices; ++i) {
@@ -44,27 +34,14 @@ BellmanFord::bfMatrix(int *&distance, int *&parent, int startingVertex, int vert
     distance[startingVertex] = 0;
     Edge **graphEdges = new Edge *[edges];
     int graphEdgeIndex = 0;
-//    int graphEdgeCount = 0;
     for (int i = 0; i < vertices; ++i) {
-//        int vertex1 = 0;
-//        int vertex2 = 0;
         for (int j = 0; j < vertices; ++j) {
             if (i != j && graphMatrix->get(i, j) != 0) {
-//                vertex1 = i;
-//                vertex2 = j;
-                graphEdges[graphEdgeIndex] = new Edge(i,j, graphMatrix->get(i,j));
+                graphEdges[graphEdgeIndex] = new Edge(i, j, graphMatrix->get(i, j));
                 ++graphEdgeIndex;
             }
         }
-//        for (int j = 0; j < vertices; ++j) {
-//            if (graphMatrix->get(i, j) == -1) {
-//                vertex2 = j;
-//                break;
-//            }
-//        }
-
     }
-//    graphEdgeCount = graphEdgeIndex;
     bool relaxed = true;
     for (int ii = 1; ii < graphEdgeIndex && relaxed; ++ii) {
         relaxed = false;
@@ -100,6 +77,7 @@ BellmanFord::bfMatrix(int *&distance, int *&parent, int startingVertex, int vert
     return true;
 }
 
+// Bellman-Ford for List implementation
 bool BellmanFord::bfList(int *&distance, int *&parent, int startingVertex, int vertices, AdjacencyList *graphList) {
     Edge **graphEdges = new Edge *[graphList->getEdges()];
     int graphEdgeIndex = 0;
@@ -150,6 +128,7 @@ bool BellmanFord::bfList(int *&distance, int *&parent, int startingVertex, int v
     return true;
 }
 
+// Display generated results
 void BellmanFord::display(int *&distance, int *&parent, int vertices, bool cycle, const std::string &info) {
     if (!cycle) {
         cout << "\nWykryto cykl o lacznej ujemnej wadze\n\n";

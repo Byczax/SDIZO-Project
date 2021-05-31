@@ -10,15 +10,6 @@ using std::cin;
 using std::string;
 using namespace std::filesystem;
 
-//void createResultsFolders() {
-//    create_directory("results");
-//    create_directory("results/mstPrim");
-//    create_directory("results/mstKruskal");
-//    create_directory("results/pathDijkstra");
-//    create_directory("results/pathFordBellman");
-//    create_directory("results/flowFordFulkerson");
-//}
-
 string textErrorChoicea = "Blad, zly wybor\n";
 string barrier = "\n==============================\n";
 string menu = "0. Wyjscie \n"
@@ -31,7 +22,6 @@ void textSelect(const string &selected) {
 }
 
 int main() {
-//    createResultsFolders();
     create_directory("results");
     cout << std::boolalpha; // change bool values to bool words
 

@@ -30,7 +30,6 @@ int input;
 string filename;
 
 void ManualTests::mst() {
-    //TODO
     bool exit = false;
     int vertices = 0;
     int density;
@@ -75,7 +74,7 @@ void ManualTests::mst() {
                 graphList->allDisplay();
                 break;
             case 4:
-                if (vertices == 0){
+                if (vertices == 0) {
                     cout << textEmptyGraph;
                     break;
                 }
@@ -92,7 +91,7 @@ void ManualTests::mst() {
                 delete[] parent;
                 break;
             case 5:
-                if (vertices == 0){
+                if (vertices == 0) {
                     cout << textEmptyGraph;
                     break;
                 }
@@ -105,6 +104,9 @@ void ManualTests::mst() {
                 cout << separator;
                 Kruskal::kruskalMatrix(mstEdges, vertices, edges, graphMatrix);
                 Kruskal::display(mstEdges, vertices, "Algorytm Kruskala jako macierz");
+                for (int i = 0; i < vertices - 1; ++i) {
+                    delete mstEdges[i];
+                }
                 delete[] mstEdges;
                 break;
             default:
@@ -118,7 +120,6 @@ void ManualTests::mst() {
 }
 
 void ManualTests::spf() {
-//TODO
     int vertices = 0;
     int edges;
     int density;
@@ -162,7 +163,7 @@ void ManualTests::spf() {
                 graphList->allDisplay();
                 break;
             case 4:
-                if (vertices == 0){
+                if (vertices == 0) {
                     cout << textEmptyGraph;
                     break;
                 }
@@ -178,7 +179,7 @@ void ManualTests::spf() {
                 delete[] parent;
                 break;
             case 5:
-                if (vertices == 0){
+                if (vertices == 0) {
                     cout << textEmptyGraph;
                     break;
                 }

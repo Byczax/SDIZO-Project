@@ -1,7 +1,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "ManualTests.h"
 #include "Essentials.h"
 #include "Prim.h"
 #include "Kruskal.h"
@@ -47,21 +46,7 @@ string strPhaseFordFulkerson = "\n==============================\n"
                                "Faza Forda-Fulkersona\n"
                                "==============================\n";
 
-
-string strFazaCompleted = "\n==============================\n"
-                          "Fazy zakonczone! \n"
-                          "==============================\n";
-
 string txt = ".txt";
-
-//void addPercentageCounter(int i, int j) {
-//    if (i % (((graphMaxSize) / (graphMinSize))) == 0 && j == 20) {
-//        cout << i / (((graphMaxSize) / (graphMinSize))) * 10 << "%\n";
-//    }
-//}
-
-//template<typename T1, typename T2>
-//void testFunctions(string phase, T1 function1, T2 function2, string filename){}
 
 void AutomatedTests::mstPrim() {
     cout << strPhasePrim;
@@ -82,7 +67,6 @@ void AutomatedTests::mstPrim() {
                 file << vertices << "," << density << ","
                      << Timer([&] { Prim::primList(key, parent, 0, vertices, graphList); }) << ","
                      << Timer([&] { Prim::primMatrix(key, parent, 0, vertices, graphMatrix); }) << "\n";
-//            addPercentageCounter(vertices, density);
                 delete[] key;
                 delete[] parent;
             }
@@ -114,7 +98,6 @@ void AutomatedTests::mstKruskal() {
                 file << vertices << "," << density << ","
                      << Timer([&] { Kruskal::kruskalList(mstEdges, vertices, edges, graphList); }) << ","
                      << Timer([&] { Kruskal::kruskalMatrix(mstEdges, vertices, edges, graphMatrix); }) << "\n";
-//            addPercentageCounter(vertices, density);
             }
         }
     }
@@ -140,7 +123,6 @@ void AutomatedTests::spfDijkstra() {
                 file << vertices << "," << density << ","
                      << Timer([&] { Dijkstra::dijkstraList(distance, parent, 0, vertices, graphList); }) << ","
                      << Timer([&] { Dijkstra::dijkstraMatrix(distance, parent, 0, vertices, graphMatrix); }) << "\n";
-//            addPercentageCounter(vertices, density);
             }
         }
     }
@@ -169,7 +151,6 @@ void AutomatedTests::spfBellmanFord() {
                      << Timer([&] { BellmanFord::bfList(distance, parent, 0, vertices, graphList); }) << ","
                      << Timer([&] { BellmanFord::bfMatrix(distance, parent, 0, vertices, edges, graphMatrix); })
                      << "\n";
-//            addPercentageCounter(vertices, density);
             }
         }
     }

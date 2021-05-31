@@ -42,9 +42,9 @@ int Kruskal::kruskalFindSet(int *parent, int x) {
 void Kruskal::kruskalList(KruskalEdge **mstEdges, int vertices, int edges, AdjacencyList *graphList) {
     int *parent = new int[vertices];
     int *rank = new int[vertices];
-    auto **graphEdges = new KruskalEdge *[2 * edges]; //2*edges because of duplicates
+    auto **graphEdges = new KruskalEdge *[2 * edges]; // 2 * edges because of duplicates
     int graphEdgeIndex = 0;
-    int graphEdgesCount = 0;
+    int graphEdgesCount;
     for (int j = 0; j < vertices; ++j) {
         parent[j] = j;
         rank[j] = 0;
@@ -102,14 +102,9 @@ void Kruskal::kruskalMatrix(KruskalEdge **mstEdges, int vertices, int edges, Mat
     }
 
     for (int i = 0; i < vertices; ++i) {
-//        int vertex1 = 0;
-//        int vertex2 = 0;
         int j = i + 1;
         for (; j < vertices; ++j) {
             if (i != j && graphMatrix->get(i, j) != 0) {
-//                vertex1 = j;
-//                ++j;
-//                break;
                 graphEdges[graphEdgeIndex] = new KruskalEdge(i, j, graphMatrix->get(i, j));
                 KruskalEdge *swap = graphEdges[graphEdgeIndex];
                 int k = graphEdgeIndex - 1;
@@ -122,13 +117,6 @@ void Kruskal::kruskalMatrix(KruskalEdge **mstEdges, int vertices, int edges, Mat
             }
         }
         graphEdgesCount = graphEdgeIndex;
-//        for (; j < vertices; ++j) {
-//            if (graphMatrix->get(i, j) != 0) {
-//                vertex2 = j;
-//                break;
-//            }
-//        }
-
     }
     for (graphEdgeIndex = 0; graphEdgeIndex < graphEdgesCount; ++graphEdgeIndex) {
         KruskalEdge *edge = graphEdges[graphEdgeIndex];
@@ -152,9 +140,10 @@ void Kruskal::kruskalMatrix(KruskalEdge **mstEdges, int vertices, int edges, Mat
     }
     delete[] parent;
     delete[] rank;
-//    delete[] graphEdges;
+    delete[] graphEdges;
 }
 
+// Display generated results
 void Kruskal::display(KruskalEdge **mstEdges, int vertices, const std::string &info) {
     cout << info << " \n\nKrawedzie MST:\n\n";
     for (int i = 0; i < vertices - 1; ++i) {

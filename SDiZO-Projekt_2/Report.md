@@ -23,7 +23,7 @@ Zadanie projektowym było napisanie programu i zmierzenie czasu wykonywania dzia
 Powyższe algorytmy były wykonywane na następujących strukturach:
 
 - Macierz sąsiedztwa - macierz o wymiarze V x V (V - Liczba wierzchołków), w której wiersz oznacza wierzchołek początkowy, kolumna wierzchołek końcowy a w punkcie wspólnym znajduje się waga krawędzi, jeżeli w punkcie wspólnym występuje 0, oznacza to że nie ma połączenia z danymi wierzchołkami.
-- Lista sąsiedztwa - graf zapisany jako V list, gdzie w każdej liście są przechowywane numery wierzchołków do których można się dostać z danego wierzchołka (przykładowo na liście 2 przechowywane są wierzchołki do których można się dostać z wierzchołka 2)
+- Lista następników - graf zapisany jako V list, gdzie w każdej liście są przechowywane numery wierzchołków do których można się dostać z danego wierzchołka (przykładowo na liście 2 przechowywane są wierzchołki do których można się dostać z wierzchołka 2)
 
 ## Założenia
 
@@ -38,7 +38,7 @@ Powyższe algorytmy były wykonywane na następujących strukturach:
 - kod źródłowy powinien być komentowany.
 - realizacja zadania powinna być wykonana w formie jednego programu
 - kod źródłowy powinien być komentowany
-- program musi skompilowany do wersji exe
+- program musi skompilowany do wersji `.exe`
 
 ### Dodatkowe informacje
 
@@ -46,9 +46,9 @@ Powyższe algorytmy były wykonywane na następujących strukturach:
   następnie należy wprowadzić odpowiednią liczbę danych np. każda liczba w osobnej linii
 - wyświetlenie struktury na ekranie
 - możliwość wykonania wszystkich przewidzianych operacji na danej strukturze
-- Projekt został napisany w języku C++ w standardzie C++20
+- Projekt został napisany w języku C++ w standardzie `C++20`
 - Do pisania oraz kompilacji zostało użyte środowisko CLion
-- Wykresy oraz dane zostały przetworzone za pomocą skryptu napisanego w Pythonie w wersji 3.9.4
+- Wykresy oraz dane zostały przetworzone za pomocą skryptu napisanego w Pythonie w wersji `3.9.4`
 - Losowe dane do losowych struktur są generowane za pomocą biblioteki `random`
 - Wyniki zostały uśrednione za pomocą biblioteki statistics w Pythonie
 
@@ -58,19 +58,19 @@ Powyższe algorytmy były wykonywane na następujących strukturach:
 
 | Algorytm     | Złożoność czasowa |
 | :----------- | :---------------: |
-| Prim         |   $O(E /log V)$   |
-| Kruskal      |   $O(E /log E)$   |
-| Dijkstra     |   $O(E /log V)$   |
-| Bellman-Ford |  $O(E /cdot V)$   |
+| Prim         |    O(E /log V)    |
+| Kruskal      |    O(E /log E)    |
+| Dijkstra     |    O(E /log V)    |
+| Bellman-Ford |   O(E /cdot V)    |
 
 #### Reprezentacja za pomocą macierzy sąsiedztwa
 
 | Algorytm     | Złożoność czasowa |
 | :----------- | :---------------: |
-| Prim         |     $O(V^2)$      |
-| Kruskal      |   $O(E /log E)$   |
-| Dijkstra     |   $O(E /log V)$   |
-| Bellman-Ford |  $O(E /cdot V)$   |
+| Prim         |      O(V^2)       |
+| Kruskal      |    O(E /log E)    |
+| Dijkstra     |    O(E /log V)    |
+| Bellman-Ford |   O(E /cdot V)    |
 
 ## Plan eksperymentu
 
@@ -80,6 +80,7 @@ Powyższe algorytmy były wykonywane na następujących strukturach:
 
   - Rozmiary grafów od 10 do 100 wierzchołków (zwiększane co 10)
   - Badane gęstości: 25%, 50%, 75%, 99%
+  - Powtórzenie dla każdej kombinacji pomiaru 100 razy
 
 - Funkcja mierząca czas: `std::chrono::high_resolution_clock`
 
@@ -130,7 +131,7 @@ Każda krawędź ma nadaną wartość losową z przedziału od 1 do 999.
 
 ### Pomiary czasowe
 
-Pomiar czasowe były mierzone w **nanosekundach** $(1 [ns] = 1 * 10^9 [s])$ za pomocą następującej funkcji:
+Pomiar czasowe były mierzone w **nanosekundach** (1 [ns] = 1 \* 10^9 [s]) za pomocą następującej funkcji:
 
 ```cpp
 template<typename T>
@@ -144,6 +145,7 @@ return elapsed_time;// Return executing time in nanoseconds
 }
 ```
 
+Następnie przy generowaniu wykresów zostawało to przeliczane na *mikrosekundy* (1 [μs] = 1 \* 10^6 [s])
 ## Wyniki wykonanych eksperymentów
 
 ### Minimalne drzewo rozpinające (MST)
@@ -230,17 +232,17 @@ Po zakończeniu algorytmu L jest minimalnym drzewem rozpinającym.
 
 #### Wykresy MST
 
-![MST-Macierz](extra/pictures/Graph-MST-Macierz.png)
+![MST-Macierz](extra/pictures/Graph%20MST-Macierz.png)
 
-![MST-Lista](extra/pictures/Graph-MST-Lista.png)
+![MST-Lista](extra/pictures/Graph%20MST-Lista.png)
 
-![MST-25](extra/pictures/Graph-MST-25.png)
+![MST-25](extra/pictures/Graph%20MST-25.png)
 
-![MST-50](extra/pictures/Graph-MST-50.png)
+![MST-50](extra/pictures/Graph%20MST-50.png)
 
-![MST-75](extra/pictures/Graph-MST-75.png)
+![MST-75](extra/pictures/Graph%20MST-75.png)
 
-![MST-99](extra/pictures/Graph-MST-99.png)
+![MST-99](extra/pictures/Graph%20MST-99.png)
 
 #### Wnioski MST
 
@@ -286,11 +288,12 @@ Algorytm Dijkstry jest przykładem algorytmu zachłannego
 
 #### Algorytm Bellmana-Forda
 
-dea algorytmu opiera się na metodzie relaksacji (dokładniej następuje relaksacja | V | − 1 {\displaystyle |V|-1} {\displaystyle |V|-1} razy każdej z krawędzi).
+<!-- dea algorytmu opiera się na metodzie relaksacji (dokładniej następuje relaksacja | V | − 1 {\displaystyle |V|-1} {\displaystyle |V|-1} razy każdej z krawędzi). -->
 
-W odróżnieniu od algorytmu Dijkstry, algorytm Bellmana-Forda działa poprawnie także dla grafów z wagami ujemnymi (nie może jednak wystąpić cykl o łącznej ujemnej wadze osiągalny ze źródła). Za tę ogólność płaci się jednak wyższą złożonością czasową. Działa on w czasie O ( | V | ⋅ | E | ) {\displaystyle O(|V|\cdot |E|)} {\displaystyle O(|V|\cdot |E|)}[1].
+W odróżnieniu od algorytmu Dijkstry, algorytm Bellmana-Forda działa poprawnie także dla grafów z wagami ujemnymi (nie może jednak wystąpić cykl o łącznej ujemnej wadze osiągalny ze źródła). Za tę ogólność płaci się jednak wyższą złożonością czasową. 
+<!-- Działa on w czasie O ( | V | ⋅ | E | ) {\displaystyle O(|V|\cdot |E|)} {\displaystyle O(|V|\cdot |E|)}[1]. -->
 
-Algorytm może być wykorzystywany także do sprawdzania, czy w grafie występują ujemne cykle osiągalne ze źródła
+<!-- Algorytm może być wykorzystywany także do sprawdzania, czy w grafie występują ujemne cykle osiągalne ze źródła -->
 
 Schemat działania:
 
@@ -331,17 +334,17 @@ Po zakończeniu algorytmu L jest minimalnym drzewem rozpinającym.
 
 #### Wykresy SPF
 
-![SPF-Macierz](extra/pictures/Graph-SPF-Macierz.png)
+![SPF-Macierz](extra/pictures/Graph%20SPF-Macierz.png)
 
-![SPF-Macierz](extra/pictures/Graph-SPF-Lista.png)
+![SPF-Macierz](extra/pictures/Graph%20SPF-Lista.png)
 
-![SPF-25](extra/pictures/Graph-SPF-25.png)
+![SPF-25](extra/pictures/Graph%20SPF-25.png)
 
-![SPF-50](extra/pictures/Graph-SPF-50.png)
+![SPF-50](extra/pictures/Graph%20SPF-50.png)
 
-![SPF-75](extra/pictures/Graph-SPF-75.png)
+![SPF-75](extra/pictures/Graph%20SPF-75.png)
 
-![SPF-99](extra/pictures/Graph-SPF-99.png)
+![SPF-99](extra/pictures/Graph%20SPF-99.png)
 
 #### Wnioski SPF
 

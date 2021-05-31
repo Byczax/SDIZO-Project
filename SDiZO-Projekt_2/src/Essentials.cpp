@@ -38,10 +38,6 @@ Essentials::getDataFromFile(const string &filename, Matrix *&matrixGraph, Adjace
     }
 }
 
-//int Essentials::randomNumber(int minimum, int maximum) {
-//    return minimum + rand() % (maximum - minimum + 1);
-//}
-
 int Essentials::randomNumber(int mini, int maxi) {
     std::random_device rd;
     std::mt19937 mt(rd());
@@ -49,6 +45,14 @@ int Essentials::randomNumber(int mini, int maxi) {
     return distribution(mt);
 }
 
+/**
+ * Generate random graph
+ * @param vertices
+ * @param density
+ * @param matrixGraph
+ * @param listGraph
+ * @param directed - if true, create directed graph
+ */
 void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixGraph, AdjacencyList *&listGraph,
                                      bool directed) {
     int possibleEdges = (vertices * (vertices - 1)); // all possible edges
@@ -96,7 +100,6 @@ void Essentials::generateRandomGraph(int vertices, int density, Matrix *&matrixG
 
             --edgeCounter; // decrement
 
-//            randomIndex1 = randomIndex2; //
             randomValue = randomNumber(1, 999); // get random value for edge
 
             matrixGraph->addDirectedEdge(randomVertex1, randomVertex2, randomValue);

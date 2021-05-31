@@ -1,13 +1,12 @@
 #pragma once
 
+// help class - node of the list
 class ListNode {
 public:
     int neighbour;
     int edgeWeight;
     ListNode *prev;
     ListNode *next;
-
-//    ListNode(int neighbour, int edgeWeight, ListNode *prev = nullptr, ListNode *next = nullptr);
 };
 
 class List {
@@ -24,7 +23,7 @@ public:
     // Destructor
     virtual ~List();
 
-    // Add element to the back of the list
+    // Add element to the list
     void addElement(int neighbour, int value);
 
     [[nodiscard]] int getSize() const;
@@ -47,6 +46,7 @@ public:
     [[nodiscard]] ListNode *getPair(int index) const;
 };
 
+// list of lists
 class AdjacencyList {
     int vertices;
     int edges;

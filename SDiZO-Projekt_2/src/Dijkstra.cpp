@@ -78,6 +78,7 @@ DijkstraVertex *Dijkstra::extractMin() {
     return nullptr;
 }
 
+// Dijkstra implementation for matrix
 void
 Dijkstra::dijkstraMatrix(int *&distance, int *&parent, int startingVertex, int vertices, Matrix *graphMatrix) {
     auto *heap = new Dijkstra(vertices);
@@ -111,6 +112,7 @@ Dijkstra::dijkstraMatrix(int *&distance, int *&parent, int startingVertex, int v
     delete heap;
 }
 
+// Dijkstra for list implementation
 void Dijkstra::dijkstraList(int *&distance, int *&parent, int startingVertex, int vertices, AdjacencyList *graphList) {
     auto *heap = new Dijkstra(vertices);
     heap->dijkstraVertices[startingVertex]->setDistance(0);
@@ -139,6 +141,7 @@ void Dijkstra::dijkstraList(int *&distance, int *&parent, int startingVertex, in
     delete heap;
 }
 
+// Display generated results
 void Dijkstra::display(int *&distance, int *&parent, int vertices, const std::string &info) {
     std::cout << info << "\n\nWierzcholek: distance | parent\n\n";
     for (int i = 0; i < vertices; ++i) {
