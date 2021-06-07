@@ -15,7 +15,8 @@ string barrier = "\n==============================\n";
 string menu = "0. Wyjscie \n"
               "1. Drzewo rozpinajace (mst)\n"
               "2. Najkrotsza sciezka w grafie (SPF)\n"
-              "3. Wyznaczanie maksymalnego przeplywu (FFA)\n" + barrier + "Twoj wybor: ";
+//              "3. Wyznaczanie maksymalnego przeplywu (FFA)\n"
+              + barrier + "Twoj wybor: ";
 
 void textSelect(const string &selected) {
     cout << barrier << selected << barrier;

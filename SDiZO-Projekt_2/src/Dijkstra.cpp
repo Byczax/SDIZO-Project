@@ -81,6 +81,9 @@ DijkstraVertex *Dijkstra::extractMin() {
 // Dijkstra implementation for matrix
 void
 Dijkstra::dijkstraMatrix(int *&distance, int *&parent, int startingVertex, int vertices, Matrix *graphMatrix) {
+    if (distance[0] < 0){
+        return;
+    }
     auto *heap = new Dijkstra(vertices);
     heap->dijkstraVertices[startingVertex]->setDistance(0);
     distance[startingVertex] = 0;
@@ -118,12 +121,17 @@ void Dijkstra::dijkstraList(int *&distance, int *&parent, int startingVertex, in
     heap->dijkstraVertices[startingVertex]->setDistance(0);
     distance[startingVertex] = 0;
     parent[startingVertex] = -1;
+    if (graphList->getHead(startingVertex) == nullptr){
+        distance[0] = -1;
+        return;
+    }
     while (heap->heapSize > 0) {
 
         heap->createMinHeap();
         DijkstraVertex *vertexU = heap->extractMin();
 
         auto neighbourTraverse = graphList->getHead(vertexU->getVertexNumber());
+
         while (neighbourTraverse != nullptr) {
             int neighbour = neighbourTraverse->neighbour;
             int edgeWeight = neighbourTraverse->edgeWeight;
@@ -143,8 +151,23 @@ void Dijkstra::dijkstraList(int *&distance, int *&parent, int startingVertex, in
 
 // Display generated results
 void Dijkstra::display(int *&distance, int *&parent, int vertices, const std::string &info) {
+    std::cout << info << "\n";
+    if (distance[0] < 0){
+        std::cout << "ERROR, nie ma polaczenia\n\n";
+        return;
+    }
     std::cout << info << "\n\nWierzcholek: distance | parent\n\n";
     for (int i = 0; i < vertices; ++i) {
-        std::cout << i << ": " << distance[i] << " | " << parent[i] << "\n";
+        std::cout << i << ": " << distance[i] << " | " << parent[i];
+        if (parent[i] == -1){
+            std::cout << "\n";
+            continue;
+        }
+        int j = parent[i];
+        while (parent[j] != -1) {
+            std::cout << ", " << parent[j];
+            j = parent[j];
+        }
+        std::cout << "\n";
     }
 }

@@ -24,8 +24,8 @@ string textErrorChoice = "Blad, zly wybor\n";
 string textVerticesCount = "Podaj ilosc wierzcholkow:";
 string textDensity = "Podaj gestosc grafu:";
 string textStartVertex = "Podaj wierzcholek startowy";
-string textEmptyGraph = "Blad, pusty graf";
-
+string textEmptyGraph = "Blad, pusty graf\n";
+string textErrorValue = "Blad, nieporawna wartosc\n";
 int input;
 string filename;
 
@@ -64,6 +64,11 @@ void ManualTests::mst() {
             case 2:
                 cout << textVerticesCount;
                 if (!(cin >> vertices)) { return; }
+                if (vertices < 2){
+                    cout << textErrorValue;
+                    vertices = 0;
+                    break;
+                }
                 cout << textDensity;
                 if (!(cin >> density)) { return; }
                 Essentials::generateRandomGraph(vertices, density, graphMatrix, graphList, false);
@@ -78,8 +83,12 @@ void ManualTests::mst() {
                     cout << textEmptyGraph;
                     break;
                 }
-                cout << textStartVertex << " (max: " << vertices << "):  ";
+                cout << textStartVertex << " (max: " << vertices - 1 << "):  ";
                 if (!(cin >> startVertex)) { return; }
+                if (startVertex < 0 && startVertex >= vertices) {
+                    cout << textErrorChoice;
+                    break;
+                }
                 key = new int[vertices];
                 parent = new int[vertices];
                 Prim::primList(key, parent, startVertex, vertices, graphList);
@@ -131,7 +140,7 @@ void ManualTests::spf() {
     auto *graphMatrix = new Matrix();
     auto *graphList = new AdjacencyList(0, 0);
     while (!exit) {
-        cout << textMenu << "4.Wykonaj algorytm Dijkstry\n" << "5.Wykonaj algorytm Belmana-Forda\n" << separator;
+        cout << textMenu << "4. Wykonaj algorytm Dijkstry\n" << "5. Wykonaj algorytm Belmana-Forda\n" << separator;
         if (!(cin >> input)) { return; }
         switch (input) {
             case 0:
@@ -153,6 +162,11 @@ void ManualTests::spf() {
             case 2:
                 cout << textVerticesCount;
                 if (!(cin >> vertices)) { return; }
+                if (vertices < 2){
+                    cout << textErrorValue;
+                    vertices = 0;
+                    break;
+                }
                 cout << textDensity;
                 if (!(cin >> density)) { return; }
                 Essentials::generateRandomGraph(vertices, density, graphMatrix, graphList, true);
@@ -167,8 +181,12 @@ void ManualTests::spf() {
                     cout << textEmptyGraph;
                     break;
                 }
-                cout << textStartVertex << " (max: " << graphList->verticesCount() << "):  ";
+                cout << textStartVertex << " (max: " << graphList->verticesCount() - 1 << "):  ";
                 if (!(cin >> startVertex)) { return; }
+                if (startVertex < 0 && startVertex >= vertices) {
+                    cout << textErrorChoice;
+                    break;
+                }
                 distance = new int[vertices];
                 parent = new int[vertices];
                 Dijkstra::dijkstraList(distance, parent, startVertex, vertices, graphList);
@@ -183,8 +201,12 @@ void ManualTests::spf() {
                     cout << textEmptyGraph;
                     break;
                 }
-                cout << textStartVertex << " (max: " << graphList->verticesCount() << "):  ";
+                cout << textStartVertex << " (max: " << graphList->verticesCount() - 1 << "):  ";
                 if (!(cin >> startVertex)) { return; }
+                if (startVertex < 0 && startVertex >= vertices) {
+                    cout << textErrorChoice;
+                    break;
+                }
                 distance = new int[vertices];
                 parent = new int[vertices];
                 cycle = BellmanFord::bfList(distance, parent, startVertex, vertices, graphList);

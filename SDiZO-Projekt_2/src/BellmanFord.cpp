@@ -26,6 +26,9 @@ int Edge::getEdgeWeight() const {
 // Bellman-Ford for Matrix implementation
 bool
 BellmanFord::bfMatrix(int *&distance, int *&parent, int startingVertex, int vertices, int edges, Matrix *graphMatrix) {
+    if (distance[0] < 0){
+        return false;
+    }
     for (int i = 0; i < vertices; ++i) {
         distance[i] = INT_MAX / 2;
         parent[i] = -1;
@@ -81,6 +84,10 @@ BellmanFord::bfMatrix(int *&distance, int *&parent, int startingVertex, int vert
 bool BellmanFord::bfList(int *&distance, int *&parent, int startingVertex, int vertices, AdjacencyList *graphList) {
     Edge **graphEdges = new Edge *[graphList->getEdges()];
     int graphEdgeIndex = 0;
+    if (graphList->getHead(startingVertex) == nullptr){
+        distance[0] = -1;
+        return false;
+    }
     for (int j = 0; j < vertices; ++j) {
         distance[j] = INT_MAX / 2;
         parent[j] = -1;
@@ -130,12 +137,27 @@ bool BellmanFord::bfList(int *&distance, int *&parent, int startingVertex, int v
 
 // Display generated results
 void BellmanFord::display(int *&distance, int *&parent, int vertices, bool cycle, const std::string &info) {
+    std::cout << info << "\n";
+    if (distance[0] < 0){
+        std::cout << "ERROR, nie ma polaczenia\n\n";
+        return;
+    }
     if (!cycle) {
         cout << "\nWykryto cykl o lacznej ujemnej wadze\n\n";
     } else {
-        cout << info << "\n\nWierzcholek: distance | parent\n\n";
+        std::cout << "\nWierzcholek: distance | parent\n\n";
         for (int i = 0; i < vertices; ++i) {
-            cout << i << ": " << distance[i] << " | " << parent[i] << "\n";
+            std::cout << i << ": " << distance[i] << " | " << parent[i];
+            if (parent[i] == -1){
+                std::cout << "\n";
+                continue;
+            }
+            int j = parent[i];
+            while (parent[j] != -1) {
+                std::cout << ", " << parent[j];
+                j = parent[j];
+            }
+            std::cout << "\n";
         }
     }
 }
