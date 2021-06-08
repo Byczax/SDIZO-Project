@@ -27,3 +27,8 @@ Każdy tydzień spóźnienia oznacza obniżenie oceny o 0.5!
 Oczywiście sprawozdania można oddać wcześniej.
 Ocena  końcowa  z  projektu  stanowi średnią  arytmetyczną  ocen  z  poszczególnych  zadań.
 Warunkiem  koniecznym  zaliczenia  projektu  jest  uzyskanie  oceny  pozytywnej  z  wszystkich zadań projektowych!
+
+Projekt 1 - 5.0
+Projekt 2 - 4.0
+
+## Ocena końcowa: 4.5
